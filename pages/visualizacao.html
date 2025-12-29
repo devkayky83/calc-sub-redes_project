@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Topologia - Sub-Redes</title>
+
+    <link rel="stylesheet" href="../css/visualizacao.css">
+    <link rel="stylesheet" href="../css/main_page.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&Orbitron:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vis.js Network para visualização -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body>
+    <div class="fade-in-bottom visualizacao-container">
+        <h1 class="title-glow-subtle visualizacao">Visualização de Topologia</h1>
+
+        <div class="input-container">
+            <label class="label-container">IP: </label>
+            <input class="input-dados" type="text" id="ip" placeholder="192.168.1.0" value="192.168.1.0">
+            <br><br>
+
+            <label class="label-container">CIDR: </label>
+            <input class="input-dados" type="number" id="cidr" placeholder="27" value="27" min="8" max="30">
+            <br><br>
+        </div>
+
+        <button class="calc-button" onclick="gerarVisualizacao()">🎨 Gerar Visualização</button>
+        <br><br>
+
+        <div class="mensagem-erro fade-in-bottom" id="mensagem-erro"></div>
+
+        <div class="info-panel" id="info-panel">
+            <div class="info-grid" id="info-grid"></div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="hourglass-sand">
+                <div class="frame-top"></div>
+                <div class="frame-bottom"></div>
+                <div class="upper-glass"></div>
+                <div class="lower-glass"></div>
+                <div class="sand-top"></div>
+                <div class="sand-stream"></div>
+                <div class="sand-bottom"></div>
+            </div>
+            Gerando visualização da topologia...
+        </div>
+
+        <div id="network-canvas"></div>
+
+        <div class="legenda">
+            <div class="legenda-item">
+                <img src="../assets/pics/router.png" class="legenda-icon" alt="Roteador">
+                <span class="legenda-text">Roteador Principal</span>
+            </div>
+            <div class="legenda-item">
+                <img src="../assets/pics/network-switch.png" class="legenda-icon" alt="Switch">
+                <span class="legenda-text">Switch de Sub-rede</span>
+            </div>
+            <div class="legenda-item">
+                <img src="../assets/pics/computer.png" class="legenda-icon" alt="PC">
+                <span class="legenda-text">Computador</span>
+            </div>
+            <div class="legenda-item">
+                <img src="../assets/pics/laptop.png" class="legenda-icon" alt="Laptop">
+                <span class="legenda-text">Laptop</span>
+            </div>
+        </div>
+
+        <div class="instrucoes">
+            💡 <strong>Dica:</strong> Use o scroll do mouse para zoom e arraste para movimentar a visualização.
+            Passe o mouse sobre os dispositivos para ver mais informações!
+        </div>
+    </div>
+
+    <script src="../js/visualizacao.js"></script>
+</body>
+
+</html>

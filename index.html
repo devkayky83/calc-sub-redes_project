@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc Sub-Redes</title>
+
+    <link rel="stylesheet" href="../css/main_page.css">
+    <link rel="stylesheet" href="../css/menu.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <button id="menu-toggle" class="menu-toggle">
+        <span>☰</span>
+    </button>
+
+    <div class="theme-switch-container">
+        <span class="theme-icon sun">☀️</span>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <span class="theme-icon moon">🌙</span>
+    </div>
+
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="title-ipv4">
+                <span class="ip-octet">CALC</span><span class="ip-dot">.</span><span class="ip-octet">SUB</span><span
+                    class="ip-dot">.</span><span class="ip-octet">RE</span><span class="ip-dot">.</span><span
+                    class="ip-octet">DES</span>
+            </h2>
+        </div>
+        <ul class="menu-items">
+            <li><a href="#" onclick="carregarPagina('calculo')"><span class="diamond"></span> Cálculo</a></li>
+            <li><a href="#" onclick="carregarPagina('aprendizado')"><span class="diamond"></span> Aprendizado</a></li>
+            <li><a href="#" onclick="carregarPagina('visualizacao')"><span class="diamond"></span> Visualização</a></li>
+        </ul>
+
+        <div class="flask-badge">
+            <a href="https://flask.palletsprojects.com/" target="_blank" rel="noopener" aria-label="Built with Flask">
+
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg" alt="Flask Logo">
+
+                <span>Built with Flask</span>
+            </a>
+        </div>
+    </nav>
+
+    <div id="main-container" class="main-container">
+        <iframe id="content-frame" src="pages/calculo.html"></iframe>
+    </div>
+
+
+    <script src="js/menu.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+
+</html>

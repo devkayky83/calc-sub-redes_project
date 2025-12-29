@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendizado - Sub-redes</title>
+
+    <link rel="stylesheet" href="../css/aprendizado.css">
+    <link rel="stylesheet" href="../css/main_page.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="aprendizado-container">
+        <h1>
+            <div class="estante-icon">
+                <div class="estante-bg"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+            </div>
+            Centro de Aprendizado
+        </h1>
+        <p class="subtitulo">Aprenda sobre redes e sub-redes de forma progressiva</p>
+
+        <div class="search-container">
+            <input type="text" id="search-input"
+                placeholder="🔍 Buscar por palavra-chave (ex: broadcast, CIDR, máscara...)">
+        </div>
+
+        <section class="categoria" data-nivel="fundamentos">
+            <h2 class="categoria-titulo">
+                <div class="icon-foundation-small">
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                </div>
+                Nível 1: Fundamentos de Redes
+            </h2>
+            <p class="categoria-desc">Comece aqui se você nunca estudou redes antes</p>
+
+            <div class="faq-item" data-tags="rede computador basico">
+                <div class="faq-pergunta">
+                    <span>O que é uma rede de computadores?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição simples:</strong> Uma rede de computadores é um conjunto de dispositivos
+                        (computadores, celulares, servidores) conectados entre si para compartilhar informações e
+                        recursos.</p>
+
+                    <p><strong>Analogia:</strong> Pense em uma rede como uma estrada que conecta várias cidades. Os
+                        carros (dados) viajam por essa estrada para ir de uma cidade (computador) para outra.</p>
+
+                    <p><strong>Exemplos práticos:</strong></p>
+                    <ul>
+                        <li>Wi-Fi da sua casa conectando celular, notebook e smart TV</li>
+                        <li>Rede de uma empresa conectando computadores dos funcionários</li>
+                        <li>A própria Internet (rede mundial)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="ip endereco identificacao">
+                <div class="faq-pergunta">
+                    <span>O que é um endereço IP?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> IP (Internet Protocol) é o endereço único que identifica cada
+                        dispositivo em uma rede, como se fosse o endereço de uma casa.</p>
+
+                    <p><strong>Formato:</strong> Um IP IPv4 tem 4 números separados por pontos, cada um variando de 0 a
+                        255.</p>
+                    <p class="exemplo-codigo">Exemplo: 192.168.1.10</p>
+
+                    <p><strong>Por que preciso disso?</strong> Sem endereço IP, os computadores não saberiam para onde
+                        enviar os dados. É como tentar enviar uma carta sem endereço!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="computador endereco comunicacao">
+                <div class="faq-pergunta">
+                    <span>Por que os computadores precisam de endereços?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Identificação única:</strong> Cada dispositivo precisa de um "nome" único para que os
+                        dados cheguem ao destino correto.</p>
+
+                    <p><strong>Analogia do correio:</strong></p>
+                    <ul>
+                        <li>Remetente = seu computador (IP de origem)</li>
+                        <li>Destinatário = servidor/computador destino (IP de destino)</li>
+                        <li>Carta = pacote de dados</li>
+                        <li>Endereço = IP address</li>
+                    </ul>
+
+                    <p>Se dois computadores tivessem o mesmo IP, seria como duas casas com o mesmo endereço - o carteiro
+                        não saberia onde entregar!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="ipv4 versao protocolo">
+                <div class="faq-pergunta">
+                    <span>O que significa IPv4?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>IPv4 = Internet Protocol versão 4</strong></p>
+
+                    <p><strong>Características:</strong></p>
+                    <ul>
+                        <li>Criado em 1981 (ainda usado hoje!)</li>
+                        <li>Usa 32 bits (4 grupos de 8 bits)</li>
+                        <li>Permite aproximadamente 4,3 bilhões de endereços únicos</li>
+                        <li>Formato: XXX.XXX.XXX.XXX (onde XXX vai de 0 a 255)</li>
+                    </ul>
+
+                    <p class="exemplo-codigo">Exemplos válidos:<br>192.168.0.1<br>10.0.0.5<br>172.16.50.100</p>
+
+                    <p><strong>Curiosidade:</strong> Existe o IPv6 (versão 6) que foi criado porque os endereços IPv4
+                        estão acabando!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>Quais são as classes de endereços IP?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>IPs são divididos em classes (A, B, C) para organização:</strong></p>
+
+                    <div class="tabela-classes">
+                        <p><strong>Classe A:</strong> 1.0.0.0 até 126.255.255.255</p>
+                        <ul>
+                            <li>Para redes MUITO grandes (milhões de dispositivos)</li>
+                            <li>Exemplo: grandes provedores de internet</li>
+                        </ul>
+
+                        <p><strong>Classe B:</strong> 128.0.0.0 até 191.255.255.255</p>
+                        <ul>
+                            <li>Para redes médias (milhares de dispositivos)</li>
+                            <li>Exemplo: universidades, empresas grandes</li>
+                        </ul>
+
+                        <p><strong>Classe C:</strong> 192.0.0.0 até 223.255.255.255</p>
+                        <ul>
+                            <li>Para redes pequenas (até 254 dispositivos)</li>
+                            <li>Exemplo: sua casa, escritórios pequenos</li>
+                            <li>192.168.X.X é o mais comum em redes domésticas!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="subredes">
+            <h2 class="categoria-titulo">
+                <div class="icon-network-divide-small">
+                    <div class="network-main"></div>
+                    <div class="subnet-piece"></div>
+                    <div class="subnet-piece"></div>
+                    <div class="subnet-piece"></div>
+                </div>
+                Nível 2: Sub-redes e Divisão
+            </h2>
+            <p class="categoria-desc">Entenda como dividir redes em partes menores</p>
+
+            <div class="faq-item" data-tags="subrede divisao segmentacao">
+                <div class="faq-pergunta">
+                    <span>O que é uma sub-rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> Uma sub-rede é uma divisão lógica de uma rede IP maior em redes
+                        menores.</p>
+
+                    <p><strong>Analogia do prédio:</strong></p>
+                    <ul>
+                        <li>Rede completa = Prédio inteiro</li>
+                        <li>Sub-redes = Apartamentos dentro do prédio</li>
+                        <li>Cada apartamento tem seus próprios moradores (dispositivos)</li>
+                        <li>Mas todos compartilham o mesmo endereço do prédio (rede principal)</li>
+                    </ul>
+
+                    <p><strong>Exemplo prático:</strong></p>
+                    <p>Rede original: 192.168.1.0 (pode ter 254 dispositivos)</p>
+                    <p>Dividida em 4 sub-redes:</p>
+                    <p class="exemplo-codigo">
+                        Sub-rede 1: 192.168.1.0 - 192.168.1.63 (62 hosts)<br>
+                        Sub-rede 2: 192.168.1.64 - 192.168.1.127 (62 hosts)<br>
+                        Sub-rede 3: 192.168.1.128 - 192.168.1.191 (62 hosts)<br>
+                        Sub-rede 4: 192.168.1.192 - 192.168.1.255 (62 hosts)
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="subrede vantagem seguranca organizacao">
+                <div class="faq-pergunta">
+                    <span>Por que dividir uma rede em sub-redes?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Vantagens principais:</strong></p>
+
+                    <p><strong>1. Organização</strong></p>
+                    <ul>
+                        <li>Separar departamentos (RH, TI, Vendas)</li>
+                        <li>Isolar tipos de dispositivos (servidores, impressoras, usuários)</li>
+                    </ul>
+
+                    <p><strong>2. Segurança</strong></p>
+                    <ul>
+                        <li>Controlar quem se comunica com quem</li>
+                        <li>Se uma sub-rede for atacada, as outras ficam protegidas</li>
+                    </ul>
+
+                    <p><strong>3. Performance</strong></p>
+                    <ul>
+                        <li>Menos tráfego desnecessário (broadcast limitado)</li>
+                        <li>Rede mais rápida e eficiente</li>
+                    </ul>
+
+                    <p><strong>4. Aproveitamento de IPs</strong></p>
+                    <ul>
+                        <li>Evita desperdício de endereços</li>
+                        <li>Cada setor tem só os IPs que precisa</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="mascara subrede identificacao">
+                <div class="faq-pergunta">
+                    <span>O que é máscara de sub-rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> A máscara de sub-rede define qual parte do IP identifica a rede e
+                        qual parte identifica o host (dispositivo).</p>
+
+                    <p><strong>Formato:</strong> Também tem 4 números como o IP</p>
+                    <p class="exemplo-codigo">Exemplo: 255.255.255.0</p>
+
+                    <p><strong>Como funciona:</strong></p>
+                    <p>IP: 192.168.1.10<br>Máscara: 255.255.255.0</p>
+                    <ul>
+                        <li><strong>255.255.255</strong> = parte da REDE (fixa pra todos)</li>
+                        <li><strong>.0</strong> = parte do HOST (varia por dispositivo)</li>
+                    </ul>
+
+                    <p>Então 192.168.1.10 e 192.168.1.20 estão na mesma rede!</p>
+
+                    <p><strong>Máscaras comuns:</strong></p>
+                    <p class="exemplo-codigo">
+                        255.255.255.0 = 254 hosts<br>
+                        255.255.255.128 = 126 hosts<br>
+                        255.255.255.192 = 62 hosts
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="cidr barra notacao">
+                <div class="faq-pergunta">
+                    <span>O que significa aquela barra com número (/24, /26)?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>CIDR = Classless Inter-Domain Routing</strong></p>
+
+                    <p><strong>É uma forma mais simples de escrever a máscara!</strong></p>
+
+                    <p>Ao invés de escrever 255.255.255.0, você escreve /24</p>
+
+                    <p><strong>O que significa o número?</strong></p>
+                    <p>Indica quantos bits são usados para identificar a rede.</p>
+
+                    <p class="exemplo-codigo">
+                        /24 = 255.255.255.0 = 254 hosts<br>
+                        /25 = 255.255.255.128 = 126 hosts<br>
+                        /26 = 255.255.255.192 = 62 hosts<br>
+                        /27 = 255.255.255.224 = 30 hosts<br>
+                        /28 = 255.255.255.240 = 14 hosts
+                    </p>
+
+                    <p><strong>Regra prática:</strong> Quanto MAIOR o número após a barra, MENOR a rede (menos hosts).
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="broadcast rede comunicacao">
+                <div class="faq-pergunta">
+                    <span>O que é endereço de broadcast?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> O broadcast é o último endereço IP de uma sub-rede, usado para enviar
+                        dados para TODOS os dispositivos da rede ao mesmo tempo.</p>
+
+                    <p><strong>Analogia:</strong> É como um alto-falante que transmite um aviso para todos em uma sala
+                        de uma vez.</p>
+
+                    <p><strong>Exemplo:</strong></p>
+                    <p>Sub-rede: 192.168.1.0/26</p>
+                    <ul>
+                        <li>Primeiro IP: 192.168.1.0 (endereço da rede - reservado)</li>
+                        <li>IPs utilizáveis: 192.168.1.1 até 192.168.1.62</li>
+                        <li><strong>Broadcast: 192.168.1.63</strong> (último - reservado)</li>
+                    </ul>
+
+                    <p><strong>Por que existe?</strong> Útil para:</p>
+                    <ul>
+                        <li>Descobrir dispositivos na rede (ARP)</li>
+                        <li>Serviços de rede (DHCP)</li>
+                        <li>Avisos gerais</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="tecnico">
+            <h2 class="categoria-titulo">
+                <div class="icon-binary-small">
+                    <div class="binary-digit">1</div>
+                    <div class="binary-digit">0</div>
+                    <div class="binary-digit">1</div>
+                    <div class="binary-digit">0</div>
+                </div>
+                Nível 3: Conceitos Técnicos
+            </h2>
+            <p class="categoria-desc">Aprofunde-se nos cálculos e conversões</p>
+
+            <div class="faq-item" data-tags="bits binario conversao calculo">
+                <div class="faq-pergunta">
+                    <span>Como bits e binários funcionam em redes?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>O que são bits?</strong> Bits são a menor unidade de informação (0 ou 1). Computadores só
+                        entendem binário!</p>
+
+                    <p><strong>Por que isso importa em redes?</strong></p>
+                    <p>Cada número do IP (0-255) é representado por 8 bits em binário.</p>
+
+                    <p class="exemplo-codigo">
+                        Decimal: 192<br>
+                        Binário: 11000000<br><br>
+
+                        Decimal: 168<br>
+                        Binário: 10101000
+                    </p>
+
+                    <p><strong>Tabela de conversão (valores de cada posição):</strong></p>
+                    <p class="exemplo-codigo">
+                        Posição: 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1<br>
+                        Binário: 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 = 192
+                    </p>
+
+                    <p><strong>Como usar:</strong> Some os valores onde tem "1"<br>
+                        128 + 64 = 192 ✓</p>
+
+                    <p><strong>Por que aprender isso?</strong> Para calcular sub-redes manualmente e entender máscaras!
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="calculo manual subrede divisao">
+                <div class="faq-pergunta">
+                    <span>Como calcular sub-redes manualmente?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Exemplo prático: 192.168.1.0/26</strong></p>
+
+                    <p><strong>Passo 1:</strong> Descobrir quantos bits são para hosts</p>
+                    <p>32 bits totais - 26 bits de rede = <strong>6 bits para hosts</strong></p>
+
+                    <p><strong>Passo 2:</strong> Calcular tamanho da sub-rede</p>
+                    <p>2<sup>6</sup> = 64 endereços por sub-rede</p>
+
+                    <p><strong>Passo 3:</strong> Calcular hosts utilizáveis</p>
+                    <p>64 - 2 (rede + broadcast) = <strong>62 hosts</strong></p>
+
+                    <p><strong>Passo 4:</strong> Listar as sub-redes</p>
+                    <p class="exemplo-codigo">
+                        Sub-rede 1: 192.168.1.0 - 192.168.1.63<br>
+                        Sub-rede 2: 192.168.1.64 - 192.168.1.127<br>
+                        Sub-rede 3: 192.168.1.128 - 192.168.1.191<br>
+                        Sub-rede 4: 192.168.1.192 - 192.168.1.255
+                    </p>
+
+                    <p><strong>Atalho:</strong> Cada sub-rede "pula" de 64 em 64!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="cidr notacao calculo mascara">
+                <div class="faq-pergunta">
+                    <span>Como converter CIDR em máscara decimal?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Método passo a passo:</strong></p>
+
+                    <p><strong>Exemplo: /26</strong></p>
+
+                    <p><strong>Passo 1:</strong> Distribuir 26 bits de "1" nos 4 octetos</p>
+                    <p class="exemplo-codigo">
+                        Octeto 1: 11111111 (8 bits)<br>
+                        Octeto 2: 11111111 (8 bits)<br>
+                        Octeto 3: 11111111 (8 bits)<br>
+                        Octeto 4: 11000000 (2 bits + 6 zeros)
+                    </p>
+
+                    <p><strong>Passo 2:</strong> Converter cada octeto para decimal</p>
+                    <p class="exemplo-codigo">
+                        11111111 = 255<br>
+                        11111111 = 255<br>
+                        11111111 = 255<br>
+                        11000000 = 192 (128+64)
+                    </p>
+
+                    <p><strong>Resultado: /26 = 255.255.255.192</strong></p>
+
+                    <p><strong>Tabela rápida de conversão:</strong></p>
+                    <p class="exemplo-codigo">
+                        /24 = 255.255.255.0<br>
+                        /25 = 255.255.255.128<br>
+                        /26 = 255.255.255.192<br>
+                        /27 = 255.255.255.224<br>
+                        /28 = 255.255.255.240<br>
+                        /29 = 255.255.255.248<br>
+                        /30 = 255.255.255.252
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="gateway roteador padrao">
+                <div class="faq-pergunta">
+                    <span>O que é gateway padrão?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> Gateway é o "portão de saída" da sua rede - normalmente o endereço IP
+                        do roteador.</p>
+
+                    <p><strong>Analogia:</strong> Se sua rede é um prédio, o gateway é a porta da frente. Tudo que sai
+                        ou entra passa por ali.</p>
+
+                    <p><strong>Por que existe?</strong></p>
+                    <ul>
+                        <li>Conecta sua rede local à Internet</li>
+                        <li>Roteia dados entre diferentes redes</li>
+                        <li>Gerencia tráfego de entrada/saída</li>
+                    </ul>
+
+                    <p><strong>Exemplo prático:</strong></p>
+                    <p>Rede: 192.168.1.0/24</p>
+                    <ul>
+                        <li>Gateway (roteador): 192.168.1.1</li>
+                        <li>Computadores: 192.168.1.2, 192.168.1.3, etc.</li>
+                    </ul>
+
+                    <p><strong>Convenção:</strong> Geralmente usa-se o <strong>primeiro IP</strong> utilizável como
+                        gateway, mas pode ser qualquer um!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="dhcp ip automatico dinamico">
+                <div class="faq-pergunta">
+                    <span>O que é DHCP e como funciona?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>DHCP = Dynamic Host Configuration Protocol</strong></p>
+
+                    <p><strong>O que faz?</strong> Distribui IPs automaticamente para dispositivos que se conectam à
+                        rede.</p>
+
+                    <p><strong>Sem DHCP:</strong> Você teria que configurar IP manualmente em CADA dispositivo (chato!)
+                    </p>
+
+                    <p><strong>Com DHCP:</strong> Conectou no Wi-Fi? Pronto, já ganhou um IP automaticamente!</p>
+
+                    <p><strong>Como funciona (simplificado):</strong></p>
+                    <ol>
+                        <li>Dispositivo se conecta: "Oi! Preciso de um IP!"</li>
+                        <li>Servidor DHCP: "Aqui está: 192.168.1.50"</li>
+                        <li>Dispositivo: "Obrigado!" (usa esse IP)</li>
+                        <li>Quando desconecta, o IP volta pro "pool" de disponíveis</li>
+                    </ol>
+
+                    <p><strong>Informações distribuídas pelo DHCP:</strong></p>
+                    <ul>
+                        <li>Endereço IP</li>
+                        <li>Máscara de sub-rede</li>
+                        <li>Gateway padrão</li>
+                        <li>Servidores DNS</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="pratico">
+            <h2 class="categoria-titulo">
+                <div class="icon-code-run-small">
+                    <div class="code-bracket"></div>
+                    <div class="code-bracket"></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                </div>
+                Nível 4: Aplicação Prática
+            </h2>
+            <p class="categoria-desc">Resolva problemas reais do dia a dia</p>
+
+            <div class="faq-item" data-tags="escolher mascara tamanho rede">
+                <div class="faq-pergunta">
+                    <span>Quando usar /24, /26 ou /27?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Escolha baseada no número de dispositivos:</strong></p>
+
+                    <p><strong>/24 (255.255.255.0) = 254 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Redes grandes (empresa média, escola)</li>
+                        <li>Exemplo: 200 computadores + impressoras + servidores</li>
+                    </ul>
+
+                    <p><strong>/26 (255.255.255.192) = 62 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Departamentos, pequenas empresas</li>
+                        <li>Exemplo: 50 dispositivos em um setor</li>
+                    </ul>
+
+                    <p><strong>/27 (255.255.255.224) = 30 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Equipes pequenas, salas específicas</li>
+                        <li>Exemplo: 25 computadores em uma sala</li>
+                    </ul>
+
+                    <p><strong>/30 (255.255.255.252) = 2 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Conexões ponto-a-ponto entre roteadores</li>
+                        <li>Exemplo: Ligar dois roteadores (não desperdicia IPs)</li>
+                    </ul>
+
+                    <p><strong>Dica:</strong> Sempre deixe espaço pra crescimento! Se precisa de 50 hosts hoje, use /26
+                        (62 hosts), não /27 (30 hosts).</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="escolher cidr planejamento rede">
+                <div class="faq-pergunta">
+                    <span>Como escolher a máscara certa para minha rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Passo a passo para decidir:</strong></p>
+
+                    <p><strong>1. Conte os dispositivos</strong></p>
+                    <ul>
+                        <li>Computadores</li>
+                        <li>Celulares/tablets</li>
+                        <li>Impressoras</li>
+                        <li>Servidores</li>
+                        <li>IoT (câmeras, sensores)</li>
+                    </ul>
+
+                    <p><strong>2. Adicione margem de crescimento (30-50%)</strong></p>
+                    <p>Exemplo: 40 dispositivos hoje → planeje para 60</p>
+
+                    <p><strong>3. Escolha o CIDR que comporta</strong></p>
+                    <p class="exemplo-codigo">
+                        Preciso de 60 hosts → /26 (62 hosts) ✓<br>
+                        Preciso de 100 hosts → /25 (126 hosts) ✓<br>
+                        Preciso de 20 hosts → /27 (30 hosts) ✓
+                    </p>
+
+                    <p><strong>4. Considere segmentação</strong></p>
+                    <p>Melhor: 4 sub-redes /27 (30 hosts cada)<br>
+                        Do que: 1 rede /24 (254 hosts) bagunçada</p>
+
+                    <p><strong>Regra de ouro:</strong> Nem muito grande (desperdício) nem muito pequeno (sem espaço pra
+                        crescer)!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="publica privada diferenca tipo">
+                <div class="faq-pergunta">
+                    <span>Qual a diferença entre IP público e privado?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>IP Público:</strong></p>
+                    <ul>
+                        <li>Único em toda a Internet (não pode repetir)</li>
+                        <li>Fornecido pelo provedor de Internet</li>
+                        <li>Acessível de qualquer lugar do mundo</li>
+                        <li>Usado por servidores web, sites</li>
+                        <li>Exemplo: 200.150.10.50</li>
+                    </ul>
+
+                    <p><strong>IP Privado:</strong></p>
+                    <ul>
+                        <li>Usado apenas DENTRO da sua rede local</li>
+                        <li>Pode repetir em outras redes (não tem problema!)</li>
+                        <li>NÃO funciona diretamente na Internet</li>
+                        <li>Usado em casas, empresas, escolas</li>
+                    </ul>
+
+                    <p><strong>Faixas de IPs privados (decorar!):</strong></p>
+                    <p class="exemplo-codigo">
+                        10.0.0.0 - 10.255.255.255<br>
+                        172.16.0.0 - 172.31.255.255<br>
+                        192.168.0.0 - 192.168.255.255 ← Mais comum!
+                    </p>
+
+                    <p><strong>Como se conectam?</strong> Através de NAT (Network Address Translation) no roteador, que
+                        "traduz" IPs privados pra públicos.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="erro problema ip nao funciona">
+                <div class="faq-pergunta">
+                    <span>Por que meu IP não está funcionando?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Checklist de problemas comuns:</strong></p>
+
+                    <p><strong>1. IP duplicado</strong></p>
+                    <p>❌ Dois dispositivos com o mesmo IP<br>
+                        ✓ Use DHCP ou verifique IPs manualmente</p>
+
+                    <p><strong>2. Máscara errada</strong></p>
+                    <p>❌ Dispositivo: 192.168.1.10/24, mas rede é /26<br>
+                        ✓ Todos devem ter a mesma máscara</p>
+
+                    <p><strong>3. Gateway incorreto</strong></p>
+                    <p>❌ Gateway apontando pra IP inexistente<br>
+                        ✓ Verifique o IP do roteador</p>
+
+                    <p><strong>4. IP fora da faixa</strong></p>
+                    <p>❌ Rede: 192.168.1.0/26 mas IP: 192.168.1.100<br>
+                        ✓ IP precisa estar entre .1 e .62 nesse caso</p>
+
+                    <p><strong>5. Firewall bloqueando</strong></p>
+                    <p>❌ Regras muito restritivas<br>
+                        ✓ Revise configurações de segurança</p>
+
+                    <p><strong>Comandos úteis (Windows):</strong></p>
+                    <p class="exemplo-codigo">
+                        ipconfig → Ver seu IP atual<br>
+                        ping 8.8.8.8 → Testar conectividade<br>
+                        ping 192.168.1.1 → Testar gateway
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="vlsm subrede variavel tamanho">
+                <div class="faq-pergunta">
+                    <span>O que é VLSM e quando usar?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>VLSM = Variable Length Subnet Mask</strong></p>
+
+                    <p><strong>Conceito:</strong> Usar sub-redes de tamanhos DIFERENTES dentro da mesma rede principal.
+                    </p>
+
+                    <p><strong>Sem VLSM (desperdício):</strong></p>
+                    <p>Rede: 192.168.1.0/24</p>
+                    <ul>
+                        <li>Departamento A (100 PCs): /24 → 254 IPs (desperdício de 154)</li>
+                        <li>Departamento B (20 PCs): /24 → 254 IPs (desperdício de 234)</li>
+                    </ul>
+
+                    <p><strong>Com VLSM (eficiente):</strong></p>
+                    <p>Rede: 192.168.1.0/24</p>
+                    <ul>
+                        <li>Departamento A: /25 → 126 IPs (OK para 100 PCs)</li>
+                        <li>Departamento B: /27 → 30 IPs (OK para 20 PCs)</li>
+                        <li>Sobra espaço para mais departamentos!</li>
+                    </ul>
+
+                    <p><strong>Quando usar:</strong></p>
+                    <ul>
+                        <li>Setores com necessidades muito diferentes</li>
+                        <li>Quer aproveitar IPs ao máximo</li>
+                        <li>Redes empresariais com vários departamentos</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../js/aprendizado.js"></script>
+</body>
+
+</html>
