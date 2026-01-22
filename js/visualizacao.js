@@ -40,17 +40,38 @@ function validarIP(ip) {
     });
 }
 
+function validarMascara(mascara) {
+    const partes = mascara.split(".");
+    if (partes.length !== 4) return false;
+    for (let parte of partes) {
+        const num = parseInt(parte);
+        if (isNaN(num) || num < 0 || num > 255) return false;
+    }
+    return true;
+}
+
+function validarCIDR(cidr) {
+    const num = parseInt(cidr);
+    return !isNaN(num) && num >= 0 && num <= 32;
+}
+
+function mostrarErroCidrCritico(cidr, mensagemErro) {
+    mensagemErro.innerHTML = `<strong>⚠️ CIDR /${cidr} não permite hosts utilizáveis.</strong>`;
+    mensagemErro.style.display = "block";
+}
+
 async function gerarVisualizacao() {
     const ipInput = document.getElementById('ip').value.trim();
-    const cidrInput = document.getElementById('cidr').value;
+    const cidrInput = document.getElementById('cidr').value.trim();
     const mensagemErro = document.getElementById('mensagem-erro');
     const loading = document.getElementById('loading');
     const infoPanel = document.getElementById('info-panel');
     
     mensagemErro.style.display = 'none';
     
+    // VALIDAÇÃO INICIAL
     if (!ipInput || !cidrInput) {
-        mostrarErro('⚠️ Por favor, preencha o IP e o CIDR');
+        mostrarErro('⚠️ Por favor, preencha o IP e o CIDR/Máscara');
         return;
     }
 
@@ -59,18 +80,63 @@ async function gerarVisualizacao() {
         return;
     }
 
-    const cidr = parseInt(cidrInput);
-    if (cidr < 8 || cidr > 30) {
-        mostrarErro('⚠️ O CIDR deve estar entre 8 e 30');
-        return;
+
+    let urlParam = "";
+    let isMascara = cidrInput.includes('.');
+
+    if (isMascara) {
+        
+        if (!validarMascara(cidrInput)) {
+            mostrarErro('⚠️ Máscara de sub-rede inválida. Use formato: 255.255.255.0');
+            return;
+        }
+        
+        if (cidrInput === "255.255.255.255") {
+            mostrarErroCidrCritico(32, mensagemErro);
+            return;
+        }
+        if (cidrInput === "255.255.255.254") {
+            mostrarErroCidrCritico(31, mensagemErro);
+            return;
+        }
+        
+        urlParam = `&mascara=${cidrInput}`;
+
+    } else {
+        
+        if (!validarCIDR(cidrInput)) {
+            mostrarErro('⚠️ CIDR inválido. Use valores entre 0 e 32');
+            return;
+        }
+        
+        const cidrInt = parseInt(cidrInput);
+        
+        if (cidrInt === 31 || cidrInt === 32) {
+            mostrarErroCidrCritico(cidrInt, mensagemErro);
+            return;
+        }
+
+        if (cidrInt < 8) {
+            mostrarErro('⚠️ Este sistema calcula de /8 até /30');
+            return;
+        }
+
+        if (cidrInt > 30) {
+            mostrarErro('⚠️ O CIDR deve estar entre 8 e 30 para visualização');
+            return;
+        }
+        
+        urlParam = `cidr=${cidrInput}`;
     }
 
-    // Mostrar loading
     loading.classList.add('active');
     infoPanel.classList.remove('active');
 
     try {
-        const response = await fetch(`http://localhost:5000/visualizar-subredes?ip=${ipInput}&cidr=${cidr}`);
+        const url = `http://localhost:5000/visualizar-subredes?ip=${ipInput}&${urlParam}`;
+        console.log('📡 Requisição para:', url);
+        
+        const response = await fetch(url);
         
         if (!response.ok) {
             const errorData = await response.json();
@@ -78,19 +144,20 @@ async function gerarVisualizacao() {
         }
 
         const data = await response.json();
+        console.log('✅ Dados recebidos:', data);
 
+        // Delay artificial para mostrar a animação do loading
         await new Promise(resolve => setTimeout(resolve, 2500));
         
         loading.classList.remove('active');
         
         mostrarInformacoes(data.info);
-        
         renderizarRede(data);
 
     } catch (error) {
         loading.classList.remove('active');
         mostrarErro('❌ Erro ao gerar visualização: ' + error.message);
-        console.error('Erro:', error);
+        console.error('❌ Erro completo:', error);
     }
 }
 
@@ -130,7 +197,6 @@ function renderizarRede(data) {
     const nodes = new vis.DataSet(data.nodes);
     const edges = new vis.DataSet(data.edges);
     
-    // Configurar grupos (sub-rede colorida)
     const groups = {};
     data.groups.forEach(group => {
         groups[group.id] = {
@@ -138,7 +204,7 @@ function renderizarRede(data) {
         };
     });
     
-    // Configurações da rede
+    // CONFIGURAÇÕES OTIMIZADAS DE FÍSICA
     const options = {
         nodes: {
             font: {
@@ -159,6 +225,9 @@ function renderizarRede(data) {
                 size: 10,
                 x: 0,
                 y: 0
+            },
+            chosen: {
+                label: false
             }
         },
         edges: {
@@ -168,6 +237,7 @@ function renderizarRede(data) {
                 hover: '#00ffc8'
             },
             smooth: {
+                enabled: true,
                 type: 'continuous',
                 roundness: 0.5
             },
@@ -180,6 +250,7 @@ function renderizarRede(data) {
             }
         },
         groups: groups,
+        
         physics: {
             enabled: true,
             solver: 'forceAtlas2Based',
@@ -188,7 +259,7 @@ function renderizarRede(data) {
                 centralGravity: 0.001,
                 springLength: 200,
                 springConstant: 0.01,
-                damping: 0.9,
+                damping: 0.4,
                 avoidOverlap: 0.2
             },
             stabilization: {
@@ -200,12 +271,15 @@ function renderizarRede(data) {
             minVelocity: 2,
             maxVelocity: 10
         },
+        
         interaction: {
             hover: true,
             tooltipDelay: 100,
             zoomView: true,
             dragView: true,
             dragNodes: true,
+            hideEdgesOnDrag: false,
+            hideNodesOnDrag: false,
             navigationButtons: true,
             keyboard: {
                 enabled: true,
@@ -213,17 +287,16 @@ function renderizarRede(data) {
             }
         },
 
-        configure:{
+        configure: {
             enabled: false
         },
 
-        layout : {
+        layout: {
             randomSeed: undefined,
             improvedLayout: true
         }
     };
     
-    // Criar a rede
     const networkData = {
         nodes: nodes,
         edges: edges
@@ -235,6 +308,7 @@ function renderizarRede(data) {
     
     network = new vis.Network(container, networkData, options);
 
+    // TOOLTIP CUSTOMIZADO
     network.on("hoverNode", function(params) {
         const nodeId = params.node;
         const node = nodes.get(nodeId);
@@ -261,7 +335,6 @@ function renderizarRede(data) {
                 document.body.appendChild(tooltip);
             }
             
-            // Renderiza HTML (substitui <br> e <b> corretamente)
             tooltip.innerHTML = node.title;
             tooltip.style.display = 'block';
             tooltip.style.left = params.event.pageX + 10 + 'px';
@@ -284,7 +357,7 @@ function renderizarRede(data) {
         }
     });
     
-    // Criar eventos interativos
+    // Eventos de interação
     network.on('hoverNode', function(params) {
         container.style.cursor = 'pointer';
     });
@@ -297,21 +370,22 @@ function renderizarRede(data) {
         if (params.nodes.length > 0) {
             const nodeId = params.nodes[0];
             const node = nodes.get(nodeId);
-            console.log('Dispositivo selecionado:', node);
+            console.log('📍 Dispositivo selecionado:', node);
         }
     });
     
     // Reduz física após estabilização
     network.once('stabilizationIterationsDone', function() {
+        console.log('✅ Estabilização completa!');
         network.setOptions({
             physics: {
                 enabled: true,
                 stabilization: false,
                 forceAtlas2Based: {
-                    gravitationalConstant: -8,
-                    centralGravity: 0.0005,
-                    springConstant: 0.001,
-                    damping: 0.75
+                    gravitationalConstant: -10,
+                    centralGravity: 0.0001,
+                    springConstant: 0.005,
+                    damping: 0.9
                 }
             }
         });
@@ -324,6 +398,10 @@ function renderizarRede(data) {
             easingFunction: 'easeInOutQuad'
         }
     });
+    
+    console.log('🎨 Visualização criada com sucesso!');
+    console.log('📊 Total de nós:', nodes.length);
+    console.log('🔗 Total de conexões:', edges.length);
 }
 
 // Permitir Enter para gerar visualização

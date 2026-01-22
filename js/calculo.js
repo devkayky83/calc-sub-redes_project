@@ -30,13 +30,11 @@ function validarIP(ip) {
 }
 
 function validarCIDR(valor) {
-    // Aceita números de 0 a 32
     const numero = parseInt(valor);
     return !isNaN(numero) && numero >= 0 && numero <= 32;
 }
 
 function validarMascara(mascara) {
-    // Validação simples de formato de máscara x.x.x.x
     const partes = mascara.split(".");
     if (partes.length !== 4) return false;
     for (let parte of partes) {
@@ -69,7 +67,6 @@ async function calcularSubredes() {
     const mensagemErro = document.getElementById("mensagem-erro");
     mensagemErro.style.display = "none";
 
-    // 1. Validação simples
     if (!ip || !entradaCidr) {
         mensagemErro.textContent = "Por favor, preencha todos os campos.";
         mensagemErro.style.display = "block";
@@ -86,18 +83,15 @@ async function calcularSubredes() {
     let isMascara = entradaCidr.includes('.');
 
     if (isMascara) {
-        // --- AQUI ESTÁ A PROTEÇÃO NOVA PARA MÁSCARA ---
         if (!validarMascara(entradaCidr)) {
             mensagemErro.textContent = "Máscara de sub-rede inválida.";
             mensagemErro.style.display = "block";
             return;
         }
-        // Se digitou a máscara proibida /32
         if (entradaCidr === "255.255.255.255") {
             mostrarErroCidrCritico(32, mensagemErro);
             return;
         }
-        // Se digitou a máscara proibida /31
         if (entradaCidr === "255.255.255.254") {
             mostrarErroCidrCritico(31, mensagemErro);
             return;
@@ -105,7 +99,6 @@ async function calcularSubredes() {
         urlParam = `&mascara=${entradaCidr}`;
 
     } else {
-        // Validação para quando digita número (CIDR)
         if (!validarCIDR(entradaCidr)) {
             mensagemErro.textContent = "CIDR inválido (use entre 0 e 32).";
             mensagemErro.style.display = "block";
@@ -114,7 +107,6 @@ async function calcularSubredes() {
         
         const cidrInt = parseInt(entradaCidr);
         
-        // Proteção para CIDR proibido
         if (cidrInt === 31 || cidrInt === 32) {
              mostrarErroCidrCritico(cidrInt, mensagemErro);
              return;
@@ -149,14 +141,12 @@ async function calcularSubredes() {
 }
 
 function gerarCardsETabela(dados) {
-    // Se não houver dados, para tudo
     if (dados.length === 0) return;
 
     const totalSubredes = dados.length;
     const totalIpsPorSubrede = dados[0].total_ips.valor; 
     const hostsValidosPorSubrede = totalIpsPorSubrede - 2;
 
-    // --- CARDS ---
     const cardsHTML = `
         <div class="cards-container">
             <div class="card">
@@ -183,7 +173,6 @@ function gerarCardsETabela(dados) {
         animarContador(document.getElementById("valor-total-ips"), totalIpsPorSubrede);
     }, 100);
 
-    // --- TABELA COM TOOLTIPS MÁGICOS ---
     let tabela = `
         <table class="result-table" border="1">
             <thead>
@@ -200,12 +189,9 @@ function gerarCardsETabela(dados) {
             <tbody>
     `;
 
-    // Função auxiliar para criar a célula com tooltip
     const criarCelula = (dado) => {
-        // Se o dado for simples (como o ID), retorna só o valor
         if (!dado.expl) return `<td>${dado}</td>`;
         
-        // Se tiver explicação, cria a estrutura do tooltip
         return `
             <td>
                 ${dado.valor}
@@ -219,7 +205,7 @@ function gerarCardsETabela(dados) {
 
     for (let item of dados) {
         tabela += `<tr>`;
-        tabela += `<td>${item.id}</td>`; // ID não precisa de tooltip
+        tabela += `<td>${item.id}</td>`; 
         tabela += criarCelula(item.ip_rede);
         tabela += criarCelula(item.mascara);
         tabela += criarCelula(item.primeiro_host);
@@ -249,7 +235,6 @@ function animarContador(elemento, valorFinal, duracao = 1000) {
     }, 16);
 }
 
-// Fundo Animado (Mantido original)
 function IPFlowBackground() {
     const container = document.getElementById('ipFlowBg');
     if(!container) return;

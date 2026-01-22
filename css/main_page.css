@@ -190,13 +190,20 @@ body.dark-mode .title-glow-subtle {
 }
 
 .result-table {
-    margin-top: 20px;
+    margin-top: 20px auto;
     margin-bottom: 20px;
     border-collapse: collapse;
-    width: 80%;
-    max-width: 600px;
+    width: fit-content;
+    max-width: 95%;
+    min-width: 80%;
     background-color: #37415137;
     text-align: center;
+}
+
+.result-table th, .result-table td {
+    white-space: nowrap;
+    border: 1px solid #4a5568;
+    padding: 12px 15px;
 }
 
 .cards-container {
@@ -279,51 +286,38 @@ tr:hover {
 
 .result-table td {
     position: relative;
-    cursor: help; /* Muda o mouse para uma interrogação */
+    cursor: help; 
 }
 
-/* O estilo do texto da explicação (inicialmente invisível) */
 .tooltip-text {
     visibility: hidden;
     width: 220px;
-    background-color: #333; /* Fundo escuro */
-    color: #fff; /* Texto branco */
+    background-color: #333333; 
+    color: #ffffff; 
     text-align: center;
     border-radius: 6px;
     padding: 10px;
     position: absolute;
     z-index: 10;
-    
-    /* Posicionamento: aparece em cima da célula */
     bottom: 125%; 
     left: 50%; 
-    margin-left: -110px; /* Metade da largura para centralizar */
-    
-    /* Efeitinho suave (Fade in) */
+    margin-left: -110px;
     opacity: 0;
     transition: opacity 0.3s;
-    
-    /* Sombra e borda neon suave para combinar com seu tema */
     box-shadow: 0 0 10px rgba(0, 255, 150, 0.2);
     border: 1px solid #00ff96;
     font-size: 0.85rem;
     font-family: 'Space Mono', monospace;
-    pointer-events: none; /* O mouse não atrapalha a leitura */
+    pointer-events: none;
 }
 
 .result-table td:hover {
-    /* Adiciona uma sombra interna brilhante (cor neon verde do seu tema) */
     box-shadow: inset 0 0 15px rgba(0, 255, 150, 0.3);
-
-    /* Opcional: muda levemente a cor de fundo para destacar mais */
     background-color: rgba(0, 255, 150, 0.05);
-
-    /* Garante que a borda dessa célula fique sobre as vizinhas */
     z-index: 2;
     border-color: #00ff96;
 }
 
-/* A setinha embaixo da caixa */
 .tooltip-text::after {
     content: "";
     position: absolute;
@@ -332,10 +326,9 @@ tr:hover {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #333 transparent transparent transparent;
+    border-color: #333333 transparent transparent transparent;
 }
 
-/* Quando passar o mouse na célula ou no span, mostra a explicação */
 .result-table td:hover .tooltip-text {
     visibility: visible;
     opacity: 1;

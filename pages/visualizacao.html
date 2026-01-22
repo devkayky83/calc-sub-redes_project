@@ -20,6 +20,8 @@
 </head>
 
 <body>
+    <div class="ip-flow-background" id="ipFlowBg"></div>
+
     <div class="fade-in-bottom visualizacao-container">
         <h1 class="title-glow-subtle visualizacao">Visualização de Topologia</h1>
 
@@ -28,8 +30,8 @@
             <input class="input-dados" type="text" id="ip" placeholder="192.168.1.0" value="192.168.1.0">
             <br><br>
 
-            <label class="label-container">CIDR: </label>
-            <input class="input-dados" type="number" id="cidr" placeholder="27" value="27" min="8" max="30">
+            <label class="label-container">CIDR ou Máscara: </label>
+            <input class="input-dados" type="text" id="cidr" placeholder="/24 ou 255.255.255.0">
             <br><br>
         </div>
 
@@ -59,10 +61,6 @@
 
         <div class="legenda">
             <div class="legenda-item">
-                <img src="../assets/pics/router.png" class="legenda-icon" alt="Roteador">
-                <span class="legenda-text">Roteador Principal</span>
-            </div>
-            <div class="legenda-item">
                 <img src="../assets/pics/network-switch.png" class="legenda-icon" alt="Switch">
                 <span class="legenda-text">Switch de Sub-rede</span>
             </div>
@@ -77,7 +75,7 @@
         </div>
 
         <div class="instrucoes">
-            💡 <strong>Dica:</strong> Use o scroll do mouse para zoom e arraste para movimentar a visualização.
+            💡 <strong>Dica:</strong> Use o scroll do mouse para zoom e arraste para movimentar a visualização. 
             Passe o mouse sobre os dispositivos para ver mais informações!
         </div>
     </div>

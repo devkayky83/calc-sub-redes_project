@@ -251,12 +251,18 @@ body.dark-mode .hourglass-sand .lower-glass {
   color: var(--primary-color, #00d9ff);
 }
 
+/* ========================================
+           ESCONDE TOOLTIP PADRÃO DO VIS.JS
+           ======================================== */
 .vis-tooltip {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
 }
 
+/* ========================================
+           ESTILO DO TOOLTIP CUSTOMIZADO
+           ======================================== */
 #custom-tooltip {
   line-height: 1.6;
 }

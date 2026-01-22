@@ -64,7 +64,9 @@ def calcular_ultimo_host(broadcast):
 def numero_total_ips(cidr):
     return 2 ** (32 - cidr)
 
-# --- ROTA DE CÁLCULO (TABELA) ---
+def numero_hosts_validos(cidr):
+    return (2 ** (32 - cidr)) - 2
+
 @app.route('/calcular-subredes')
 def calcular():
     ip_requisitado = request.args.get('ip')
@@ -144,6 +146,7 @@ def calcular():
         
     return jsonify(resultado)
 
+
 # --- ROTA DE VISUALIZAÇÃO (GRÁFICO) ---
 @app.route('/visualizar-subredes')
 def visualizar():
@@ -178,26 +181,15 @@ def visualizar():
         '#FFA07A', '#DDA0DD', '#87CEEB', '#98FB98'
     ]
     
-    # Roteador Central
-    nodes.append({
-        'id': 'router-central',
-        'label': 'Roteador\nPrincipal',
-        'shape': 'image',
-        'image': '/assets/pics/router.png',
-        'size': 45,
-        'x': 0, 'y': 0,
-        'fixed': {'x': True, 'y': True},
-        'physics': False
-    })
+    distancia_entre_switches = 400  
+    distancia_dispositivos = 200
     
-    raio_switches = 350
-    distancia_dispositivos = 150
     ip_atual = ip_requisitado
     
     for i in range(num_subredes):
         broadcast = calcular_broadcast(ip_atual, tamanho_subrede)
         primeiro_host = calcular_primeiro_host(ip_atual)
-        num_hosts_total = numero_total_ips(cidr_requisitado)
+        num_hosts_validos = numero_hosts_validos(cidr_requisitado)
         
         group_id = f'group-{i}'
         groups.append({
@@ -205,43 +197,55 @@ def visualizar():
             'color': {'background': cores[i % len(cores)], 'border': cores[i % len(cores)]},
         })
         
-        angulo = (i / num_subredes) * 2 * math.pi
-        switch_x = raio_switches * math.cos(angulo)
-        switch_y = raio_switches * math.sin(angulo)
+        # Posicionar switches na linha horizontal
         switch_id = f'switch-{i}'
+        switch_x = (i - (num_subredes - 1) / 2) * distancia_entre_switches
+        switch_y = 0  # Todos na mesma linha horizontal
         
         nodes.append({
             'id': switch_id,
-            'label': f'Switch {i+1}\n{ip_atual}',
+            'label': f'Switch {i+1}', 
             'shape': 'image',
             'image': '/assets/pics/network-switch.png',
             'size': 35,
-            'x': switch_x, 'y': switch_y,
-            'title': f'<b>Sub-rede {i+1}</b><br>Rede: {ip_atual}/{cidr_requisitado}'
+            'x': switch_x, 
+            'y': switch_y,
+            'fixed': {'x': False, 'y': False},
+            'title': f'<b>Sub-rede {i+1}</b><br>Rede: {ip_atual}/{cidr_requisitado}<br>Máscara: {mascara}<br>Broadcast: {broadcast}<br>Hosts disponíveis: {num_hosts_validos}'
         })
         
-        edges.append({
-            'from': 'router-central', 'to': switch_id,
-            'width': 3, 'dashes': True
-        })
+        # CONECTAR SWITCHES ENTRE SI (linha horizontal)
+        # Explicação: Cada switch conecta ao próximo (exceto o último)
+        # Isso representa a interligação das sub-redes
+        if i < num_subredes - 1:
+            edges.append({
+                'from': switch_id,
+                'to': f'switch-{i+1}',
+                'width': 3,
+                'dashes': True,
+                'length': distancia_entre_switches
+            })
         
+        # POSICIONAR DISPOSITIVOS ABAIXO DO SWITCH
         # Desenha alguns dispositivos (limite visual de 3)
-        num_dispositivos_visual = min(3, num_hosts_total - 2) 
-        if num_dispositivos_visual < 0: num_dispositivos_visual = 0
+        num_dispositivos_visual = min(3, num_hosts_validos) 
+        if num_dispositivos_visual < 0: 
+            num_dispositivos_visual = 0
 
         for j in range(num_dispositivos_visual):
             device_id = f'device-{i}-{j}'
             device_type = 'PC' if j % 2 == 0 else 'Laptop'
             icon = '/assets/pics/computer.png' if device_type == 'PC' else '/assets/pics/laptop.png'
             
-            # Calcula IP visual
+            # Calcula IP do dispositivo
             partes_ip = list(map(int, primeiro_host.split('.')))
             partes_ip[3] += j
             device_ip = '.'.join(map(str, partes_ip))
             
-            offset = (j - (num_dispositivos_visual - 1) / 2) * 100
-            device_x = (raio_switches + distancia_dispositivos) * math.cos(angulo) + offset * math.sin(angulo)
-            device_y = (raio_switches + distancia_dispositivos) * math.sin(angulo) - offset * math.cos(angulo)
+            # Posicionar dispositivos em linha horizontal abaixo do switch
+            offset_horizontal = (j - (num_dispositivos_visual - 1) / 2) * 120
+            device_x = switch_x + offset_horizontal
+            device_y = distancia_dispositivos  # Abaixo do switch
             
             nodes.append({
                 'id': device_id,
@@ -249,11 +253,19 @@ def visualizar():
                 'shape': 'image',
                 'image': icon,
                 'size': 25,
-                'x': device_x, 'y': device_y,
-                'group': group_id
+                'x': device_x, 
+                'y': device_y,
+                'group': group_id,
+                'title': f'<b>{device_type}</b><br>IP: {device_ip}<br>Gateway: {primeiro_host}'
             })
             
-            edges.append({'from': switch_id, 'to': device_id, 'width': 2})
+            # Conectar dispositivo ao switch
+            edges.append({
+                'from': switch_id, 
+                'to': device_id, 
+                'width': 2,
+                'length': distancia_dispositivos
+            })
             
         ip_atual = calcular_proxima_subrede(ip_atual, tamanho_subrede)
         
@@ -266,7 +278,7 @@ def visualizar():
             'cidr': cidr_requisitado,
             'mascara': mascara,
             'num_subredes': num_subredes,
-            'hosts_por_subrede': numero_total_ips(cidr_requisitado)
+            'hosts_por_subrede': numero_hosts_validos(cidr_requisitado)
         }
     })
 
