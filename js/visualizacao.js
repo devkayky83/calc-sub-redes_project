@@ -69,7 +69,6 @@ async function gerarVisualizacao() {
     
     mensagemErro.style.display = 'none';
     
-    // VALIDAÇÃO INICIAL
     if (!ipInput || !cidrInput) {
         mostrarErro('⚠️ Por favor, preencha o IP e o CIDR/Máscara');
         return;

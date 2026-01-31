@@ -184,6 +184,10 @@ body.dark-mode .estante-bg {
     border-left-color: #8b5cf6;
 }
 
+.categoria[data-nivel="curiosidades"] {
+    border-left-color: #ec4899;
+}
+
 .categoria-titulo {
     display: flex;
     align-items: center;
@@ -463,6 +467,33 @@ body.dark-mode .estante-bg {
     50% { 
         opacity: 1; 
         transform: translateX(2px); 
+    }
+}
+
+.question-mark-icon {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 40px;
+    color: #10b981;
+    font-weight: 900;
+    animation: question-pulse 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+@keyframes question-pulse {
+    0%, 100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.5));
+    }
+    50% { 
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.8));
     }
 }
 
