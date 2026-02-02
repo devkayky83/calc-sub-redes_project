@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendizado - Sub-redes</title>
+
+    <link rel="stylesheet" href="../css/aprendizado.css">
+    <link rel="stylesheet" href="../css/main_page.css">
+    <link rel="stylesheet" href="../css/menu.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        .main-container {
+            padding: 20px;
+            margin-left: 250px; /* Espaço para o menu */
+            transition: margin-left 0.3s;
+            width: calc(100% - 250px);
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="menu-toggle" class="menu-toggle">
+        <span>☰</span>
+    </button>
+
+    <div class="theme-switch-container">
+        <span class="theme-icon sun">☀️</span>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <span class="theme-icon moon">🌙</span>
+    </div>
+
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="title-ipv4">
+                <span class="ip-octet">CALC</span><span class="ip-dot">.</span><span class="ip-octet">SUB</span><span
+                    class="ip-dot">.</span><span class="ip-octet">RE</span><span class="ip-dot">.</span><span
+                    class="ip-octet">DES</span>
+            </h2>
+        </div>
+        <ul class="menu-items">
+            <li><a href="../index.html"><span class="diamond"></span> Cálculo</a></li>
+            <li><a href="#" class="active"><span class="diamond"></span> Aprendizado</a></li>
+        </ul>
+
+        <div class="flask-badge">
+            <a href="https://flask.palletsprojects.com/" target="_blank" rel="noopener" aria-label="Built with Flask">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg" alt="Flask Logo">
+                <span>Built with Flask</span>
+            </a>
+        </div>
+    </nav>
+
+    <div id="main-container" class="main-container">
+
+    <div class="aprendizado-container">
+        <h1>
+            <div class="estante-icon">
+                <div class="estante-bg"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+                <div class="livro"></div>
+            </div>
+            Centro de Aprendizado
+        </h1>
+        <p class="subtitulo">Aprenda sobre redes e sub-redes de forma progressiva</p>
+
+        <div class="search-container">
+            <input type="text" id="search-input"
+                placeholder="🔍 Buscar por palavra-chave (ex: broadcast, CIDR, máscara...)">
+        </div>
+
+        <section class="categoria" data-nivel="fundamentos">
+            <h2 class="categoria-titulo">
+                <div class="icon-foundation-small">
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                    <div class="foundation-block"></div>
+                </div>
+                Nível 1: Fundamentos de Redes
+            </h2>
+            <p class="categoria-desc">Comece aqui se você nunca estudou redes antes</p>
+
+            <div class="faq-item" data-tags="rede computador basico">
+                <div class="faq-pergunta">
+                    <span>O que é uma Rede de Computadores?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição simples:</strong> Uma rede de computadores é um conjunto de dispositivos
+                        (computadores, celulares, servidores) conectados entre si para compartilhar informações e
+                        recursos como dados, arquivos e internet.
+                    </p>
+
+                    <p><strong>Analogia:</strong> Pense na rede como o sistema de infraestrutura de uma cidade:
+                        <ul>
+                            <li>
+                                Os <strong>Dispositivos</strong> (<strong>Hosts</strong>): São as casas e estabelecimentos comerciais 
+                                que precisam de serviços.
+                            </li>
+                            <li>
+                                Os <strong>Cabos/Wi-Fi</strong>: São os encanamentos e fiações que levam o recurso de um ponto ao outro.
+                            </li>
+                            <li>
+                                Os <strong>Dados</strong>: São o "<strong>recurso</strong>" (água, luz, gás) que flui constantemente para 
+                                atender às demandas de cada ponto da cidade.
+                            </li>
+                        </ul>
+                    </p>
+
+                    <p><strong>Exemplos práticos:</strong></p>
+                    <ul>
+                        <li>Wi-Fi da sua casa conectando celular, notebook e smart TV</li>
+                        <li>Rede de uma empresa conectando computadores dos funcionários</li>
+                        <li>A própria Internet (rede mundial)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="ip endereco identificacao">
+                <div class="faq-pergunta">
+                    <span>O que é um Endereço IP?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> IP (Internet Protocol) é o endereço único que identifica cada
+                        dispositivo em uma rede, como se fosse o endereço de uma casa.</p>
+
+                    <p><strong>Formato:</strong></p>
+                    <ul>
+                        <li>Um IPv4 possui <strong>32</strong> bits, e tem 4 números separados por pontos, cada um
+                            variando de 0 a
+                            255.
+                        </li>
+                    </ul>
+                    <p class="exemplo-codigo">Exemplo: 192.168.1.10 / Cálculo: <span>(2<sup>8</sup>)<sup>4</sup></span>
+                        = 4.294.967.296 endereços</p>
+                    <ul>
+                        <li>Já um IPv6 possui <strong>128</strong> bits, e tem 8 grupos de caracteres separados por
+                            dois-pontos,
+                            cada um variando de 0000 a FFFF.</li>
+                    </ul>
+                    <p class="exemplo-codigo">Exemplo: 2001:0db8:85a3:0000:0000:8a2e:0370:7334</p>
+                    <p class="exemplo-codigo">
+                        Cálculo: <span>(2<sup>32</sup>)<sup>4</sup></span> =
+                        340.282.366.920.938.000.000.000.000.000.000.000.000 endereços
+                    </p>
+
+                    <p><strong>Por que preciso disso?</strong> Sem endereço IP, os computadores não saberiam para onde
+                        enviar os dados, é como tentar enviar uma carta sem endereço. Caso dois computadores tivessem o
+                        mesmo IP,
+                        seria como duas casas com o mesmo endereço, o carteiro não saberia onde entregar!</p>
+
+                    <p><strong>Curiosidade:</strong> O IPv6 foi criado porque os endereços IPv4
+                        estão acabando! seu desenvolvimento e quantidade real ainda está em andamento.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>Quais são as Classes de Endereços IP?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>IPs são divididos em classes (A, B, C) para organização:</strong></p>
+
+                    <div class="tabela-classes">
+                        <p><strong>Classe A:</strong> 1.0.0.0 até 126.255.255.255</p>
+                        <ul>
+                            <li>Para redes MUITO grandes (até 16,7 milhões de dispositivos)</li>
+                            <li>Exemplo: grandes provedores de internet</li>
+                        </ul>
+
+                        <p><strong>Classe B:</strong> 128.0.0.0 até 191.255.255.255</p>
+                        <ul>
+                            <li>Para redes médias (até 65.534 dispositivos)</li>
+                            <li>Exemplo: universidades, empresas grandes</li>
+                        </ul>
+
+                        <p><strong>Classe C:</strong> 192.0.0.0 até 223.255.255.255</p>
+                        <ul>
+                            <li>Para redes pequenas (até 254 dispositivos)</li>
+                            <li>Exemplo: sua casa, escritórios pequenos</li>
+                            <li>192.168.X.X é o mais comum em redes domésticas!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>O que são IPs privados?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>
+                        Os <strong>IPs privados</strong> são apenas pequenas <strong>fatias reservadas</strong> dentro
+                        de
+                        cada uma das classes de IP.
+                        Eles foram "retirados" do uso público para que qualquer pessoa pudesse usá-los em suas redes
+                        locais sem causar conflito na internet.
+                    </p>
+
+                    <div class="tabela-classes">
+                        <p class="exemplo-codigo">
+                            <strong>Classe A:</strong> 10.0.0.0 até 10.255.255.255
+                            <br><br>
+                            <strong>Classe B:</strong> 172.16.0.0 a 172.31.255.255
+                            <br><br>
+                            <strong>Classe C:</strong> 192.168.0.0 a 192.168.255.255
+                        </p>
+
+                        <p>
+                            <strong>CUIDADO!: </strong>Classe de IP e IP Privado não são exatamente a mesma coisa!
+                        </p>
+
+                        <p>
+                            <strong>Analogia: </strong>As classes A, B e C são "<strong>bairros inteiros</strong>", 
+                            enquanto Os IPsprivados são apenas
+                            "<strong>algumas casas específicas</strong>" dentro de cada bairro que foram reservadas para uso interno.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>O que são IPs reservados?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>
+                        Os <strong>IPs reservados </strong> são um termo geral para qualquer faixa de endereço que não
+                        está
+                        disponível para a atribuição pública na internet. Isso inclui, além dos <strong>IPs privados
+                        </strong>outras
+                        faixas com finalidades especiais, como:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Endereço de Rede:</strong> O número da rede é o <strong>primeiro IP</strong>. Por
+                            isso, o IP da
+                            rede não é utilizado para endereçar máquinas,
+                            ficando reservado para essa função.
+                            <br><br>
+                        </li>
+                        <li>
+                            <strong>Endereço de broadcast:</strong> O <strong>último IP</strong> dessa mesma faixa é
+                            reservado para a
+                            função de broadcast, que permite enviar um pacote de dados para todas as máquinas
+                            simultaneamente.
+                            <br><br>
+                        </li>
+                    </ul>
+
+                    <div class="tabela-classes">
+                        <p class="exemplo-codigo">
+                            <strong>Outros exemplos:</strong> Algumas faixas de IPs são reservadas exclusivamente para
+                            provedores de internet
+                            como: 100.64.0.0 a 100.127.255.255.
+                        </p>
+                    </div>
+                    <p>
+                        <strong>CUIDADO!: </strong>Todo IP privado é um IP reservado, mas nem todo IP reservado é um IP
+                        privado!
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>O que é Máscara de Rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>A <strong>Máscara de rede</strong> é um número que funciona como um "<strong>filtro</strong>" para separar um
+                        endereço IP em duas partes lógicas e fundamentais:
+                    <ul>
+                        <li>
+                            <strong>Parte da Rede:</strong> Identifica a qual rede ou sub-rede o dispositivo pertence =
+                            <strong>Bits "1"</strong>.
+                        </li>
+                        <li>
+                            <strong>Parte do Host:</strong> Identifica o dispositivo espécifico dentro dessa rede =
+                            <strong>Bits "0"</strong>.
+                        </li>
+                    </ul>
+
+                    <p>
+                        A máscara de rede é geralmente representada em notação decimal pontilhada <strong>(ex:
+                            255.255.255.0)</strong> mas em binário é que sua função
+                        fica clara:
+                    </p>
+
+                    <ul class="exemplo-codigo">
+                        <strong>Classe A:</strong>
+                        <br><br>
+                        Primeiro Octeto: 1 a 127
+                        <br><br>
+                        Endereço IP em Binário: 11111111.00000000.00000000.00000000 | Prática: Possui 24 números 0, ou
+                        seja 24 Bits disponíveis para hosts.
+                        <br><br>
+                        Endereço IP em Decimal: 255.0.0.0
+                    </ul>
+
+                    <ul class="exemplo-codigo">
+                        <strong>Classe B:</strong>
+                        <br><br>
+                        Primeiro Octeto: 128 a 191
+                        <br><br>
+                        Endereço IP em Binário: 11111111.11111111.00000000.00000000 | Prática: Possui 16 números 0, ou
+                        seja 16 Bits disponíveis para hosts.
+                        <br><br>
+                        Endereço IP em Decimal: 255.255.0.0
+                    </ul>
+
+                    <ul class="exemplo-codigo">
+                        <strong>Classe C:</strong>
+                        <br><br>
+                        Primeiro Octeto: 192 a 223
+                        <br><br>
+                        Endereço IP em Binário: 11111111.11111111.11111111.00000000 | Prática: Possui 8 números 0, ou
+                        seja 8 Bits disponíveis para hosts.
+                        <br><br>
+                        Endereço IP em Decimal: 255.255.255.0
+                    </ul>
+
+                    <p>
+                        <strong>Por que é importante?:</strong> A máscara é essencial porque permite que os equipamentos
+                        (como computadores e roteadores) determinem
+                        se o dispositivo com o qual estão tentando se comunicar está na mesma rede local ou se está em
+                        uma rede diferente.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>O que é Gateway?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>Um <strong>Gateway</strong> é um endereço que serve como o <strong>ponto de saida</strong>
+                        e <strong>entrada</strong> para dados que viajam entre redes diferentes.
+                    </p>
+
+                    <p><strong>Analogia:</strong> Pense nele como um tradutor universal: se o seu computador fala
+                        "Português"
+                        (rede local) e o site que você quer acessar fala "Inglês" (Internet), o gateway traduz os
+                        protocolos
+                        para que a comunicação ocorra sem erros.
+                    </p>
+
+                    <p><strong>Exemplo:</strong> Em redes domésticas, o endereço do gateway costuma ser o primeiro da
+                        sub-rede
+                        (como <strong>192.168.0.1</strong> ou <strong>192.168.1.1</strong>).
+                    </p>
+
+                    <p><strong>Exemplos de Uso:</strong></p>
+
+                    <ul>
+                        <li>
+                            Conectar a sua rede à internet: O seu roteador doméstico funciona como o gateway padrão
+                            (Default Gateway) que permite que seus dispositivos acessem a rede mundial.
+                        </li>
+                        <li>
+                            Segurança e Filtragem: Atuar filtrando o tráfego que entra ou sai para proteger
+                            a rede interna contra ameaças.
+                        </li>
+                        <li>
+                            Gerenciar APIs: Em desenvolvimento de software, um API Gateway é usado para centralizar e
+                            gerenciar
+                            chamadas de diferentes serviços de back-end em um único ponto de entrada.
+                        </li>
+                    </ul>
+
+                    <p><strong>Dica:</strong> O gateway pode ser qualquer IP! contanto que pertença a mesma
+                        <strong>sub-rede</strong> e
+                        não seja um <strong>IP reservado</strong> (Endereço de rede, Endereço de broadcast, etc).
+                    </p>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="subredes">
+            <h2 class="categoria-titulo">
+                <div class="icon-network-divide-small">
+                    <div class="network-main"></div>
+                    <div class="subnet-piece"></div>
+                    <div class="subnet-piece"></div>
+                    <div class="subnet-piece"></div>
+                </div>
+                Nível 2: Sub-redes e Divisão
+            </h2>
+            <p class="categoria-desc">Entenda como dividir redes em partes menores</p>
+
+            <div class="faq-item" data-tags="subrede divisao segmentacao">
+                <div class="faq-pergunta">
+                    <span>O que é uma Sub-rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> Uma sub-rede é uma divisão lógica de uma rede maior em partes
+                        menores e mais gerenciáveis. Imagine-a como uma rede menor dentro de uma grande rede.
+                    </p>
+
+                    <p><strong>Analogia:</strong> Imagine que uma rede é uma grande metrópole. Um carteiro deseja
+                        entregar
+                        uma encomenda, porém sem uma direção clara, encontrar uma casa específica
+                        (<strong>dispositivo</strong>)
+                        seria impossível, o mesmo teria que bater de porta em porta até encontrar o destinatário.
+                        Todavia, como a
+                        metrópole é divida em bairros (<strong>sub-redes</strong>), o esforço da procura é diminuido a
+                        uma <strong>região menor</strong>.
+                    </p>
+
+                    <p><strong>Por que dividir uma rede em sub-redes?</strong> Em redes de computadores, cada
+                        dispositivo
+                        tem um endereço IP. Sem sub-redes, todos os dispositivos estariam em um único "espaço",
+                        o que causaria caos no tráfego e riscos de segurança.
+                    </p>
+
+                    <p class="exemplo-codigo"><strong>Exemplo prático:</strong>
+                        <br><br>
+                        <img src="../assets/pics/sub-rede_ex.png" alt="Imagem de uma Sub-rede">
+                    </p>
+
+                    <p><strong>DICA!:</strong> Entenda os <strong>switches</strong> como os respectivos bairros
+                        (<strong>sub-rede</strong>),
+                        e cada <strong>dispositivo</strong> dentro deles como as respectivas casas daquele bairro em
+                        espécifico.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="mascara subrede identificacao">
+                <div class="faq-pergunta">
+                    <span>O que é Máscara de Sub-rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Definição:</strong> A máscara de sub-rede define qual parte do IP identifica a rede e
+                        qual parte identifica o host (<strong>dispositivo</strong>).</p>
+
+                    <p><strong>Para que serve?</strong> A principal função da máscara de sub-rede é permitir que os
+                        computadores e roteadores determinem se um endereço IP de <strong>destino</strong> está na mesma
+                        rede local ou
+                        se precisa ser enviado para fora (através de um roteador para outra rede ou para a Internet).
+                    </p>
+
+                    <p><strong>Analogia:</strong>
+                        Imagine que o endereço IP completo é a combinação do nome do edifício e o número do apartamento.
+                    <ul>
+                        <li>
+                            O <strong>Endereço IP</strong>: Av. Paulista, 1000 - Apto 51.
+                        </li>
+                        <li>
+                            A <strong>Máscara de Sub-rede</strong>: É o <strong>divisor</strong> que separa o <strong>endereço da
+                                rede</strong>
+                            (o edifício) do <strong>endereço do host</strong> (o apartamento).
+                            <ul>
+                                <li>
+                                    Ela "aponta" para a parte "Av. Paulista, 1000" e diz: "<strong>Isso é o
+                                        edifício</strong>".
+                                </li>
+                                <li>
+                                    Ela "aponta" para a parte "Apto 51" e diz: "<strong>Isso é o apartamento</strong>".
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Quando você recebe uma encomenda, a máscara ajuda o carteiro a saber:
+                            <ul>
+                                <li>
+                                    "Estou no edifício certo?" (<strong>Verifica a parte da rede</strong>).
+                                </li>
+                                <li>
+                                    "Qual é o apartamento certo?" (<strong>Verifica a parte do host</strong>).
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    </p>
+                    <br>
+                    <p><strong>Exemplo:</strong>
+                        Considere um computador com o IP <strong>192.168.1.10</strong> e a máscara /<strong>24</strong> 
+                        (<strong>255.255.255.0</strong>).
+                        A máscara indica que os primeiros três octetos
+                        (<strong>192.168.1</strong>)
+                        identificam a <strong>rede</strong>. O último octeto (<strong>10</strong>) identifica o
+                        <strong>host</strong>.
+                        Todos os dispositivos que tiverem o mesmo prefixo de rede (<strong>192.168.1</strong>) estão na
+                        <strong>mesma rede local</strong>
+                        e podem se comunicar diretamente.
+                    </p>
+
+                    <p><strong>DICA!:</strong> Máscara de Rede e Máscara de sub-rede são a mesma coisa,
+                        "<strong>uma coisa só, com nomes diferentes</strong>", a existência das duas
+                        formas é apenas por semântica.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="subrede divisao segmentacao">
+                <div class="faq-pergunta">
+                    <span>O que é notação CIDR?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>A <strong>notação CIDR</strong> é uma forma simplificada e compacta de representar a
+                        <strong>máscara de sub-rede</strong> de um endereço IP,
+                        indicando o número de bits que pertencem à <strong>porção de rede</strong>. Em vez de escrever a
+                        máscara completa
+                        em formato decimal pontuado (como <strong>255.255.255.0</strong>),
+                        você usa uma barra (<strong>/</strong>) seguida por um número. Esse número, chamado de
+                        <strong>prefixo de rede</strong> é a contagem de todos os <strong>bits
+                            1</strong> consecutivos na máscara binária.
+                    </p>
+
+                    <p class="exemplo-codigo"><strong>Exemplo prático:</strong>
+                        <br><br>
+                        255.0.0.0 -> 11111111.00000000.00000000.00000000 = /<strong>8</strong> (Possui 8 números 1)
+                        <br><br>
+                        255.255.0.0 -> 11111111.11111111.00000000.00000000 = /<strong>16</strong> (Possui 16 números 1)
+                        <br><br>
+                        255.255.255.0 -> 11111111.11111111.11111111.00000000 = /<strong>24</strong> (Possui 24 números
+                        1)
+                        <br><br>
+                        255.255.255.255 -> 11111111.11111111.11111111.11111111 = /<strong>32</strong> (Possui 32 números
+                        1)
+                    </p>
+                    <p><strong>Por que usar?</strong> A notação CIDR simplifica a configuração de dispositivos e a
+                        comunicação,
+                        pois é muito mais fácil dizer "<strong>vinte e quatro</strong>" do que "<strong>duzentos e
+                            cinquenta e
+                            cinco</strong>, <strong>duzentos e cinquenta e cinco</strong>, <strong>duzentos e cinquenta
+                            e cinco</strong>, <strong>zero</strong>".
+                    </p>
+                    <p><strong>Outros exemplos:</strong>
+
+                    <p class="exemplo-codigo">
+                        /24 = 255.255.255.0 = 254 hosts<br>
+                        /25 = 255.255.255.128 = 126 hosts<br>
+                        /26 = 255.255.255.192 = 62 hosts<br>
+                        /27 = 255.255.255.224 = 30 hosts<br>
+                        /28 = 255.255.255.240 = 14 hosts
+                    </p>
+
+                    <p><strong>Regra prática:</strong> Quanto <strong>MAIOR</strong> o número após a barra,
+                        <strong>MENOR</strong> a rede (menos hosts).
+                    </p>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="subrede divisao segmentacao">
+                <div class="faq-pergunta">
+                    <span>O que são Hosts?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>Em redes de computadores, um host é qualquer <strong>dispositivo conectado</strong> a uma rede
+                        que possui um
+                        endereço IP e é capaz de enviar, receber ou compartilhar dados e serviços.
+                    </p>
+
+                    <p><strong>Analogia:</strong>
+                        Imagine que uma sub-rede é um bairro específico de uma metrópole.
+                    <ul>
+                        <li>
+                            O Bairro (<strong>Sub-rede</strong>) desta cidade define a localização geral.
+                        </li>
+                        <li>
+                            O Host é uma <strong>casa individual</strong> deste bairro.
+                        </li>
+                        <li>
+                            O Número da casa é o <strong>Endereço de Host</strong>.
+                        </li>
+                    </ul>
+                    <p>Assim como você não pode ter duas casas com o <strong>mesmo número</strong> no mesmo bairro, você
+                        não pode ter dois hosts
+                        com o <strong>mesmo IP</strong> na mesma sub-rede.
+                    </p>
+                    </p>
+
+                    <p>Exemplos de hosts:</p>
+                    <p>Qualquer dispositivo com "inteligência" de rede é um host:</p>
+                    <ul>
+                        <li>
+                            Smartphones e Computadores: <strong>Consomem dados</strong>.
+                        </li>
+                        <li>
+                            Servidores (como o Google ou Netflix): <strong>Fornecem dados para milhões de
+                                pessoas</strong>.
+                        </li>
+                        <li>
+                            Impressora de Rede: <strong>Recebe arquivos para imprimir via Wi-Fi ou cabo</strong>.
+                        </li>
+                    </ul>
+                    <p><strong>Dica:</strong> Se o dispositivo ocupa um "lugar" na tabela de endereços da sua sub-rede,
+                        ele é um host!</p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="broadcast rede comunicacao">
+                <div class="faq-pergunta">
+                    <span>O que é Endereço de Rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>O endereço de rede é o <strong>primeiro endereço IP</strong> de uma sub-rede,
+                        Ele não representa um
+                        aparelho individual (um computador ou celular), mas sim a "<strong>identidade</strong>" da
+                        própria sub-rede onde eles
+                        estão inseridos. É o primeiro endereço de qualquer intervalo e serve para que o mundo externo
+                        saiba como encontrar
+                        aquele conjunto de máquinas.
+                    </p>
+
+                    <p><strong>Analogia:</strong> Imagine que você quer enviar uma carta para uma casa em um bairro
+                        específico.:
+                    <ul>
+                        <li>
+                            O <strong>Endereço de Rede</strong> é como o CEP do bairro.
+                        </li>
+                        <li>Ele não diz exatamente em qual casa a carta deve chegar, mas diz aos correios para qual
+                            região da cidade a carta deve ser enviada.
+                        </li>
+                        <li>
+                            Se o CEP (<strong>Rede</strong>) estiver certo, a carta chega ao bairro; lá dentro, o
+                            carteiro
+                            (<strong>Switch/Roteador Local</strong>) olha o número da casa (<strong>IP do Host</strong>)
+                            para finalizar a entrega.
+                    </ul>
+                    </p>
+
+                    <p><strong>Exemplo:</strong> Vamos usar o IP <strong>172.17.3.11</strong> com a máscara /<strong>22</strong></p>
+                    <ul>
+                        <li>
+                            O endereço de rede deste IP é <strong>172.17.0.0</strong>, isso significa que <strong>qualquer dispositivo
+                            </strong> que comece com essa identificação faz parte da mesma "<strong>comunidade</strong>".
+                        </li>
+                        <li>
+                            É através do endereço de rede que os roteadores da internet decidem para onde encaminhar os
+                            dados antes mesmo de saberem quem é o destinatário final.
+                        </li>
+                    </ul>
+
+                    <p><strong>Por que ele é essencial?</strong>
+                        Sem o endereço de rede, a internet seria um caos. Os roteadores precisariam conhecer o caminho
+                        para cada
+                        bilhão de dispositivos individuais. Com o endereço de rede, eles só precisam saber o caminho
+                        para os "bairros"
+                        (<strong>redes</strong>). Ele permite dividir uma rede grande em <strong>sub-redes menores</strong>. 
+                        Isso ajuda a conter problemas
+                        (como um vírus que se espalha) dentro de um único "bairro", sem afetar a cidade inteira.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="broadcast rede comunicacao">
+                <div class="faq-pergunta">
+                    <span>O que é Endereço de Broadcast?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>
+                        O broadcast é o <strong>último endereço IP</strong> de uma sub-rede,
+                        usado para enviar
+                        dados para <strong>TODOS</strong> os dispositivos da rede ao mesmo tempo.
+                    </p>
+
+                    <p><strong>Analogia:</strong>
+                        Imagine que uma <strong>sub-rede</strong> é um prédio comercial:
+                    <ul>
+                        <li>
+                            <strong>Endereço de Rede</strong>: É o nome do prédio no mapa.
+                        </li>
+                        <li>
+                            <strong>Endereços de Host</strong>: São as salas individuais onde as pessoas trabalham (ex:
+                            Sala 310).
+                            Cada pessoa recebe sua mensagem privada.
+                        </li>
+                        <li>
+                            <strong>Endereço de Broadcast</strong>: É o sistema de alto-falantes instalado em todos os
+                            corredores e salas.
+                        </li>
+                    </ul>
+                    Quando alguém usa o microfone da recepção para anunciar: "<strong>Atenção, o dono do carro placa
+                        XYZ, por favor,
+                        compareça à portaria</strong>", essa mensagem não é enviada para uma pessoa específica. Ela é
+                    transmitida pelo
+                    "<strong>canal de broadcast</strong>" para que todos no prédio ouçam <strong>ao mesmo
+                        tempo</strong>.
+                    </p>
+
+                    <p><strong>Exemplo:</strong>
+                        Uma sub-rede configurada com o endereço <strong>172.17.0.0</strong> /<strong>22</strong>.
+                        Dentro dela, temos o seguinte cenário:</p>
+                    <ul>
+                        <li>
+                            O endereço de rede 172.17.0.0 (<strong>O ponto de partida/identificador do grupo</strong>).
+                        </li>
+                        <li>
+                            O IP de um host (Exemplo): 172.17.3.10 (<strong>Um dispositivo específico, como seu
+                                computador</strong>).
+                        </li>
+                        <li>
+                            O endereço de broadcast <strong>172.17.3.255</strong> (<strong>O ponto final/identificador
+                                de anúncio</strong>).
+                        </li>
+                    </ul>
+                    </p>
+
+                    <p>
+                        Se o computador <strong>172.17.3.10</strong> enviar um pacote de dados para o destino
+                        <strong>172.17.3.255</strong>, ele não está tentando falar
+                        com uma pessoa só. Ele está enviando uma mensagem para <strong>todos os dispositivos</strong>
+                        que estão no intervalo entre <strong>172.17.0.1</strong> e <strong>172.17.3.254</strong>.
+                    </p>
+
+                    <p>
+                        Todo dispositivo conectado a essa rede "<strong>escuta</strong>" dois endereços IP: o seu próprio IP individual
+                        (<strong>host</strong>) e o endereço de broadcast. Se chegar algo para o broadcast, o dispositivo sabe que aquela
+                        informação é do <strong>interesse de todos</strong>.
+                    </p>
+
+                    <p><strong>Por que existe?</strong> 
+                    Sem o endereço de broadcast, um dispositivo novo que entrasse na rede estaria "cego". Ele usa o broadcast para anunciar 
+                    sua presença e perguntar: "<strong>Alguém aí pode me dar um endereço?</strong>" ou "<strong>Onde está a impressora?</strong>". 
+                    Como ele ainda não conhece ninguém, ele envia para o <strong>172.17.3.255</strong> para garantir que todos ouçam seu pedido.
+                    </p>
+
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="mascara subrede identificacao">
+                <div class="faq-pergunta">
+                    <span>O que é Bloco?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>Na internet, os endereços IP não são distribuídos individualmente para cada dispositivo de forma
+                        aleatória.
+                        Eles são entregues em blocos. A "<strong>Máscara de Sub-rede</strong>" é a ferramenta que define
+                        o tamanho desse bloco.
+                    </p>
+                    <p><Strong>Exemplo: </Strong></p>
+                    <ul>
+                        <li>
+                            Máscaras maiores (ex: /<strong>24</strong>): Criam <strong>blocos pequenos</strong>
+                            (<strong>256 IPs</strong>).
+                        </li>
+                        <li>
+                            Máscaras menores (ex: /<strong>16</strong>): Criam <strong>blocos enormes</strong>
+                            (<strong>65.536 IPs</strong>).
+                        </li>
+                    </ul>
+                    <p><strong>Analogia:</strong> Imagine que você é o dono de um grande terreno que cabe exatamente
+                        <strong>256</strong> carros.
+                    </p>
+                    <p>Se você não dividir o terreno, ele é um <strong>bloco único</strong>!</p>
+                    <ul>
+                        <li>
+                            O Bloco: É o espaço do número 0 ao 255.
+                        </li>
+                        <li>
+                            A Máscara: É o "muro" do terreno que diz onde esse bloco termina.
+                        </li>
+                    </ul>
+                    <p><strong>Exemplo:</strong> Vamos usar o endereço IP <strong>192.168.1.45</strong> e o CIDR
+                        /<strong>24</strong></p>
+                    <ul>
+                        <li>
+                            Endereço IP: 192.168.1.45 (É o carro na vaga <strong>45</strong>).
+                        </li>
+                        <li>
+                            O Bloco (Terreno): Vai do <strong>192.168.1.0</strong> até o <strong>192.168.1.255</strong>.
+                        </li>
+                        <li>
+                            A Máscara (O Muro): É o <strong>255.255.255.0</strong> (também chamado de /<strong>24</strong>).
+                        </li>
+                    </ul>
+
+                    <p>Se você mudar para um IP como 192.168.<strong>2</strong>.45, se entende que você pulou o muro e
+                        entrou no terreno vizinho!</p>
+
+                    <p><strong>Por que é importante?</strong></p>
+                    <p>Se a internet não fosse dividida assim, toda vez que você enviasse um WhatsApp, o seu roteador
+                        teria que procurar o celular do seu amigo entre
+                        bilhões de aparelhos.
+                    </p>
+                    <p>Com os <strong>blocos</strong>, o roteador faz igual aos Correios:</p>
+                    <ul>
+                        <li>
+                            "Esse IP pertence ao bloco da Vivo?" -> Sim.
+                        </li>
+                        <li>
+                            "Dentro da Vivo, ele pertence ao bloco da cidade de São Paulo?" -> Sim.
+                        </li>
+                        <li>
+                            "Dentro de SP, ele pertence ao bloco do bairro X?" -> Sim.
+                        </li>
+                    </ul>
+                    <p>Isso torna a entrega de dados rápida e organizada.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="tecnico">
+            <h2 class="categoria-titulo">
+                <div class="icon-binary-small">
+                    <div class="binary-digit">1</div>
+                    <div class="binary-digit">0</div>
+                    <div class="binary-digit">1</div>
+                    <div class="binary-digit">0</div>
+                </div>
+                Nível 3: Conceitos Técnicos
+            </h2>
+            <p class="categoria-desc">Aprofunde-se nas informaçoes e conceitos importantes</p>
+
+            <div class="faq-item" data-tags="bits binario conversao calculo">
+                <div class="faq-pergunta">
+                    <span>Como bits e binários funcionam em redes?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>O que são bits?</strong> Bits são a menor unidade de informação
+                        (<strong>0</strong> ou <strong>1</strong>). Computadores só entendem binário!
+                    </p>
+
+                    <p><strong>Por que isso importa em redes?</strong></p>
+                    <p>Cada número do IP (0-255) é representado por <strong>8 bits</strong> em binário.</p>
+
+                    <p class="exemplo-codigo">
+                        Decimal: 192<br>
+                        Binário: 11000000<br><br>
+
+                        Decimal: 168<br>
+                        Binário: 10101000
+                    </p>
+
+                    <p><strong>Tabela de conversão de pesos (valores de cada posição):</strong></p>
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <th bgcolor="#608b8b">Posição: </th>
+                            <td align="center">128</td>
+                            <td align="center">64</td>
+                            <td align="center">32</td>
+                            <td align="center">16</td>
+                            <td align="center">8</td>
+                            <td align="center">4</td>
+                            <td align="center">2</td>
+                            <td align="center">1</td>
+                        </tr>
+
+                        <tr>
+                            <th bgcolor="#608b8b">Binário: </th>
+                            <td align="center">1</td>
+                            <td align="center">1</td>
+                            <td align="center">0</td>
+                            <td align="center">0</td>
+                            <td align="center">0</td>
+                            <td align="center">0</td>
+                            <td align="center">0</td>
+                            <td align="center">0</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>Como usar:</strong> Some os valores onde tem "1"<br>
+                        128 + 64 = 192
+                    </p>
+
+                    <p><strong>Por que aprender isso?</strong> Para calcular sub-redes manualmente e entender máscaras!
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="bits binario conversao calculo">
+                <div class="faq-pergunta">
+                    <span>O que é um Switch?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    O <strong>switch</strong> é o dispositivo responsável por conectar vários aparelhos, como
+                    computadores, impressoras e servidores, dentro de uma mesma rede, permitindo que eles conversem
+                    entre si de forma organizada e eficiente.
+
+                    <p><strong>Analogia: </strong> Imagine que sua rede é um grande centro empresarial.
+                    <ul>
+                        <li>
+                            O <strong>Switch</strong> é o recepcionista que fica no saguão.
+                        </li>
+                        <li>
+                            Quando uma correspondência chega para a "<strong>Sala 204</strong>", o recepcionista não sai
+                            gritando o
+                            nome do destinatário em todos os andares.
+                        </li>
+                        <li>
+                            Ele consulta sua lista, sabe exatamente onde fica a Sala 204 e entrega o envelope
+                            <strong>apenas lá</strong>.
+                        </li>
+                    </ul>
+                    Isso diferencia o Switch de aparelhos mais antigos e "bobos". Ele guarda uma tabela (chamada
+                    <strong>tabela MAC</strong>) que associa cada porta física a um destinatário específico, garantindo
+                    que a conversa seja privada e direta.
+                    </p>
+
+                    <p><strong>Exemplo direto:</strong> Pense em um escritório de arquitetura:
+                    <ol>
+                        <li>
+                            Um arquiteto termina um projeto e clica para imprimir em uma impressora.
+                        </li>
+                        <li>
+                            O <strong>Switch</strong> recebe esses dados e os envia exclusivamente para a porta onde a
+                            impressora está conectada.
+                        </li>
+                        <li>
+                            Enquanto esse arquivo é transferido, outros dois funcionários podem trocar e-mails ou
+                            acessar
+                            um servidor de arquivos <strong>simultaneamente</strong>.
+                        </li>
+                        <li>
+                            Como o Switch cria "<strong>caminhos dedicados</strong>" momentâneos, ninguém sente
+                            lentidão;
+                            as conversas não se cruzam nem causam "<strong>engarrafamentos</strong>".
+                        </li>
+                    </ol>
+                    </p>
+
+                    <p><strong>Por que o switch é essencial?</strong>
+                        Ele evita que os dados "<strong>batam</strong>" uns nos outros (<strong>colisões</strong>),
+                        permitindo que várias
+                        comunicações ocorram ao mesmo tempo sem perda de performance, fazendo com que aja sigilo nos
+                        dados, pois assim a
+                        informação vai direto para o destino, outros aparelhos conectados ao mesmo Switch não conseguem
+                        "<strong>ouvir</strong>"
+                        ou interceptar o que está sendo enviado.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="pratico">
+            <h2 class="categoria-titulo">
+                <div class="icon-code-run-small">
+                    <div class="code-bracket"></div>
+                    <div class="code-bracket"></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"></div>
+                </div>
+                Nível 4: Aplicação Prática
+            </h2>
+            <p class="categoria-desc">Resolva problemas reais do dia a dia</p>
+
+
+            <div class="faq-item" id="calc-rede" data-tags="calculo manual subrede divisao">
+                <div class="faq-pergunta">
+                    <span>Como calcular Endereço de Rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>Teremos como exemplo o endereço IP <strong>222.125.44.20</strong> (<strong>Classe C</strong>) e a
+                        máscara de sub-rede
+                        /<strong>17</strong>.
+                    </p>
+                    <p><strong>Passo 1:</strong> Converter o Endereço IP em Binário</p>
+
+                    <p>Pegamos a máscara e usamos na tabela de pesos de bit:</p>
+
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <th bgcolor="#608b8b">Posição: </th>
+                            <td align="center">128</td>
+                            <td align="center">64</td>
+                            <td align="center">32</td>
+                            <td align="center">16</td>
+                            <td align="center">8</td>
+                            <td align="center">4</td>
+                            <td align="center">2</td>
+                            <td align="center">1</td>
+                        </tr>
+                    </table>
+
+                    <p>Convertendo o primeiro octeto: Para atingir o valor <strong>222</strong>.</p>
+                    <ul>
+                        <li>
+                            128 + 64 + 32 + 0 + 0 + 0 + 0 + 0 = <strong>224</strong> (Podemos perceber
+                            que o valor excedeu ao que realmente precisamos, vamos refazer a lógica mentalmente para
+                            chegar em 222).
+                            <ul>
+                                <li>
+                                    128 + 64 + 0 + 16 + 8 + 4 + 2 + 0 = <strong>222</strong>
+                                </li>
+                                <li>
+                                    Binário: <strong>11011110</strong> (O <strong>0</strong> significa que não foi usado
+                                    os valores das posições daquele
+                                    bit, ou seja, não usamos nem <strong>32</strong> e nem <strong>1</strong> da
+                                    tabela).
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Convertendo o segundo octeto: Para atingir o valor <strong>125</strong>.</p>
+                    <ul>
+                        <li>
+                            0 + 64 + 32 + 16 + 8 + 4 + 1 = 125
+                        </li>
+                        <li>
+                            Binário: <strong>01111101</strong>.
+                        </li>
+                    </ul>
+
+                    <p>Convertendo o terceiro octeto: Para atingir o valor <strong>44</strong>.</p>
+                    <ul>
+                        <li>
+                            0 + 0 + 32 + 0 + 8 + 4 + 0 + 0 = <strong>44</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>00101100</strong>
+                        </li>
+                    </ul>
+
+                    <p>Convertendo o ultimo octeto: Para atingir o valor <strong>20</strong>.</p>
+                    <ul>
+                        <li>
+                            0 + 0 + 0 + 16 + 0 + 4 + 0 + 0 = <strong>20</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>00010100</strong>
+                        </li>
+                    </ul>
+
+                    <p>Ao juntar os octetos convertidos, obtemos a máscara em binário:
+                        <strong>11011110.01111101.00101100.00010100</strong>
+                    </p>
+
+                    <p><strong>Passo 2:</strong> Converter a Máscara de Sub-rede em Binário</p>
+
+                    <p>Em seguida, convertemos para binário a máscara de sub-rede, que é /17 (17 bits
+                        "<strong>1</strong>" para rede, 15 bits "<strong>0</strong>" para host)</p>
+
+                    <p><strong>Resultado:</strong> 11111111.11111111.10000000.00000000</p>
+
+                    <p><strong>Passo 3:</strong> Encontrar o Endereço de Rede</p>
+
+                    <p>Aplicamos a operação <strong>AND</strong> bit a bit entre o IP e a Máscara binários.
+                    <ul>
+                        <li>
+                            Se ambos os bits forem 1, o resultado é <strong>1</strong>.
+                        </li>
+                        <li>
+                            Em qualquer outro caso (1 e 0, 0 e 1, ou 0 e 0), o resultado é <strong>0</strong>.
+                        </li>
+                    </ul>
+
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <td align="center">11011110.01111101.00101100.00010100</td>
+                            <th bgcolor="#608b8b">(IP)</th>
+                        </tr>
+
+                        <tr>
+                            <td align="center">11111111.11111111.10000000.00000000</td>
+                            <th bgcolor="#608b8b">(Máscara)</th>
+                        </tr>
+                        <tr>
+                            <td align="center">11011110.01111101.00000000.00000000</td>
+                            <th bgcolor="#608b8b">(Resultado)</th>
+                        </tr>
+                    </table>
+                    </p>
+
+                    <p><strong>Passo 4:</strong> Converter de Volta para Decimal</p>
+                    <p>Usando novamente a tabela de pesos de bit, somamos os valores de bit <strong>1</strong>
+                        de cada octeto:
+                    <ul>
+                        <li>
+                            Primeiro octeto (11011110): 128 + 64 + 0 + 16 + 8 + 4 + 2 + 0 = <strong>222</strong>
+                        </li>
+                        <li>
+                            Segundo octeto (01111101): 0 + 64 + 32 + 16 + 8 + 4 + 0 + 1 = <strong>125</strong>
+                        </li>
+                        <li>
+                            Terceiro octeto (00000000): 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 = <strong>0</strong>
+                        </li>
+                        <li>
+                            Quarto octeto (00000000): 0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 = <strong>0</strong>
+                        </li>
+                    </ul>
+                    </p>
+                    <p>Endereço de Rede obtido: <strong>222.125.0.0</strong></p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" id="calc-broadcast" data-tags="calculo manual subrede divisao">
+                <div class="faq-pergunta">
+                    <span>Como calcular Endereço de Broadcast?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>Teremos como exemplo o endereço IP <strong>172.17.0.0</strong> (<strong>Classe B</strong>) e a
+                        máscara de sub-rede /<strong>22</strong>.
+                    </p>
+
+                    <p><strong>Alerta!: </strong> É necessário ter o <strong>endereço de rede</strong> em
+                        <strong>binário</strong> do endereço IP para calcular o broadcast.
+                    </p>
+
+                    <p><strong>Passo 1:</strong> Identificar a Máscara e a Porção de Host</p>
+                    Precisamos da máscara em binário para saber exatamente quais bits pertencem à porção de host
+                    (os bits <strong>0</strong> no final da máscara).
+
+                    <p class="exemplo-codigo">A máscara é /22 (22 bits "<strong>1</strong>" para rede, 10 bits
+                        "<strong>0</strong>" para host)</p>
+                    </p>
+
+                    <p><strong>Resultado: </strong> 11111111.11111111.11111100.00000000</p>
+                    </p>
+
+                    <p><strong>Passo 2:</strong> Transformar todos os Bits de Host em Binário <strong>1</strong></p>
+                    Para encontrar o endereço de broadcast, é necessário ter o endereço de rede calculado, no caso do IP
+                    <strong>172.17.0.0</strong> é:
+                    <strong>10101100.00010001.00000000.00000000</strong>, como citado anteriormente a máscara /22 possui
+                    10 bits para hosts, com isso
+                    o processo se torna garantir que os <strong>últimos 10 bits</strong>, da direita para a esquerda,
+                    sejam bits <strong>1</strong>.
+
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <td align="center">10101100.00010001.00000000.00000000</td>
+                            <th bgcolor="#608b8b">(Endereço de Rede 172.17.0.0)</th>
+                        </tr>
+
+                        <tr>
+                            <td align="center">10101100.00010001.000000<strong>11.11111111</strong></td>
+                            <th bgcolor="#608b8b">(Resultado)</th>
+                        </tr>
+                    </table>
+                    </p>
+
+                    <p><strong>Passo 3: </strong>Converter o Resultado de Volta para Decimal</p>
+                    Pegamos o resultado e usamos na tabela de pesos de bit:
+
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <th bgcolor="#608b8b">Posição: </th>
+                            <td align="center">128</td>
+                            <td align="center">64</td>
+                            <td align="center">32</td>
+                            <td align="center">16</td>
+                            <td align="center">8</td>
+                            <td align="center">4</td>
+                            <td align="center">2</td>
+                            <td align="center">1</td>
+                        </tr>
+                    </table>
+
+                    <ul>
+                        <li>
+                            Primeiro octeto (10101100): 128 + 0 + 32 + 0 + 8 + 4 + 0 + 0 = <strong>172</strong>
+                        </li>
+                        <li>
+                            Segundo octeto (00010001): 0 + 0 + 0 + 16 + 0 + 0 + 0 + 1 = <strong>17</strong>
+                        </li>
+                        <li>
+                            Terceiro octeto (00000011): 0 + 0 + 0 + 0 + 0 + 0 + 2 + 1 = <strong>3</strong>
+                        </li>
+                        <li>
+                            Quarto octeto (11111111): 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = <strong>255</strong>
+                        </li>
+                    </ul>
+
+                    Endereço de Broadcast obtido: <strong>172.17.3.255</strong>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" id="calc-mascara" data-tags="calculo manual subrede divisao">
+                <div class="faq-pergunta">
+                    <span>Como calcular Máscara de Sub-rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Passo 1:</strong> Entender o prefixo CIDR e a estrutura do IP</p>
+                    <p>Um endereço IPv4 tem 32 bits no total, divididos em 4 octetos (<strong>grupos de 8
+                            bits</strong>).
+                        Neste exemplo usaremos o endereço IP <strong>222.125.44.20</strong> e o prefixo CIDR
+                        /<strong>17</strong>.
+                        <br><br>
+                        O /17 nos diz que <strong>17</strong> desses <strong>32</strong> bits são fixados para
+                        identificar a <strong>rede</strong>.
+                        O restante (<strong>32 - 17 = 15</strong>) é usado para identificar os <strong>hosts</strong>
+                        (dispositivos) dentro dessa rede.
+                    </p>
+
+                    <p><strong>Passo 2:</strong> Converter a máscara de rede para binário</p>
+                    <p>A máscara de sub-rede é criada colocando '<strong>1</strong>' em todos os bits de rede e
+                        '<strong>0</strong>' em todos os bits de host.</p>
+
+                    <table class="exemplo-codigo" border="0" align="center">
+                        <tr>
+                            <td nowrap>
+                                Máscara binária = 11111111.11111111.10000000.00000000
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                17 uns (bits de rede) + 15 zeros (bits de host)
+                            </td>
+                        </tr>
+                    </table>
+                    <ul>
+                        <li>
+                            <strong>1º Octeto</strong>: 8 bits de rede (11111111)
+                        </li>
+                        <li>
+                            <strong>2º Octeto</strong>: 8 bits de rede (11111111)
+                        </li>
+                        <li>
+                            <strong>3º Octeto</strong>: 1 bit de rede + 7 bits de host (10000000)
+                        </li>
+                        <li>
+                            <strong>4º Octeto</strong>: 8 bits de host (00000000)
+                        </li>
+                    </ul>
+                    <p><strong>Passo 3:</strong> Converter a máscara de binário para decimal</p>
+                    <p>Agora, convertemos cada octeto binário de volta para o <strong>formato decimal</strong>, usando
+                        os valores de
+                        <strong>potência de 2</strong>
+                        de acordo com a tabela:
+                    </p>
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <th bgcolor="#608b8b">Número de IP possíveis</th>
+                            <td align="center">256</td>
+                            <td align="center">256</td>
+                            <td align="center">256</td>
+                            <td align="center">256</td>
+                            <td align="center">256</td>
+                            <td align="center">256</td>
+                            <td align="center">256</td>
+                            <td align="center">256</td>
+                        </tr>
+
+                        <tr>
+                            <th bgcolor="#608b8b">CIDR</th>
+                            <td align="center">-128 (2<sup>7</sup>)</td>
+                            <td align="center">-64 (2<sup>6</sup>)</td>
+                            <td align="center">-32 (2<sup>5</sup>)</td>
+                            <td align="center">-16 (2<sup>4</sup>)</td>
+                            <td align="center">-8 (2<sup>3</sup>)</td>
+                            <td align="center">-4 (2<sup>2</sup>)</td>
+                            <td align="center">-2 (2<sup>1</sup>)</td>
+                            <td align="center">-1 (2<sup>0</sup>)</td>
+                        </tr>
+
+                        <tr>
+                            <th bgcolor="#608b8b">Máscara variável</th>
+                            <td align="center"><b>128</b></td>
+                            <td align="center"><b>192</b></td>
+                            <td align="center"><b>224</b></td>
+                            <td align="center"><b>240</b></td>
+                            <td align="center"><b>248</b></td>
+                            <td align="center"><b>252</b></td>
+                            <td align="center"><b>254</b></td>
+                            <td align="center"><b>255</b></td>
+                        </tr>
+                    </table>
+
+                    <p>Usando a tabela:</p>
+                    <ul>
+                        <li>
+                            1º Octeto (<strong>11111111</strong>): (<strong>128+64+32+16+8+4+2+1 = 255</strong>).
+                        </li>
+                        <li>
+                            2º Octeto (<strong>11111111</strong>): (<strong>255</strong>).
+                        </li>
+                        <li>
+                            3º Octeto (<strong>10000000</strong>): Apenas o bit de valor 128 está "ligado" (é 1), então
+                            o valor é (<strong>128</strong>).
+                        </li>
+                        <li>
+                            4º Octeto (<strong>00000000</strong>): Todos os bits estão "desligados" (são 0), então o
+                            valor é (<strong>0</strong>).
+                        </li>
+                    </ul>
+                    <p><strong>Resultado</strong>: Juntando os 4 octetos, a máscara de sub-rede calculada para o prefixo
+                        /<strong>17</strong> é <strong>255.255.128.0</strong>.</p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="calculo manual subrede divisao">
+                <div class="faq-pergunta">
+                    <span>Como calcular quantidade de Sub-redes?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Passo 1:</strong> Identificar a fórmula base</p>
+                    <p class="exemplo-codigo">A fórmula para calcular o número de sub-redes é:
+                        <strong><span>2<sup>n</sup></span>
+                    </p></strong></p>
+
+                    <p>Onde <strong>n</strong> é a quantidade de <strong>bits de rede</strong> extras (representados por
+                        <strong>1</strong>) emprestados do octeto que foi "quebrado" ou modificado
+                        na máscara original.
+                    </p>
+
+                    <p><strong>Passo 2:</strong> Transformar em Binário</p>
+                    <p>Teremos como exemplo o endereço IP <strong>172.16.0.0</strong> (<strong>Classe B</strong>) e a
+                        máscara de sub-rede <strong>255.255.192.0</strong></p>
+
+                    <p>Pegamos a máscara e usamos na tabela de pesos de bit:</p>
+
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <th bgcolor="#608b8b">Posição: </th>
+                            <td align="center">128</td>
+                            <td align="center">64</td>
+                            <td align="center">32</td>
+                            <td align="center">16</td>
+                            <td align="center">8</td>
+                            <td align="center">4</td>
+                            <td align="center">2</td>
+                            <td align="center">1</td>
+                        </tr>
+                    </table>
+
+                    <p>Convertendo o primeiro octeto: Para atingir o valor <strong>255</strong>, precisamos que
+                        <strong>todos</strong> os bits estejam "ligados" (valor <strong>1</strong>).
+                    </p>
+                    <ul>
+                        <li>
+                            128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = <strong>255</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>11111111</strong>
+                        </li>
+                    </ul>
+
+                    <p>Como o segundo octeto também é 255, a lógica é a mesma.</p>
+
+                    <p>Convertendo o terceiro octeto: Para atingir o valor <strong>128</strong>, precisamos apenas do
+                        <strong>primeiro bit</strong> ligado.
+                    </p>
+                    <ul>
+                        <li>
+                            128 + 64 + 0 + 0 + 0 + 0 + 0 + 0 = <strong>192</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>11000000</strong>
+                        </li>
+                    </ul>
+
+                    <p>Convertendo o ultimo octeto: Aqui não há muito segredo, para atingir o valor <strong>0</strong>,
+                        precisamos que <strong>todos os bits</strong>
+                        estejam desligados (valor 0).
+                    </p>
+                    <ul>
+                        <li>
+                            0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 = <strong>0</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>00000000</strong>
+                        </li>
+                    </ul>
+
+                    <p>Ao juntar os octetos convertidos, obtemos a máscara em binário:
+                        <strong>11111111.11111111.11000000.00000000</strong>
+                    </p>
+
+                    <p><strong>Passo 3:</strong> Encontrar o valor de n</p>
+                    Devemos olhar para o <strong>octeto quebrado</strong>, que nesse caso é o terceiro octeto
+                    (<strong>11000000</strong>).
+                    <ul>
+                        <li>
+                            Neste octeto, há <strong>dois bits 1</strong> extra que foi emprestado para a porção de
+                            rede.
+                        </li>
+                        <li>
+                            Portanto, n = <strong>2</strong>.
+                        </li>
+                    </ul>
+
+                    <p><strong>Passo 4:</strong> Aplicar na fórmula</p>
+                    <p>Substituímos <strong>n</strong> na fórmula: <strong>2²</strong>, que é igual a
+                        <strong>4</strong>, ou seja: 4 sub-redes.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" id="calc-hosts" data-tags="calculo manual subrede divisao">
+                <div class="faq-pergunta">
+                    <span>Como calcular quantidade de Hosts?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Passo 1:</strong> Identificar a fórmula base</p>
+                    <p class="exemplo-codigo">A fórmula para calcular o número de hosts é:
+                        <strong><span>2<sup>n</sup></span>-2
+                    </p></strong></p>
+
+                    <p>Onde <strong>n</strong> é a quantidade de <strong>bits de host</strong> (representados por
+                        <strong>0</strong>) do octeto,
+                        na máscara original.
+                    </p>
+
+                    <p><strong>Passo 2:</strong> Transformar em Binário</p>
+                    <p>Teremos como exemplo o endereço IP <strong>172.16.0.0</strong> (<strong>Classe B</strong>) e a
+                        máscara de sub-rede
+                        <strong>255.255.192.0</strong>.
+                    </p>
+
+                    <p>Pegamos a máscara e usamos na tabela de pesos de bit:</p>
+
+                    <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
+                        <tr>
+                            <th bgcolor="#608b8b">Posição: </th>
+                            <td align="center">128</td>
+                            <td align="center">64</td>
+                            <td align="center">32</td>
+                            <td align="center">16</td>
+                            <td align="center">8</td>
+                            <td align="center">4</td>
+                            <td align="center">2</td>
+                            <td align="center">1</td>
+                        </tr>
+                    </table>
+
+                    <p>Convertendo o primeiro octeto: Para atingir o valor <strong>255</strong>, precisamos que
+                        <strong>todos</strong> os bits estejam "ligados" (valor <strong>1</strong>).
+                    </p>
+                    <ul>
+                        <li>
+                            128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = <strong>255</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>11111111</strong>
+                        </li>
+                    </ul>
+
+                    <p>Como o segundo octeto também é 255, a lógica é a mesma.</p>
+
+                    <p>Convertendo o terceiro octeto: Para atingir o valor <strong>128</strong>, precisamos apenas do
+                        <strong>primeiro bit</strong> ligado.
+                    </p>
+                    <ul>
+                        <li>
+                            128 + 64 + 0 + 0 + 0 + 0 + 0 + 0 = <strong>192</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>11000000</strong>
+                        </li>
+                    </ul>
+
+                    <p>Convertendo o ultimo octeto: Aqui não há muito segredo, para atingir o valor <strong>0</strong>,
+                        precisamos que <strong>todos os bits</strong>
+                        estejam desligados (valor 0).
+                    </p>
+                    <ul>
+                        <li>
+                            0 + 0 + 0 + 0 + 0 + 0 + 0 + 0 = <strong>0</strong>
+                        </li>
+                        <li>
+                            Binário: <strong>00000000</strong>
+                        </li>
+                    </ul>
+
+                    <p>Ao juntar os octetos convertidos, obtemos a máscara em binário:
+                        <strong>11111111.11111111.11000000.00000000</strong>
+                    </p>
+
+                    <p><strong>Passo 3:</strong> Encontrar o valor de n</p>
+                    Contando a <strong>quantidade total</strong> de números <strong>0</strong> que nesse caso começa no
+                    terceiro octeto, temos que n = <strong>14</strong>.
+
+                    <p><strong>Passo 4:</strong> Aplicar na fórmula</p>
+                    <p>Substituímos <strong>n</strong> na fórmula: <strong><span>2<sup>14</sup></span>-2</strong>, que é
+                        igual a <strong>16.382</strong>, ou seja: 16.382 hosts.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="curiosidades">
+            <h2 class="categoria-titulo">
+                <div class="question-mark-icon">?</div>
+                Nível 5: Curiosidades e Extras
+            </h2>
+            <p class="categoria-desc">Entenda conceitos extras e dúvidas do dia-a-dia</p>
+
+
+            <div class="faq-item" data-tags="escolher mascara tamanho rede">
+                <div class="faq-pergunta">
+                    <span>Quando usar /24, /26 ou /27?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Escolha baseada no número de dispositivos:</strong></p>
+
+                    <p><strong>/24 (255.255.255.0) = 254 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Redes grandes (empresa média, escola)</li>
+                        <li>Exemplo: 200 computadores + impressoras + servidores</li>
+                    </ul>
+
+                    <p><strong>/26 (255.255.255.192) = 62 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Departamentos, pequenas empresas</li>
+                        <li>Exemplo: 50 dispositivos em um setor</li>
+                    </ul>
+
+                    <p><strong>/27 (255.255.255.224) = 30 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Equipes pequenas, salas específicas</li>
+                        <li>Exemplo: 25 computadores em uma sala</li>
+                    </ul>
+
+                    <p><strong>/30 (255.255.255.252) = 2 hosts</strong></p>
+                    <ul>
+                        <li>Use para: Conexões ponto-a-ponto entre roteadores</li>
+                        <li>Exemplo: Ligar dois roteadores (não desperdicia IPs)</li>
+                    </ul>
+
+                    <p><strong>Dica:</strong> Sempre deixe espaço pra crescimento! Se precisa de 50 hosts hoje, use /26
+                        (62 hosts), não /27 (30 hosts).</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="escolher cidr planejamento rede">
+                <div class="faq-pergunta">
+                    <span>Como escolher a máscara certa para minha rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>Passo a passo para decidir:</strong></p>
+
+                    <p><strong>1. Conte os dispositivos</strong></p>
+                    <ul>
+                        <li>Computadores</li>
+                        <li>Celulares/tablets</li>
+                        <li>Impressoras</li>
+                        <li>Servidores</li>
+                        <li>IoT (câmeras, sensores)</li>
+                    </ul>
+
+                    <p><strong>2. Adicione margem de crescimento (30-50%)</strong></p>
+                    <p>Exemplo: 40 dispositivos hoje → planeje para 60</p>
+
+                    <p><strong>3. Escolha o CIDR que comporta</strong></p>
+                    <p class="exemplo-codigo">
+                        Preciso de 60 hosts → /26 (62 hosts) ✓<br>
+                        Preciso de 100 hosts → /25 (126 hosts) ✓<br>
+                        Preciso de 20 hosts → /27 (30 hosts) ✓
+                    </p>
+
+                    <p><strong>4. Considere segmentação</strong></p>
+                    <p>Melhor: 4 sub-redes /27 (30 hosts cada)<br>
+                        Do que: 1 rede /24 (254 hosts) bagunçada</p>
+
+                    <p><strong>Regra de ouro:</strong> Nem muito grande (desperdício) nem muito pequeno (sem espaço pra
+                        crescer)!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="publica privada diferenca tipo">
+                <div class="faq-pergunta">
+                    <span>Qual a diferença entre IP público e privado?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>IP Público:</strong></p>
+                    <ul>
+                        <li>Único em toda a Internet (não pode repetir)</li>
+                        <li>Fornecido pelo provedor de Internet</li>
+                        <li>Acessível de qualquer lugar do mundo</li>
+                        <li>Usado por servidores web, sites</li>
+                        <li>Exemplo: 200.150.10.50</li>
+                    </ul>
+
+                    <p><strong>IP Privado:</strong></p>
+                    <ul>
+                        <li>Usado apenas DENTRO da sua rede local</li>
+                        <li>Pode repetir em outras redes (não tem problema!)</li>
+                        <li>NÃO funciona diretamente na Internet</li>
+                        <li>Usado em casas, empresas, escolas</li>
+                    </ul>
+
+                    <p><strong>Como se conectam?</strong> Através de NAT (Network Address Translation) no roteador, que
+                        "traduz" IPs privados pra públicos.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="dhcp ip automatico dinamico">
+                <div class="faq-pergunta">
+                    <span>O que é DHCP e como funciona?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>DHCP = Dynamic Host Configuration Protocol</strong></p>
+
+                    <p><strong>O que faz?</strong> Distribui IPs automaticamente para dispositivos que se conectam à
+                        rede.</p>
+                    
+                    <ul>
+                        <li>
+                            <strong>Sem DHCP:</strong> Você teria que configurar IP manualmente em CADA dispositivo (chato!)
+                        </li>
+                        <li>
+                            <strong>Com DHCP:</strong> Conectou no Wi-Fi? Pronto, já ganhou um IP automaticamente!
+                        </li>
+                    </ul>
+
+                    <p><strong>Como funciona (simplificado):</strong></p>
+                    <ol>
+                        <li>Dispositivo se conecta: "<strong>Oi! Preciso de um IP!</strong>"</li>
+                        <li>Servidor DHCP: "<strong>Aqui está: 192.168.1.50</strong>"</li>
+                        <li>Dispositivo: "Obrigado!" (usa esse IP)</li>
+                        <li>Quando desconecta, o IP volta pro "pool" de disponíveis</li>
+                    </ol>
+
+                    <p><strong>Informações distribuídas pelo DHCP:</strong></p>
+                    <ul>
+                        <li>Endereço IP</li>
+                        <li>Máscara de sub-rede</li>
+                        <li>Gateway padrão</li>
+                        <li>Servidores DNS</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="../js/menu.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/aprendizado.js"></script>
+</body>
+
+</html>

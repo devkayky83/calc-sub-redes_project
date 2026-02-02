@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calc Sub-Redes</title>
+
+    <link rel="stylesheet" href="css/main_page.css">
+    <link rel="stylesheet" href="css/menu.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Ajuste do container principal para receber a calculadora */
+        .main-container {
+            padding: 20px;
+            margin-left: 250px; /* Espaço para o menu lateral */
+            transition: margin-left 0.3s;
+            width: calc(100% - 250px);
+        }
+        
+        /* Em telas menores (celular), o menu some e o conteúdo ocupa tudo */
+        @media (max-width: 768px) {
+            .main-container {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="menu-toggle" class="menu-toggle">
+        <span>☰</span>
+    </button>
+
+    <div class="theme-switch-container">
+        <span class="theme-icon sun">☀️</span>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <span class="theme-icon moon">🌙</span>
+    </div>
+
+    <nav id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="title-ipv4">
+                <span class="ip-octet">CALC</span><span class="ip-dot">.</span><span class="ip-octet">SUB</span><span
+                    class="ip-dot">.</span><span class="ip-octet">RE</span><span class="ip-dot">.</span><span
+                    class="ip-octet">DES</span>
+            </h2>
+        </div>
+        <ul class="menu-items">
+    <li>
+        <a href="index.html" class="active">
+            <span class="diamond"></span> Cálculo
+        </a>
+    </li>
+    
+    <li>
+        <a href="pages/aprendizado.html">
+            <span class="diamond"></span> Aprendizado
+        </a>
+    </li>
+</ul>
+
+        <div class="flask-badge">
+            <a href="https://flask.palletsprojects.com/" target="_blank" rel="noopener" aria-label="Built with Flask">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg" alt="Flask Logo">
+                <span>Built with Flask</span>
+            </a>
+        </div>
+    </nav>
+
+    <div id="main-container" class="main-container">
+        
+        <div class="ip-flow-background" id="ipFlowBg"></div>
+
+        <div class="fade-in-bottom">
+            <h1 class="title-glow-subtle" style="text-align: center; margin-top: 20px;">Calc Sub-rede</h1>
+
+            <div class="input-row-container" style="justify-content: center; margin-top: 30px;">
+                <div class="input-group">
+                    <label>Endereço IP (Base /24):</label>
+                    <input class="input-dados" type="text" id="ip" placeholder="Ex: 192.168.10.0" autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label>Quantidade de Sub-redes:</label>
+                    <input class="input-dados" type="number" id="qtd" placeholder="Ex: 4" min="1">
+                </div>
+
+                <button class="calc-button-side" onclick="calcularSubredes()">Calcular</button>
+            </div>
+        </div>
+
+        <div class="mensagem-erro fade-in-bottom" id="mensagem-erro" style="text-align: center; margin: 20px auto;"></div>
+
+        <div id="visualizacao-container" style="display:none; margin-top: 30px;">
+            <h2 style="text-align:center; color:#00ff96; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">Topologia da Rede</h2>
+            <div id="mynetwork" style="width: 95%; max-width: 1200px; height: 550px; margin: 20px auto; background-color: rgba(255, 255, 255, 0.02); border: 2px solid rgba(0, 217, 255, 0.2); border-radius: 15px;"></div>
+        </div>
+
+        <div id="titulo-tabela-container" style="display:none; text-align:center; margin-top: 40px; margin-bottom: 10px;">
+             <h2 style="color:#00ff96; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">Tabela de Sub-rede</h2>
+        </div>
+
+        <div id="resultado"></div>
+
+    </div>
+
+    <script src="js/menu.js"></script>
+    <script src="js/theme.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="js/calculo.js"></script>
+</body>
+
+</html>
