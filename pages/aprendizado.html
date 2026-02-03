@@ -61,19 +61,22 @@
                     </p>
 
                     <p><strong>Analogia:</strong> Pense na rede como o sistema de infraestrutura de uma cidade:
-                        <ul>
-                            <li>
-                                Os <strong>Dispositivos</strong> (<strong>Hosts</strong>): São as casas e estabelecimentos comerciais 
-                                que precisam de serviços.
-                            </li>
-                            <li>
-                                Os <strong>Cabos/Wi-Fi</strong>: São os encanamentos e fiações que levam o recurso de um ponto ao outro.
-                            </li>
-                            <li>
-                                Os <strong>Dados</strong>: São o "<strong>recurso</strong>" (água, luz, gás) que flui constantemente para 
-                                atender às demandas de cada ponto da cidade.
-                            </li>
-                        </ul>
+                    <ul>
+                        <li>
+                            Os <strong>Dispositivos</strong> (<strong>Hosts</strong>): São as casas e estabelecimentos
+                            comerciais
+                            que precisam de serviços.
+                        </li>
+                        <li>
+                            Os <strong>Cabos/Wi-Fi</strong>: São os encanamentos e fiações que levam o recurso de um
+                            ponto ao outro.
+                        </li>
+                        <li>
+                            Os <strong>Dados</strong>: São o "<strong>recurso</strong>" (água, luz, gás) que flui
+                            constantemente para
+                            atender às demandas de cada ponto da cidade.
+                        </li>
+                    </ul>
                     </p>
 
                     <p><strong>Exemplos práticos:</strong></p>
@@ -84,6 +87,152 @@
                     </ul>
                 </div>
             </div>
+
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>O que é Máscara de Rede?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>A <strong>Máscara de rede</strong> é um número que funciona como um "<strong>filtro</strong>"
+                        para separar um
+                        endereço IP em duas partes lógicas e fundamentais:
+                    <ul>
+                        <li>
+                            <strong>Parte da Rede:</strong> Identifica a qual rede ou sub-rede o dispositivo pertence =
+                            <strong>Bits "1"</strong>.
+                        </li>
+                        <li>
+                            <strong>Parte do Host:</strong> Identifica o dispositivo espécifico dentro dessa rede =
+                            <strong>Bits "0"</strong>.
+                        </li>
+                    </ul>
+
+                    <p>
+                        A máscara de rede é geralmente representada em notação decimal pontilhada <strong>(ex:
+                            255.255.255.0)</strong> mas em binário é que sua função
+                        fica clara:
+                    </p>
+
+                    <ul class="exemplo-codigo">
+                        <strong>Classe A:</strong>
+                        <br><br>
+                        Primeiro Octeto: 1 a 127
+                        <br><br>
+                        Endereço IP em Binário: 11111111.00000000.00000000.00000000 | Prática: Possui 24 números 0, ou
+                        seja 24 Bits disponíveis para hosts.
+                        <br><br>
+                        Endereço IP em Decimal: 255.0.0.0
+                    </ul>
+
+                    <ul class="exemplo-codigo">
+                        <strong>Classe B:</strong>
+                        <br><br>
+                        Primeiro Octeto: 128 a 191
+                        <br><br>
+                        Endereço IP em Binário: 11111111.11111111.00000000.00000000 | Prática: Possui 16 números 0, ou
+                        seja 16 Bits disponíveis para hosts.
+                        <br><br>
+                        Endereço IP em Decimal: 255.255.0.0
+                    </ul>
+
+                    <ul class="exemplo-codigo">
+                        <strong>Classe C:</strong>
+                        <br><br>
+                        Primeiro Octeto: 192 a 223
+                        <br><br>
+                        Endereço IP em Binário: 11111111.11111111.11111111.00000000 | Prática: Possui 8 números 0, ou
+                        seja 8 Bits disponíveis para hosts.
+                        <br><br>
+                        Endereço IP em Decimal: 255.255.255.0
+                    </ul>
+
+                    <p>
+                        <strong>Por que é importante?:</strong> A máscara é essencial porque permite que os equipamentos
+                        (como computadores e roteadores) determinem
+                        se o dispositivo com o qual estão tentando se comunicar está na mesma rede local ou se está em
+                        uma rede diferente.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-tags="bits binario conversao calculo">
+                <div class="faq-pergunta">
+                    <span>O que é um Switch?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    O <strong>switch</strong> é o dispositivo responsável por conectar vários aparelhos, como
+                    computadores, impressoras e servidores, dentro de uma mesma rede, permitindo que eles conversem
+                    entre si de forma organizada e eficiente.
+
+                    <p><strong>Analogia: </strong> Imagine que sua rede é um grande centro empresarial.
+                    <ul>
+                        <li>
+                            O <strong>Switch</strong> é o recepcionista que fica no saguão.
+                        </li>
+                        <li>
+                            Quando uma correspondência chega para a "<strong>Sala 204</strong>", o recepcionista não sai
+                            gritando o
+                            nome do destinatário em todos os andares.
+                        </li>
+                        <li>
+                            Ele consulta sua lista, sabe exatamente onde fica a Sala 204 e entrega o envelope
+                            <strong>apenas lá</strong>.
+                        </li>
+                    </ul>
+                    Isso diferencia o Switch de aparelhos mais antigos e "bobos". Ele guarda uma tabela (chamada
+                    <strong>tabela MAC</strong>) que associa cada porta física a um destinatário específico, garantindo
+                    que a conversa seja privada e direta.
+                    </p>
+
+                    <p><strong>Exemplo direto:</strong> Pense em um escritório de arquitetura:
+                    <ol>
+                        <li>
+                            Um arquiteto termina um projeto e clica para imprimir em uma impressora.
+                        </li>
+                        <li>
+                            O <strong>Switch</strong> recebe esses dados e os envia exclusivamente para a porta onde a
+                            impressora está conectada.
+                        </li>
+                        <li>
+                            Enquanto esse arquivo é transferido, outros dois funcionários podem trocar e-mails ou
+                            acessar
+                            um servidor de arquivos <strong>simultaneamente</strong>.
+                        </li>
+                        <li>
+                            Como o Switch cria "<strong>caminhos dedicados</strong>" momentâneos, ninguém sente
+                            lentidão;
+                            as conversas não se cruzam nem causam "<strong>engarrafamentos</strong>".
+                        </li>
+                    </ol>
+                    </p>
+
+                    <p><strong>Por que o switch é essencial?</strong>
+                        Ele evita que os dados "<strong>batam</strong>" uns nos outros (<strong>colisões</strong>),
+                        permitindo que várias
+                        comunicações ocorram ao mesmo tempo sem perda de performance, fazendo com que aja sigilo nos
+                        dados, pois assim a
+                        informação vai direto para o destino, outros aparelhos conectados ao mesmo Switch não conseguem
+                        "<strong>ouvir</strong>"
+                        ou interceptar o que está sendo enviado.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="categoria" data-nivel="subredes">
+            <h2 class="categoria-titulo">
+                <div class="icon-network-divide-small">
+                    <div class="network-main"></div>
+                    <div class="subnet-piece"></div>
+                    <div class="subnet-piece"></div>
+                    <div class="subnet-piece"></div>
+                </div>
+                Nível 2: Sub-redes e Divisão
+            </h2>
+            <p class="categoria-desc">Entenda como dividir redes em partes menores</p>
 
             <div class="faq-item" data-tags="ip endereco identificacao">
                 <div class="faq-pergunta">
@@ -183,13 +332,41 @@
                         </p>
 
                         <p>
-                            <strong>Analogia: </strong>As classes A, B e C são "<strong>bairros inteiros</strong>", 
+                            <strong>Analogia: </strong>As classes A, B e C são "<strong>bairros inteiros</strong>",
                             enquanto Os IPsprivados são apenas
-                            "<strong>algumas casas específicas</strong>" dentro de cada bairro que foram reservadas para uso interno.
+                            "<strong>algumas casas específicas</strong>" dentro de cada bairro que foram reservadas para
+                            uso interno.
                         </p>
                     </div>
                 </div>
             </div>
+
+
+            <div class="faq-item" data-tags="publica privada diferenca tipo">
+                <div class="faq-pergunta">
+                    <span>Qual a diferença entre IP público e privado?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p><strong>IP Público:</strong></p>
+                    <ul>
+                        <li>Único em toda a Internet (<strong>não pode repetir</strong>)</li>
+                        <li>Fornecido pelo provedor de Internet</li>
+                        <li>Acessível de qualquer lugar do mundo</li>
+                        <li>Usado por servidores web, sites</li>
+                        <li>Exemplo: <strong>200.150.10.50</strong></li>
+                    </ul>
+
+                    <p><strong>IP Privado:</strong></p>
+                    <ul>
+                        <li>Usado apenas DENTRO da sua rede local</li>
+                        <li>Pode repetir em outras redes (<strong>não tem problema!</strong>)</li>
+                        <li>NÃO funciona diretamente na Internet</li>
+                        <li>Usado em casas, empresas, escolas</li>
+                    </ul>
+                </div>
+            </div>
+
 
             <div class="faq-item" data-tags="classes ip tipos range">
                 <div class="faq-pergunta">
@@ -236,134 +413,6 @@
                 </div>
             </div>
 
-            <div class="faq-item" data-tags="classes ip tipos range">
-                <div class="faq-pergunta">
-                    <span>O que é Máscara de Rede?</span>
-                    <span class="toggle-icon">+</span>
-                </div>
-                <div class="faq-resposta">
-                    <p>A <strong>Máscara de rede</strong> é um número que funciona como um "<strong>filtro</strong>" para separar um
-                        endereço IP em duas partes lógicas e fundamentais:
-                    <ul>
-                        <li>
-                            <strong>Parte da Rede:</strong> Identifica a qual rede ou sub-rede o dispositivo pertence =
-                            <strong>Bits "1"</strong>.
-                        </li>
-                        <li>
-                            <strong>Parte do Host:</strong> Identifica o dispositivo espécifico dentro dessa rede =
-                            <strong>Bits "0"</strong>.
-                        </li>
-                    </ul>
-
-                    <p>
-                        A máscara de rede é geralmente representada em notação decimal pontilhada <strong>(ex:
-                            255.255.255.0)</strong> mas em binário é que sua função
-                        fica clara:
-                    </p>
-
-                    <ul class="exemplo-codigo">
-                        <strong>Classe A:</strong>
-                        <br><br>
-                        Primeiro Octeto: 1 a 127
-                        <br><br>
-                        Endereço IP em Binário: 11111111.00000000.00000000.00000000 | Prática: Possui 24 números 0, ou
-                        seja 24 Bits disponíveis para hosts.
-                        <br><br>
-                        Endereço IP em Decimal: 255.0.0.0
-                    </ul>
-
-                    <ul class="exemplo-codigo">
-                        <strong>Classe B:</strong>
-                        <br><br>
-                        Primeiro Octeto: 128 a 191
-                        <br><br>
-                        Endereço IP em Binário: 11111111.11111111.00000000.00000000 | Prática: Possui 16 números 0, ou
-                        seja 16 Bits disponíveis para hosts.
-                        <br><br>
-                        Endereço IP em Decimal: 255.255.0.0
-                    </ul>
-
-                    <ul class="exemplo-codigo">
-                        <strong>Classe C:</strong>
-                        <br><br>
-                        Primeiro Octeto: 192 a 223
-                        <br><br>
-                        Endereço IP em Binário: 11111111.11111111.11111111.00000000 | Prática: Possui 8 números 0, ou
-                        seja 8 Bits disponíveis para hosts.
-                        <br><br>
-                        Endereço IP em Decimal: 255.255.255.0
-                    </ul>
-
-                    <p>
-                        <strong>Por que é importante?:</strong> A máscara é essencial porque permite que os equipamentos
-                        (como computadores e roteadores) determinem
-                        se o dispositivo com o qual estão tentando se comunicar está na mesma rede local ou se está em
-                        uma rede diferente.
-                    </p>
-                </div>
-            </div>
-
-
-            <div class="faq-item" data-tags="classes ip tipos range">
-                <div class="faq-pergunta">
-                    <span>O que é Gateway?</span>
-                    <span class="toggle-icon">+</span>
-                </div>
-                <div class="faq-resposta">
-                    <p>Um <strong>Gateway</strong> é um endereço que serve como o <strong>ponto de saida</strong>
-                        e <strong>entrada</strong> para dados que viajam entre redes diferentes.
-                    </p>
-
-                    <p><strong>Analogia:</strong> Pense nele como um tradutor universal: se o seu computador fala
-                        "Português"
-                        (rede local) e o site que você quer acessar fala "Inglês" (Internet), o gateway traduz os
-                        protocolos
-                        para que a comunicação ocorra sem erros.
-                    </p>
-
-                    <p><strong>Exemplo:</strong> Em redes domésticas, o endereço do gateway costuma ser o primeiro da
-                        sub-rede
-                        (como <strong>192.168.0.1</strong> ou <strong>192.168.1.1</strong>).
-                    </p>
-
-                    <p><strong>Exemplos de Uso:</strong></p>
-
-                    <ul>
-                        <li>
-                            Conectar a sua rede à internet: O seu roteador doméstico funciona como o gateway padrão
-                            (Default Gateway) que permite que seus dispositivos acessem a rede mundial.
-                        </li>
-                        <li>
-                            Segurança e Filtragem: Atuar filtrando o tráfego que entra ou sai para proteger
-                            a rede interna contra ameaças.
-                        </li>
-                        <li>
-                            Gerenciar APIs: Em desenvolvimento de software, um API Gateway é usado para centralizar e
-                            gerenciar
-                            chamadas de diferentes serviços de back-end em um único ponto de entrada.
-                        </li>
-                    </ul>
-
-                    <p><strong>Dica:</strong> O gateway pode ser qualquer IP! contanto que pertença a mesma
-                        <strong>sub-rede</strong> e
-                        não seja um <strong>IP reservado</strong> (Endereço de rede, Endereço de broadcast, etc).
-                    </p>
-
-                </div>
-            </div>
-        </section>
-
-        <section class="categoria" data-nivel="subredes">
-            <h2 class="categoria-titulo">
-                <div class="icon-network-divide-small">
-                    <div class="network-main"></div>
-                    <div class="subnet-piece"></div>
-                    <div class="subnet-piece"></div>
-                    <div class="subnet-piece"></div>
-                </div>
-                Nível 2: Sub-redes e Divisão
-            </h2>
-            <p class="categoria-desc">Entenda como dividir redes em partes menores</p>
 
             <div class="faq-item" data-tags="subrede divisao segmentacao">
                 <div class="faq-pergunta">
@@ -427,7 +476,8 @@
                             O <strong>Endereço IP</strong>: Av. Paulista, 1000 - Apto 51.
                         </li>
                         <li>
-                            A <strong>Máscara de Sub-rede</strong>: É o <strong>divisor</strong> que separa o <strong>endereço da
+                            A <strong>Máscara de Sub-rede</strong>: É o <strong>divisor</strong> que separa o
+                            <strong>endereço da
                                 rede</strong>
                             (o edifício) do <strong>endereço do host</strong> (o apartamento).
                             <ul>
@@ -455,7 +505,7 @@
                     </p>
                     <br>
                     <p><strong>Exemplo:</strong>
-                        Considere um computador com o IP <strong>192.168.1.10</strong> e a máscara /<strong>24</strong> 
+                        Considere um computador com o IP <strong>192.168.1.10</strong> e a máscara /<strong>24</strong>
                         (<strong>255.255.255.0</strong>).
                         A máscara indica que os primeiros três octetos
                         (<strong>192.168.1</strong>)
@@ -609,11 +659,14 @@
                     </ul>
                     </p>
 
-                    <p><strong>Exemplo:</strong> Vamos usar o IP <strong>172.17.3.11</strong> com a máscara /<strong>22</strong></p>
+                    <p><strong>Exemplo:</strong> Vamos usar o IP <strong>172.17.3.11</strong> com a máscara
+                        /<strong>22</strong></p>
                     <ul>
                         <li>
-                            O endereço de rede deste IP é <strong>172.17.0.0</strong>, isso significa que <strong>qualquer dispositivo
-                            </strong> que comece com essa identificação faz parte da mesma "<strong>comunidade</strong>".
+                            O endereço de rede deste IP é <strong>172.17.0.0</strong>, isso significa que
+                            <strong>qualquer dispositivo
+                            </strong> que comece com essa identificação faz parte da mesma
+                            "<strong>comunidade</strong>".
                         </li>
                         <li>
                             É através do endereço de rede que os roteadores da internet decidem para onde encaminhar os
@@ -626,7 +679,8 @@
                         para cada
                         bilhão de dispositivos individuais. Com o endereço de rede, eles só precisam saber o caminho
                         para os "bairros"
-                        (<strong>redes</strong>). Ele permite dividir uma rede grande em <strong>sub-redes menores</strong>. 
+                        (<strong>redes</strong>). Ele permite dividir uma rede grande em <strong>sub-redes
+                            menores</strong>.
                         Isso ajuda a conter problemas
                         (como um vírus que se espalha) dentro de um único "bairro", sem afetar a cidade inteira.
                     </p>
@@ -696,17 +750,69 @@
                     </p>
 
                     <p>
-                        Todo dispositivo conectado a essa rede "<strong>escuta</strong>" dois endereços IP: o seu próprio IP individual
-                        (<strong>host</strong>) e o endereço de broadcast. Se chegar algo para o broadcast, o dispositivo sabe que aquela
+                        Todo dispositivo conectado a essa rede "<strong>escuta</strong>" dois endereços IP: o seu
+                        próprio IP individual
+                        (<strong>host</strong>) e o endereço de broadcast. Se chegar algo para o broadcast, o
+                        dispositivo sabe que aquela
                         informação é do <strong>interesse de todos</strong>.
                     </p>
 
-                    <p><strong>Por que existe?</strong> 
-                    Sem o endereço de broadcast, um dispositivo novo que entrasse na rede estaria "cego". Ele usa o broadcast para anunciar 
-                    sua presença e perguntar: "<strong>Alguém aí pode me dar um endereço?</strong>" ou "<strong>Onde está a impressora?</strong>". 
-                    Como ele ainda não conhece ninguém, ele envia para o <strong>172.17.3.255</strong> para garantir que todos ouçam seu pedido.
+                    <p><strong>Por que existe?</strong>
+                        Sem o endereço de broadcast, um dispositivo novo que entrasse na rede estaria "cego". Ele usa o
+                        broadcast para anunciar
+                        sua presença e perguntar: "<strong>Alguém aí pode me dar um endereço?</strong>" ou "<strong>Onde
+                            está a impressora?</strong>".
+                        Como ele ainda não conhece ninguém, ele envia para o <strong>172.17.3.255</strong> para garantir
+                        que todos ouçam seu pedido.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="faq-item" data-tags="classes ip tipos range">
+                <div class="faq-pergunta">
+                    <span>O que é Gateway?</span>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="faq-resposta">
+                    <p>Um <strong>Gateway</strong> é um endereço que serve como o <strong>ponto de saida</strong>
+                        e <strong>entrada</strong> para dados que viajam entre redes diferentes.
                     </p>
 
+                    <p><strong>Analogia:</strong> Pense nele como um tradutor universal: se o seu computador fala
+                        "Português"
+                        (rede local) e o site que você quer acessar fala "Inglês" (Internet), o gateway traduz os
+                        protocolos
+                        para que a comunicação ocorra sem erros.
+                    </p>
+
+                    <p><strong>Exemplo:</strong> Em redes domésticas, o endereço do gateway costuma ser o primeiro da
+                        sub-rede
+                        (como <strong>192.168.0.1</strong> ou <strong>192.168.1.1</strong>).
+                    </p>
+
+                    <p><strong>Exemplos de Uso:</strong></p>
+
+                    <ul>
+                        <li>
+                            Conectar a sua rede à internet: O seu roteador doméstico funciona como o gateway padrão
+                            (Default Gateway) que permite que seus dispositivos acessem a rede mundial.
+                        </li>
+                        <li>
+                            Segurança e Filtragem: Atuar filtrando o tráfego que entra ou sai para proteger
+                            a rede interna contra ameaças.
+                        </li>
+                        <li>
+                            Gerenciar APIs: Em desenvolvimento de software, um API Gateway é usado para centralizar e
+                            gerenciar
+                            chamadas de diferentes serviços de back-end em um único ponto de entrada.
+                        </li>
+                    </ul>
+
+                    <p><strong>Dica:</strong> O gateway pode ser qualquer IP! contanto que pertença a mesma
+                        <strong>sub-rede</strong> e
+                        não seja um <strong>IP reservado</strong> (Endereço de rede, Endereço de broadcast, etc).
+                    </p>
                 </div>
             </div>
 
@@ -755,7 +861,8 @@
                             O Bloco (Terreno): Vai do <strong>192.168.1.0</strong> até o <strong>192.168.1.255</strong>.
                         </li>
                         <li>
-                            A Máscara (O Muro): É o <strong>255.255.255.0</strong> (também chamado de /<strong>24</strong>).
+                            A Máscara (O Muro): É o <strong>255.255.255.0</strong> (também chamado de
+                            /<strong>24</strong>).
                         </li>
                     </ul>
 
@@ -852,70 +959,6 @@
                     </p>
                 </div>
             </div>
-
-            <div class="faq-item" data-tags="bits binario conversao calculo">
-                <div class="faq-pergunta">
-                    <span>O que é um Switch?</span>
-                    <span class="toggle-icon">+</span>
-                </div>
-                <div class="faq-resposta">
-                    O <strong>switch</strong> é o dispositivo responsável por conectar vários aparelhos, como
-                    computadores, impressoras e servidores, dentro de uma mesma rede, permitindo que eles conversem
-                    entre si de forma organizada e eficiente.
-
-                    <p><strong>Analogia: </strong> Imagine que sua rede é um grande centro empresarial.
-                    <ul>
-                        <li>
-                            O <strong>Switch</strong> é o recepcionista que fica no saguão.
-                        </li>
-                        <li>
-                            Quando uma correspondência chega para a "<strong>Sala 204</strong>", o recepcionista não sai
-                            gritando o
-                            nome do destinatário em todos os andares.
-                        </li>
-                        <li>
-                            Ele consulta sua lista, sabe exatamente onde fica a Sala 204 e entrega o envelope
-                            <strong>apenas lá</strong>.
-                        </li>
-                    </ul>
-                    Isso diferencia o Switch de aparelhos mais antigos e "bobos". Ele guarda uma tabela (chamada
-                    <strong>tabela MAC</strong>) que associa cada porta física a um destinatário específico, garantindo
-                    que a conversa seja privada e direta.
-                    </p>
-
-                    <p><strong>Exemplo direto:</strong> Pense em um escritório de arquitetura:
-                    <ol>
-                        <li>
-                            Um arquiteto termina um projeto e clica para imprimir em uma impressora.
-                        </li>
-                        <li>
-                            O <strong>Switch</strong> recebe esses dados e os envia exclusivamente para a porta onde a
-                            impressora está conectada.
-                        </li>
-                        <li>
-                            Enquanto esse arquivo é transferido, outros dois funcionários podem trocar e-mails ou
-                            acessar
-                            um servidor de arquivos <strong>simultaneamente</strong>.
-                        </li>
-                        <li>
-                            Como o Switch cria "<strong>caminhos dedicados</strong>" momentâneos, ninguém sente
-                            lentidão;
-                            as conversas não se cruzam nem causam "<strong>engarrafamentos</strong>".
-                        </li>
-                    </ol>
-                    </p>
-
-                    <p><strong>Por que o switch é essencial?</strong>
-                        Ele evita que os dados "<strong>batam</strong>" uns nos outros (<strong>colisões</strong>),
-                        permitindo que várias
-                        comunicações ocorram ao mesmo tempo sem perda de performance, fazendo com que aja sigilo nos
-                        dados, pois assim a
-                        informação vai direto para o destino, outros aparelhos conectados ao mesmo Switch não conseguem
-                        "<strong>ouvir</strong>"
-                        ou interceptar o que está sendo enviado.
-                    </p>
-                </div>
-            </div>
         </section>
 
         <section class="categoria" data-nivel="pratico">
@@ -938,7 +981,8 @@
                     <span class="toggle-icon">+</span>
                 </div>
                 <div class="faq-resposta">
-                    <p>Teremos como exemplo o endereço IP <strong>222.125.44.20</strong> (<strong>Classe C</strong>) e a
+                    <p>Teremos como exemplo o endereço IP <strong>222.125.44.20</strong> (<strong>Classe C</strong>)
+                        e a
                         máscara de sub-rede
                         /<strong>17</strong>.
                     </p>
@@ -971,7 +1015,8 @@
                                     128 + 64 + 0 + 16 + 8 + 4 + 2 + 0 = <strong>222</strong>
                                 </li>
                                 <li>
-                                    Binário: <strong>11011110</strong> (O <strong>0</strong> significa que não foi usado
+                                    Binário: <strong>11011110</strong> (O <strong>0</strong> significa que não foi
+                                    usado
                                     os valores das posições daquele
                                     bit, ou seja, não usamos nem <strong>32</strong> e nem <strong>1</strong> da
                                     tabela).
@@ -1544,34 +1589,6 @@
                 </div>
             </div>
 
-            <div class="faq-item" data-tags="publica privada diferenca tipo">
-                <div class="faq-pergunta">
-                    <span>Qual a diferença entre IP público e privado?</span>
-                    <span class="toggle-icon">+</span>
-                </div>
-                <div class="faq-resposta">
-                    <p><strong>IP Público:</strong></p>
-                    <ul>
-                        <li>Único em toda a Internet (não pode repetir)</li>
-                        <li>Fornecido pelo provedor de Internet</li>
-                        <li>Acessível de qualquer lugar do mundo</li>
-                        <li>Usado por servidores web, sites</li>
-                        <li>Exemplo: 200.150.10.50</li>
-                    </ul>
-
-                    <p><strong>IP Privado:</strong></p>
-                    <ul>
-                        <li>Usado apenas DENTRO da sua rede local</li>
-                        <li>Pode repetir em outras redes (não tem problema!)</li>
-                        <li>NÃO funciona diretamente na Internet</li>
-                        <li>Usado em casas, empresas, escolas</li>
-                    </ul>
-
-                    <p><strong>Como se conectam?</strong> Através de NAT (Network Address Translation) no roteador, que
-                        "traduz" IPs privados pra públicos.</p>
-                </div>
-            </div>
-
             <div class="faq-item" data-tags="dhcp ip automatico dinamico">
                 <div class="faq-pergunta">
                     <span>O que é DHCP e como funciona?</span>
@@ -1582,10 +1599,11 @@
 
                     <p><strong>O que faz?</strong> Distribui IPs automaticamente para dispositivos que se conectam à
                         rede.</p>
-                    
+
                     <ul>
                         <li>
-                            <strong>Sem DHCP:</strong> Você teria que configurar IP manualmente em CADA dispositivo (chato!)
+                            <strong>Sem DHCP:</strong> Você teria que configurar IP manualmente em CADA dispositivo
+                            (chato!)
                         </li>
                         <li>
                             <strong>Com DHCP:</strong> Conectou no Wi-Fi? Pronto, já ganhou um IP automaticamente!

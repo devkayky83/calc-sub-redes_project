@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Sub-Redes com Visualização</title>
+
+    <link rel="stylesheet" href="../css/main_page.css">
+    <link rel="stylesheet" href="../css/visualizacao.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&Orbitron:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vis.js Network -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body>
+    <div class="ip-flow-background" id="ipFlowBg"></div>
+
+    <div class="fade-in-bottom visualizacao-container">
+        <h1 class="title-glow-subtle">Sub-Redes IPv4</h1>
+
+        <!-- INPUTS -->
+        <div class="input-container input-subredes">
+            <div class="input-group-inline">
+                <label for="ip">Endereço IP:</label>
+                <input type="text" id="ip" placeholder="192.168.1.0">
+            </div>
+            
+            <div class="input-group-inline">
+                <label for="num-subredes">Número de Sub-redes:</label>
+                <input type="number" id="num-subredes" placeholder="8" min="2" max="256">
+            </div>
+        </div>
+
+        <br>
+        <button class="calc-button" onclick="calcularEVisualizar()">Calcular</button>
+        <br><br>
+
+        <div class="mensagem-erro fade-in-bottom" id="mensagem-erro"></div>
+
+        <div id="cards-resumo"></div>
+
+        <div class="loading" id="loading">
+            <div class="hourglass-sand">
+                <div class="frame-top"></div>
+                <div class="frame-bottom"></div>
+                <div class="upper-glass"></div>
+                <div class="lower-glass"></div>
+                <div class="sand-top"></div>
+                <div class="sand-stream"></div>
+                <div class="sand-bottom"></div>
+            </div>
+            Gerando visualização...
+        </div>
+
+        <div class="info-panel" id="info-panel">
+            <div class="info-grid" id="info-grid"></div>
+        </div>
+
+        <div class="section-divider" id="divider-topologia" style="display:none;"></div>
+
+        <h2 class="section-title" id="title-topologia" style="display:none;">Exemplo da Topologia</h2>
+        <div id="network-canvas"></div>
+
+        <div class="legenda" id="legenda" style="display:none;">
+            <div class="legenda-item">
+                <img src="../assets/pics/network-switch.png" class="legenda-icon" alt="Switch">
+                <span class="legenda-text">Switch de Sub-rede</span>
+            </div>
+            <div class="legenda-item">
+                <img src="../assets/pics/computer.png" class="legenda-icon" alt="PC">
+                <span class="legenda-text">Computador</span>
+            </div>
+            <div class="legenda-item">
+                <img src="../assets/pics/laptop.png" class="legenda-icon" alt="Laptop">
+                <span class="legenda-text">Laptop</span>
+            </div>
+        </div>
+
+        <div class="instrucoes" id="instrucoes" style="display:none;">
+            💡 <strong>Dica:</strong> Use o scroll para zoom e arraste para movimentar. 
+            Passe o mouse sobre os dispositivos para mais informações!
+        </div>
+
+        <div class="section-divider" id="divider-tabela" style="display:none;"></div>
+
+        <div id="tabela-container">
+            <h2 class="section-title">Detalhamento das Sub-redes</h2>
+            <table class="tabela-subredes">
+                <thead>
+                    <tr>
+                        <th>Sub-Rede</th>
+                        <th class="coluna-com-ajuda">IP da Rede</th>
+                        <th>Primeiro Host</th>
+                        <th>Último Host</th>
+                        <th>Broadcast</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-body">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/subredes.js"></script>
+</body>
+
+</html>

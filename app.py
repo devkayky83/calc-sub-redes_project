@@ -22,6 +22,31 @@ def serve_static(path):
 
 # --- FUNÇÕES AUXILIARES ---
 
+def detectar_classe_ip(ip):
+    """Detecta a classe do IP (A, B, C, D ou E)"""
+    primeiro_octeto = int(ip.split('.')[0])
+    
+    if 0 <= primeiro_octeto <= 127:
+        return 'A', 8
+    elif 128 <= primeiro_octeto <= 191:
+        return 'B', 16
+    elif 192 <= primeiro_octeto <= 223:
+        return 'C', 24
+    elif 224 <= primeiro_octeto <= 239:
+        return 'D', None  # Multicast
+    else:
+        return 'E', None  # Reservado
+
+def calcular_cidr_por_subredes(num_subredes, cidr_base):
+    """Calcula o CIDR necessário baseado no número de sub-redes desejado"""
+    if num_subredes <= 0:
+        return cidr_base
+    
+    # Bits necessários para acomodar o número de sub-redes
+    bits_necessarios = math.ceil(math.log2(num_subredes))
+    
+    return cidr_base + bits_necessarios
+
 def mascara_para_cidr(mascara):
     try:
         binario = ''.join([bin(int(x))[2:].zfill(8) for x in mascara.split('.')])
@@ -41,31 +66,254 @@ def calcular_tamanho_subrede(cidr):
 
 def calcular_broadcast(ip_inicial, tamanho_subrede):
     partes_ip = list(map(int, ip_inicial.split('.'))) 
-    partes_ip[3] += (tamanho_subrede - 1)
-    if partes_ip[3] > 255: partes_ip[3] = 255 # Proteção simples
+    
+    # Distribui o incremento entre os octetos
+    incremento = tamanho_subrede - 1
+    partes_ip[3] += incremento
+    
+    # Propaga carry para octetos anteriores
+    for i in range(3, 0, -1):
+        if partes_ip[i] > 255:
+            partes_ip[i-1] += partes_ip[i] // 256
+            partes_ip[i] = partes_ip[i] % 256
+    
     return '.'.join(map(str, partes_ip))
 
 def calcular_proxima_subrede(ip_atual, tamanho_subrede):
     partes_ip = list(map(int, ip_atual.split('.')))
     partes_ip[3] += tamanho_subrede
-    if partes_ip[3] > 255: partes_ip[3] = 0 # Reinicia se estourar (exemplo didático)
+    
+    for i in range(3, 0, -1):
+        if partes_ip[i] > 255:
+            partes_ip[i-1] += partes_ip[i] // 256
+            partes_ip[i] = partes_ip[i] % 256
+    
     return '.'.join(map(str, partes_ip))
 
 def calcular_primeiro_host(ip_inicial):
     partes_ip = list(map(int, ip_inicial.split('.')))
     partes_ip[3] += 1
+    
+    for i in range(3, 0, -1):
+        if partes_ip[i] > 255:
+            partes_ip[i-1] += 1
+            partes_ip[i] = 0
+    
     return '.'.join(map(str, partes_ip))
 
 def calcular_ultimo_host(broadcast):
     partes_ip = list(map(int, broadcast.split('.')))
     partes_ip[3] -= 1
+    
+    for i in range(3, 0, -1):
+        if partes_ip[i] < 0:
+            partes_ip[i-1] -= 1
+            partes_ip[i] = 255
+    
     return '.'.join(map(str, partes_ip))
 
 def numero_total_ips(cidr):
     return 2 ** (32 - cidr)
 
 def numero_hosts_validos(cidr):
+    """Retorna apenas os hosts utilizáveis (exclui rede e broadcast)"""
     return (2 ** (32 - cidr)) - 2
+
+
+@app.route('/calcular-subredes-completo')
+def calcular_completo():
+    """
+    Nova rota unificada que aceita IP + Número de Sub-redes
+    Retorna dados para tabela E visualização gráfica
+    """
+    ip_requisitado = request.args.get('ip')
+    num_subredes_param = request.args.get('num_subredes')
+    
+    if not ip_requisitado or not num_subredes_param:
+        return jsonify({'error': 'IP e número de sub-redes são obrigatórios'}), 400
+    
+    try:
+        num_subredes = int(num_subredes_param)
+    except ValueError:
+        return jsonify({'error': 'Número de sub-redes deve ser um inteiro'}), 400
+    
+    if num_subredes < 1:
+        return jsonify({'error': 'Número de sub-redes deve ser maior que 0'}), 400
+    
+    
+    classe, cidr_base = detectar_classe_ip(ip_requisitado)
+    
+    if cidr_base is None:
+        return jsonify({'error': f'IP classe {classe} não suporta sub-redes (Multicast/Reservado)'}), 400
+    
+    
+    cidr_calculado = calcular_cidr_por_subredes(num_subredes, cidr_base)
+    
+    if cidr_calculado > 30:
+        return jsonify({'error': 'Número de sub-redes muito alto. Use até /30'}), 400
+    
+    
+    mascara = cidr_pra_mascara(cidr_calculado)
+    tamanho_subrede = calcular_tamanho_subrede(cidr_calculado)
+    hosts_validos = numero_hosts_validos(cidr_calculado)
+    total_ips = numero_total_ips(cidr_calculado)
+    
+    
+    tabela_subredes = []
+    ip_atual = ip_requisitado
+    
+    for i in range(num_subredes):
+        broadcast = calcular_broadcast(ip_atual, tamanho_subrede)
+        primeiro = calcular_primeiro_host(ip_atual)
+        ultimo = calcular_ultimo_host(broadcast)
+        
+        tabela_subredes.append({
+            'numero': i + 1,
+            'ip_rede': ip_atual,
+            'primeiro_host': primeiro,
+            'ultimo_host': ultimo,
+            'broadcast': broadcast,
+            'mascara': mascara,
+            'hosts_validos': hosts_validos
+        })
+        
+        ip_atual = calcular_proxima_subrede(ip_atual, tamanho_subrede)
+    
+    nodes, edges, groups = gerar_topologia(
+        ip_requisitado, 
+        cidr_calculado, 
+        mascara, 
+        num_subredes
+    )
+    
+    return jsonify({
+        'info': {
+            'ip_base': ip_requisitado,
+            'classe': classe,
+            'cidr_base': cidr_base,
+            'cidr_calculado': cidr_calculado,
+            'mascara': mascara,
+            'num_subredes': num_subredes,
+            'hosts_validos': hosts_validos,
+            'total_ips': total_ips
+        },
+        'tabela': tabela_subredes,
+        'topologia': {
+            'nodes': nodes,
+            'edges': edges,
+            'groups': groups
+        }
+    })
+
+
+def gerar_topologia(ip_base, cidr, mascara, num_subredes):
+    """Gera dados da topologia de rede para visualização"""
+    
+    tamanho_subrede = calcular_tamanho_subrede(cidr)
+    num_hosts_validos = numero_hosts_validos(cidr)
+    
+    num_subredes_visual = min(8, num_subredes)
+    
+    nodes = []
+    edges = []
+    groups = []
+    
+    cores = [
+        '#FFE87C', '#FF9ECD', '#7CDDFF', '#7CFF9E',
+        '#FFA07A', '#DDA0DD', '#87CEEB', '#98FB98'
+    ]
+    
+    distancia_entre_switches = 400
+    distancia_dispositivos = 200
+    
+    ip_atual = ip_base
+    
+    for i in range(num_subredes_visual):
+        broadcast = calcular_broadcast(ip_atual, tamanho_subrede)
+        primeiro_host = calcular_primeiro_host(ip_atual)
+        
+        group_id = f'group-{i}'
+        groups.append({
+            'id': group_id,
+            'color': {'background': cores[i % len(cores)], 'border': cores[i % len(cores)]},
+        })
+        
+        # Parte/Switch
+        switch_id = f'switch-{i}'
+        switch_x = (i - (num_subredes_visual - 1) / 2) * distancia_entre_switches
+        switch_y = 0
+        
+        nodes.append({
+            'id': switch_id,
+            'label': f'Switch {i+1}',
+            'shape': 'image',
+            'image': '/assets/pics/network-switch.png',
+            'size': 35,
+            'x': switch_x,
+            'y': switch_y,
+            'fixed': {'x': False, 'y': False},
+            'title': f'<b>Sub-rede {i+1}</b><br>Rede: {ip_atual}/{cidr}<br>Máscara: {mascara}<br>Broadcast: {broadcast}<br>Hosts válidos: {num_hosts_validos}'
+        })
+        
+        # Conectar switches
+        if i < num_subredes_visual - 1:
+            edges.append({
+                'from': switch_id,
+                'to': f'switch-{i+1}',
+                'width': 3,
+                'dashes': True,
+                'length': distancia_entre_switches
+            })
+        
+        
+        num_dispositivos_visual = min(3, num_hosts_validos)
+        if num_dispositivos_visual < 0:
+            num_dispositivos_visual = 0
+        
+        for j in range(num_dispositivos_visual):
+            device_id = f'device-{i}-{j}'
+            device_type = 'PC' if j % 2 == 0 else 'Laptop'
+            icon = '/assets/pics/computer.png' if device_type == 'PC' else '/assets/pics/laptop.png'
+            
+            # Calcular IP do dispositivo
+            partes_ip = list(map(int, primeiro_host.split('.')))
+            partes_ip[3] += j
+            
+            # Propagar carry se necessário
+            for k in range(3, 0, -1):
+                if partes_ip[k] > 255:
+                    partes_ip[k-1] += partes_ip[k] // 256
+                    partes_ip[k] = partes_ip[k] % 256
+            
+            device_ip = '.'.join(map(str, partes_ip))
+            
+            offset_horizontal = (j - (num_dispositivos_visual - 1) / 2) * 120
+            device_x = switch_x + offset_horizontal
+            device_y = distancia_dispositivos
+            
+            nodes.append({
+                'id': device_id,
+                'label': f'{device_type}\n{device_ip}',
+                'shape': 'image',
+                'image': icon,
+                'size': 25,
+                'x': device_x,
+                'y': device_y,
+                'group': group_id,
+                'title': f'<b>{device_type}</b><br>IP: {device_ip}<br>Gateway: {primeiro_host}'
+            })
+            
+            edges.append({
+                'from': switch_id,
+                'to': device_id,
+                'width': 2,
+                'length': distancia_dispositivos
+            })
+        
+        ip_atual = calcular_proxima_subrede(ip_atual, tamanho_subrede)
+    
+    return nodes, edges, groups
+
 
 @app.route('/calcular-subredes')
 def calcular():
@@ -73,7 +321,6 @@ def calcular():
     cidr_param = request.args.get('cidr')
     mascara_param = request.args.get('mascara')
     
-    # Tratamento Híbrido (CIDR ou Máscara)
     if mascara_param:
         cidr_requisitado = mascara_para_cidr(mascara_param)
     elif cidr_param:
@@ -102,185 +349,21 @@ def calcular():
         primeiro = calcular_primeiro_host(ip_atual)
         ultimo = calcular_ultimo_host(broadcast)
         
-        # Explicações Didáticas
         bits_host = 32 - cidr_requisitado
         
-        expl_rede = f"É o primeiro endereço do bloco. Identifica a sub-rede {i+1}."
-        
-        expl_broadcast = (
-            f"O Broadcast é o último IP da sub-rede.<br>"
-            f"Cálculo: IP da Rede + ({tamanho_subrede} - 1)."
-        )
-        
-        expl_primeiro = (
-            f"É o primeiro IP utilizável.<br>"
-            f"Cálculo: IP da Rede + 1."
-        )
-        
-        expl_ultimo = (
-            f"É o último IP utilizável.<br>"
-            f"Cálculo: Broadcast - 1."
-        )
-        
-        expl_mascara = (
-            f"Máscara /{(cidr_requisitado)} em decimal.<br>"
-            f"{cidr_requisitado} bits '1' e {bits_host} bits '0'."
-        )
-        
-        expl_total = (
-            f"Um IPv4 tem 32 bits.<br>"
-            f"32 - {cidr_requisitado} (rede) = {bits_host} bits host.<br>"
-            f"Cálculo: 2^{bits_host} = {total_ips} IPs."
-        )
-
         resultado.append({
             'id': i + 1,
-            'ip_rede': {'valor': ip_atual, 'expl': expl_rede},
-            'mascara': {'valor': mascara_decimal, 'expl': expl_mascara},
-            'primeiro_host': {'valor': primeiro, 'expl': expl_primeiro},
-            'ultimo_host': {'valor': ultimo, 'expl': expl_ultimo},
-            'broadcast': {'valor': broadcast, 'expl': expl_broadcast},
-            'total_ips': {'valor': total_ips, 'expl': expl_total}
+            'ip_rede': {'valor': ip_atual},
+            'mascara': {'valor': mascara_decimal},
+            'primeiro_host': {'valor': primeiro},
+            'ultimo_host': {'valor': ultimo},
+            'broadcast': {'valor': broadcast},
+            'total_ips': {'valor': total_ips}
         })
         ip_atual = calcular_proxima_subrede(ip_atual, tamanho_subrede)
         
     return jsonify(resultado)
 
-
-# --- ROTA DE VISUALIZAÇÃO (GRÁFICO) ---
-@app.route('/visualizar-subredes')
-def visualizar():
-    ip_requisitado = request.args.get('ip')
-    cidr_param = request.args.get('cidr')
-    mascara_param = request.args.get('mascara')
-    
-    # Tratamento Híbrido também na visualização
-    if mascara_param:
-        cidr_requisitado = mascara_para_cidr(mascara_param)
-    elif cidr_param and cidr_param.count('.') == 3: # Caso venha máscara no campo cidr
-         cidr_requisitado = mascara_para_cidr(cidr_param)
-    elif cidr_param:
-        try:
-            cidr_requisitado = int(cidr_param)
-        except:
-             return jsonify({'error': 'Parâmetros inválidos'}), 400
-    else:
-        return jsonify({'error': 'Parâmetros obrigatórios.'}), 400
-    
-    tamanho_subrede = calcular_tamanho_subrede(cidr_requisitado)
-    mascara = cidr_pra_mascara(cidr_requisitado)
-    
-    num_subredes = min(8, 256 // tamanho_subrede) if tamanho_subrede > 0 else 0
-    
-    nodes = []
-    edges = []
-    groups = []
-    
-    cores = [
-        '#FFE87C', '#FF9ECD', '#7CDDFF', '#7CFF9E',
-        '#FFA07A', '#DDA0DD', '#87CEEB', '#98FB98'
-    ]
-    
-    distancia_entre_switches = 400  
-    distancia_dispositivos = 200
-    
-    ip_atual = ip_requisitado
-    
-    for i in range(num_subredes):
-        broadcast = calcular_broadcast(ip_atual, tamanho_subrede)
-        primeiro_host = calcular_primeiro_host(ip_atual)
-        num_hosts_validos = numero_hosts_validos(cidr_requisitado)
-        
-        group_id = f'group-{i}'
-        groups.append({
-            'id': group_id,
-            'color': {'background': cores[i % len(cores)], 'border': cores[i % len(cores)]},
-        })
-        
-        # Posicionar switches na linha horizontal
-        switch_id = f'switch-{i}'
-        switch_x = (i - (num_subredes - 1) / 2) * distancia_entre_switches
-        switch_y = 0  # Todos na mesma linha horizontal
-        
-        nodes.append({
-            'id': switch_id,
-            'label': f'Switch {i+1}', 
-            'shape': 'image',
-            'image': '/assets/pics/network-switch.png',
-            'size': 35,
-            'x': switch_x, 
-            'y': switch_y,
-            'fixed': {'x': False, 'y': False},
-            'title': f'<b>Sub-rede {i+1}</b><br>Rede: {ip_atual}/{cidr_requisitado}<br>Máscara: {mascara}<br>Broadcast: {broadcast}<br>Hosts disponíveis: {num_hosts_validos}'
-        })
-        
-        # CONECTAR SWITCHES ENTRE SI (linha horizontal)
-        # Explicação: Cada switch conecta ao próximo (exceto o último)
-        # Isso representa a interligação das sub-redes
-        if i < num_subredes - 1:
-            edges.append({
-                'from': switch_id,
-                'to': f'switch-{i+1}',
-                'width': 3,
-                'dashes': True,
-                'length': distancia_entre_switches
-            })
-        
-        # POSICIONAR DISPOSITIVOS ABAIXO DO SWITCH
-        # Desenha alguns dispositivos (limite visual de 3)
-        num_dispositivos_visual = min(3, num_hosts_validos) 
-        if num_dispositivos_visual < 0: 
-            num_dispositivos_visual = 0
-
-        for j in range(num_dispositivos_visual):
-            device_id = f'device-{i}-{j}'
-            device_type = 'PC' if j % 2 == 0 else 'Laptop'
-            icon = '/assets/pics/computer.png' if device_type == 'PC' else '/assets/pics/laptop.png'
-            
-            # Calcula IP do dispositivo
-            partes_ip = list(map(int, primeiro_host.split('.')))
-            partes_ip[3] += j
-            device_ip = '.'.join(map(str, partes_ip))
-            
-            # Posicionar dispositivos em linha horizontal abaixo do switch
-            offset_horizontal = (j - (num_dispositivos_visual - 1) / 2) * 120
-            device_x = switch_x + offset_horizontal
-            device_y = distancia_dispositivos  # Abaixo do switch
-            
-            nodes.append({
-                'id': device_id,
-                'label': f'{device_type}\n{device_ip}',
-                'shape': 'image',
-                'image': icon,
-                'size': 25,
-                'x': device_x, 
-                'y': device_y,
-                'group': group_id,
-                'title': f'<b>{device_type}</b><br>IP: {device_ip}<br>Gateway: {primeiro_host}'
-            })
-            
-            # Conectar dispositivo ao switch
-            edges.append({
-                'from': switch_id, 
-                'to': device_id, 
-                'width': 2,
-                'length': distancia_dispositivos
-            })
-            
-        ip_atual = calcular_proxima_subrede(ip_atual, tamanho_subrede)
-        
-    return jsonify({
-        'nodes': nodes,
-        'edges': edges,
-        'groups': groups,
-        'info': {
-            'ip_base': ip_requisitado,
-            'cidr': cidr_requisitado,
-            'mascara': mascara,
-            'num_subredes': num_subredes,
-            'hosts_por_subrede': numero_hosts_validos(cidr_requisitado)
-        }
-    })
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

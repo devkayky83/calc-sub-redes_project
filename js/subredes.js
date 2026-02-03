@@ -1,27 +1,39 @@
 function carregarTemaIframe() {
-  const temaSalvo = localStorage.getItem("tema");
-  if (temaSalvo === "escuro") {
-    document.body.classList.add("dark-mode");
-  }
+    const temaSalvo = localStorage.getItem("tema");
+    if (temaSalvo === "escuro") {
+        document.body.classList.add("dark-mode");
+    }
 }
 
 window.addEventListener("message", function (event) {
-  if (event.data.tipo === "mudanca-tema") {
-    if (event.data.temaEscuro) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
+    if (event.data.tipo === "mudanca-tema") {
+        if (event.data.temaEscuro) {
+            document.body.classList.add("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode");
+        }
     }
-  }
 });
 
 carregarTemaIframe();
 
 let network = null;
 
+
+function validarIP(ip) {
+    const partes = ip.split(".");
+    if (partes.length !== 4) return false;
+    for (let parte of partes) {
+        const numero = parseInt(parte);
+        if (isNaN(numero) || numero < 0 || numero > 255) return false;
+    }
+    return true;
+}
+
+
 function mostrarErro(mensagem) {
     const mensagemErro = document.getElementById('mensagem-erro');
-    mensagemErro.textContent = mensagem;
+    mensagemErro.innerHTML = mensagem;
     mensagemErro.style.display = 'block';
     
     setTimeout(() => {
@@ -29,111 +41,47 @@ function mostrarErro(mensagem) {
     }, 5000);
 }
 
-function validarIP(ip) {
-    const regex = /^(\d{1,3}\.){3}\d{1,3}$/;
-    if (!regex.test(ip)) return false;
+
+async function calcularEVisualizar() {
+    const ip = document.getElementById('ip').value.trim();
+    const numSubredes = document.getElementById('num-subredes').value.trim();
     
-    const partes = ip.split('.');
-    return partes.every(parte => {
-        const num = parseInt(parte);
-        return num >= 0 && num <= 255;
-    });
-}
-
-function validarMascara(mascara) {
-    const partes = mascara.split(".");
-    if (partes.length !== 4) return false;
-    for (let parte of partes) {
-        const num = parseInt(parte);
-        if (isNaN(num) || num < 0 || num > 255) return false;
-    }
-    return true;
-}
-
-function validarCIDR(cidr) {
-    const num = parseInt(cidr);
-    return !isNaN(num) && num >= 0 && num <= 32;
-}
-
-function mostrarErroCidrCritico(cidr, mensagemErro) {
-    mensagemErro.innerHTML = `<strong>⚠️ CIDR /${cidr} não permite hosts utilizáveis.</strong>`;
-    mensagemErro.style.display = "block";
-}
-
-async function gerarVisualizacao() {
-    const ipInput = document.getElementById('ip').value.trim();
-    const cidrInput = document.getElementById('cidr').value.trim();
     const mensagemErro = document.getElementById('mensagem-erro');
     const loading = document.getElementById('loading');
     const infoPanel = document.getElementById('info-panel');
+    const tabelaContainer = document.getElementById('tabela-container');
     
     mensagemErro.style.display = 'none';
+    infoPanel.classList.remove('active');
+    tabelaContainer.classList.remove('active');
     
-    if (!ipInput || !cidrInput) {
-        mostrarErro('⚠️ Por favor, preencha o IP e o CIDR/Máscara');
+    if (!ip || !numSubredes) {
+        mostrarErro('⚠️ Por favor, preencha o IP e o número de sub-redes');
         return;
     }
 
-    if (!validarIP(ipInput)) {
+    if (!validarIP(ip)) {
         mostrarErro('⚠️ IP inválido! Use o formato: 192.168.1.0');
         return;
     }
 
+    const numSubredesInt = parseInt(numSubredes);
+    if (isNaN(numSubredesInt) || numSubredesInt < 1) {
+        mostrarErro('⚠️ Número de sub-redes deve ser maior que 0');
+        return;
+    }
 
-    let urlParam = "";
-    let isMascara = cidrInput.includes('.');
-
-    if (isMascara) {
-        
-        if (!validarMascara(cidrInput)) {
-            mostrarErro('⚠️ Máscara de sub-rede inválida. Use formato: 255.255.255.0');
-            return;
-        }
-        
-        if (cidrInput === "255.255.255.255") {
-            mostrarErroCidrCritico(32, mensagemErro);
-            return;
-        }
-        if (cidrInput === "255.255.255.254") {
-            mostrarErroCidrCritico(31, mensagemErro);
-            return;
-        }
-        
-        urlParam = `&mascara=${cidrInput}`;
-
-    } else {
-        
-        if (!validarCIDR(cidrInput)) {
-            mostrarErro('⚠️ CIDR inválido. Use valores entre 0 e 32');
-            return;
-        }
-        
-        const cidrInt = parseInt(cidrInput);
-        
-        if (cidrInt === 31 || cidrInt === 32) {
-            mostrarErroCidrCritico(cidrInt, mensagemErro);
-            return;
-        }
-
-        if (cidrInt < 8) {
-            mostrarErro('⚠️ Este sistema calcula de /8 até /30');
-            return;
-        }
-
-        if (cidrInt > 30) {
-            mostrarErro('⚠️ O CIDR deve estar entre 8 e 30 para visualização');
-            return;
-        }
-        
-        urlParam = `cidr=${cidrInput}`;
+    if (numSubredesInt > 256) {
+        mostrarErro('⚠️ Número de sub-redes muito alto. Máximo: 256');
+        return;
     }
 
     loading.classList.add('active');
-    infoPanel.classList.remove('active');
+    ocultarElementos();
 
     try {
-        const url = `http://localhost:5000/visualizar-subredes?ip=${ipInput}&${urlParam}`;
-        console.log('📡 Requisição para:', url);
+        const url = `/calcular-subredes-completo?ip=${ip}&num_subredes=${numSubredesInt}`;
+        console.log('📡 Requisição:', url);
         
         const response = await fetch(url);
         
@@ -145,20 +93,24 @@ async function gerarVisualizacao() {
         const data = await response.json();
         console.log('✅ Dados recebidos:', data);
 
-        // Delay artificial para mostrar a animação do loading
-        await new Promise(resolve => setTimeout(resolve, 2500));
+        await new Promise(resolve => setTimeout(resolve, 1500));
         
         loading.classList.remove('active');
         
+        // Renderizar tudo
         mostrarInformacoes(data.info);
-        renderizarRede(data);
+        renderizarTopologia(data.topologia);
+        gerarTabela(data.tabela);
+        
+        mostrarElementos();
 
     } catch (error) {
         loading.classList.remove('active');
         mostrarErro('❌ Erro ao gerar visualização: ' + error.message);
-        console.error('❌ Erro completo:', error);
+        console.error('❌ Erro:', error);
     }
 }
+
 
 function mostrarInformacoes(info) {
     const infoPanel = document.getElementById('info-panel');
@@ -170,40 +122,40 @@ function mostrarInformacoes(info) {
             <value>${info.ip_base}</value>
         </div>
         <div class="info-item">
-            <label>CIDR:</label>
-            <value>/${info.cidr}</value>
+            <label>Classe:</label>
+            <value>${info.classe}</value>
+        </div>
+        <div class="info-item">
+            <label>CIDR Calculado:</label>
+            <value>/${info.cidr_calculado}</value>
         </div>
         <div class="info-item">
             <label>Máscara de Sub-rede:</label>
             <value>${info.mascara}</value>
         </div>
         <div class="info-item">
-            <label>Total de Sub-redes:</label>
-            <value>${info.num_subredes}</value>
-        </div>
-        <div class="info-item">
-            <label>Hosts por Sub-rede:</label>
-            <value>${info.hosts_por_subrede}</value>
+            <label>Hosts Válidos (cada):</label>
+            <value>${info.hosts_validos}</value>
         </div>
     `;
     
     infoPanel.classList.add('active');
 }
 
-function renderizarRede(data) {
+// === RENDERIZAR TOPOLOGIA ===
+function renderizarTopologia(topologia) {
     const container = document.getElementById('network-canvas');
     
-    const nodes = new vis.DataSet(data.nodes);
-    const edges = new vis.DataSet(data.edges);
+    const nodes = new vis.DataSet(topologia.nodes);
+    const edges = new vis.DataSet(topologia.edges);
     
     const groups = {};
-    data.groups.forEach(group => {
+    topologia.groups.forEach(group => {
         groups[group.id] = {
             color: group.color
         };
     });
     
-    // CONFIGURAÇÕES OTIMIZADAS DE FÍSICA
     const options = {
         nodes: {
             font: {
@@ -249,7 +201,6 @@ function renderizarRede(data) {
             }
         },
         groups: groups,
-        
         physics: {
             enabled: true,
             solver: 'forceAtlas2Based',
@@ -270,7 +221,6 @@ function renderizarRede(data) {
             minVelocity: 2,
             maxVelocity: 10
         },
-        
         interaction: {
             hover: true,
             tooltipDelay: 100,
@@ -285,11 +235,9 @@ function renderizarRede(data) {
                 bindToWindow: false
             }
         },
-
         configure: {
             enabled: false
         },
-
         layout: {
             randomSeed: undefined,
             improvedLayout: true
@@ -307,7 +255,7 @@ function renderizarRede(data) {
     
     network = new vis.Network(container, networkData, options);
 
-    // TOOLTIP CUSTOMIZADO
+    // Tooltip customizado
     network.on("hoverNode", function(params) {
         const nodeId = params.node;
         const node = nodes.get(nodeId);
@@ -356,26 +304,17 @@ function renderizarRede(data) {
         }
     });
     
-    // Eventos de interação
-    network.on('hoverNode', function(params) {
+    network.on('hoverNode', function() {
         container.style.cursor = 'pointer';
     });
     
-    network.on('blurNode', function(params) {
+    network.on('blurNode', function() {
         container.style.cursor = 'default';
     });
     
-    network.on('click', function(params) {
-        if (params.nodes.length > 0) {
-            const nodeId = params.nodes[0];
-            const node = nodes.get(nodeId);
-            console.log('📍 Dispositivo selecionado:', node);
-        }
-    });
-    
-    // Reduz física após estabilização
+    // Reduzir física após estabilização
     network.once('stabilizationIterationsDone', function() {
-        console.log('✅ Estabilização completa!');
+        console.log('✅ Topologia estabilizada');
         network.setOptions({
             physics: {
                 enabled: true,
@@ -390,33 +329,112 @@ function renderizarRede(data) {
         });
     });
     
-    // Animação de entrada
     network.fit({
         animation: {
             duration: 1000,
             easingFunction: 'easeInOutQuad'
         }
     });
-    
-    console.log('🎨 Visualização criada com sucesso!');
-    console.log('📊 Total de nós:', nodes.length);
-    console.log('🔗 Total de conexões:', edges.length);
 }
 
-// Permitir Enter para gerar visualização
+
+function gerarTabela(dados) {
+    const tbody = document.getElementById('tabela-body');
+    tbody.innerHTML = '';
+    
+    for (let subrede of dados) {
+        const row = `
+            <tr>
+                <td>${subrede.numero}</td>
+                <td>${subrede.ip_rede}</td>
+                <td>${subrede.primeiro_host}</td>
+                <td>${subrede.ultimo_host}</td>
+                <td>${subrede.broadcast}</td>
+            </tr>
+        `;
+        tbody.innerHTML += row;
+    }
+    
+    document.getElementById('tabela-container').classList.add('active');
+}
+
+
+function animarContador(elemento, valorFinal, duracao = 1000) {
+    let inicio = 0;
+    const incremento = valorFinal / (duracao / 16);
+    if (valorFinal === 0) { 
+        elemento.textContent = 0; 
+        return; 
+    }
+
+    const intervalo = setInterval(() => {
+        inicio += incremento;
+        if (inicio >= valorFinal) {
+            elemento.textContent = valorFinal;
+            clearInterval(intervalo);
+        } else {
+            elemento.textContent = Math.floor(inicio);
+        }
+    }, 16);
+}
+
+
+function ocultarElementos() {
+    document.getElementById('divider-topologia').style.display = 'none';
+    document.getElementById('title-topologia').style.display = 'none';
+    document.getElementById('legenda').style.display = 'none';
+    document.getElementById('instrucoes').style.display = 'none';
+    document.getElementById('divider-tabela').style.display = 'none';
+}
+
+function mostrarElementos() {
+    document.getElementById('divider-topologia').style.display = 'block';
+    document.getElementById('title-topologia').style.display = 'block';
+    document.getElementById('legenda').style.display = 'flex';
+    document.getElementById('instrucoes').style.display = 'block';
+    document.getElementById('divider-tabela').style.display = 'block';
+}
+
+
+function IPFlowBackground() {
+    const container = document.getElementById('ipFlowBg');
+    if(!container) return;
+    
+    const ips = [
+        '192.168.1.0', '10.0.0.0', '172.16.0.0', '192.168.0.0',
+        '10.10.10.0', '172.31.255.0', '192.168.100.0', '10.0.1.0'
+    ];
+    const cidrs = [24, 25, 26, 27, 28, 29, 30];
+
+    for (let i = 0; i < 15; i++) {
+        const elementoIP = document.createElement('div');
+        elementoIP.className = 'ip-flutuante';
+        const ipAleatorio = ips[Math.floor(Math.random() * ips.length)];
+        const cidrAleatorio = cidrs[Math.floor(Math.random() * cidrs.length)];
+        elementoIP.textContent = `${ipAleatorio}/${cidrAleatorio}`;
+        elementoIP.style.top = (Math.random() * 80 + 10) + '%';
+        elementoIP.style.animationDuration = (15 + Math.random() * 10) + 's';
+        elementoIP.style.animationDelay = Math.random() * 8 + 's';
+        container.appendChild(elementoIP);
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
+    IPFlowBackground();
+    
     const ipInput = document.getElementById('ip');
-    const cidrInput = document.getElementById('cidr');
+    const numSubredesInput = document.getElementById('num-subredes');
     
     if (ipInput) {
         ipInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') gerarVisualizacao();
+            if (e.key === 'Enter') calcularEVisualizar();
         });
     }
     
-    if (cidrInput) {
-        cidrInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') gerarVisualizacao();
+    if (numSubredesInput) {
+        numSubredesInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calcularEVisualizar();
         });
     }
 });
