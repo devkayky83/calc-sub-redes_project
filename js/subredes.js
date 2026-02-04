@@ -195,7 +195,7 @@ function mostrarInformacoes(info) {
         <div class="info-item coluna-com-ajuda">
             <label>Hosts Válidos (cada):</label>
             <value>${info.hosts_validos}</value><br>
-            <a href="aprendizado.html#calculo-hosts-subrede" class="balao-ajuda">
+            <a href="aprendizado.html#componentes-redes" class="balao-ajuda">
                 <span class="icone-ajuda">❓</span> 
                 <span class="texto-ajuda">Como calcular?</span>
             </a>
