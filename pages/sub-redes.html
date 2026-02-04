@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../css/main_page.css">
     <link rel="stylesheet" href="../css/visualizacao.css">
+    <link rel="stylesheet" href="../css/subredes.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,6 +73,11 @@
             <div class="legenda-item">
                 <img src="../assets/pics/network-switch.png" class="legenda-icon" alt="Switch">
                 <span class="legenda-text">Switch de Sub-rede</span>
+                
+                <a href="aprendizado.html#switch-subrede" class="balao-ajuda">
+                    <span class="icone-ajuda">❓</span>
+                    <span class="texto-ajuda">O que é?</span>
+                </a>
             </div>
             <div class="legenda-item">
                 <img src="../assets/pics/computer.png" class="legenda-icon" alt="PC">
@@ -96,10 +102,22 @@
                 <thead>
                     <tr>
                         <th>Sub-Rede</th>
-                        <th class="coluna-com-ajuda">IP da Rede</th>
+                        <th class="coluna-com-ajuda">
+                            IP da Rede
+                            <a href="aprendizado.html#calculo-ip-rede" class="balao-ajuda">
+                                <span class="icone-ajuda">❓</span>
+                                <span class="texto-ajuda">Como calcular?</span>
+                            </a>
+                        </th>
                         <th>Primeiro Host</th>
                         <th>Último Host</th>
-                        <th>Broadcast</th>
+                        <th class="coluna-com-ajuda">
+                            Broadcast
+                            <a href="aprendizado.html#calculo-broadcast" class="balao-ajuda">
+                                <span class="icone-ajuda">❓</span>
+                                <span class="texto-ajuda">Como calcular?</span>
+                            </a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="tabela-body">

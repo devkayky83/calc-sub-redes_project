@@ -157,7 +157,7 @@
                 </div>
             </div>
 
-            <div class="faq-item" data-tags="bits binario conversao calculo">
+            <div class="faq-item" ip="switch-subrede" data-tags="bits binario conversao calculo">
                 <div class="faq-pergunta">
                     <span>O que é um Switch?</span>
                     <span class="toggle-icon">+</span>
@@ -222,6 +222,7 @@
             </div>
         </section>
 
+
         <section class="categoria" data-nivel="subredes">
             <h2 class="categoria-titulo">
                 <div class="icon-network-divide-small">
@@ -273,7 +274,8 @@
                 </div>
             </div>
 
-            <div class="faq-item" data-tags="classes ip tipos range">
+
+            <div class="faq-item" id="classe-ip" data-tags="classes ip tipos range">
                 <div class="faq-pergunta">
                     <span>Quais são as Classes de Endereços IP?</span>
                     <span class="toggle-icon">+</span>
@@ -891,6 +893,7 @@
             </div>
         </section>
 
+
         <section class="categoria" data-nivel="tecnico">
             <h2 class="categoria-titulo">
                 <div class="icon-binary-small">
@@ -961,6 +964,7 @@
             </div>
         </section>
 
+
         <section class="categoria" data-nivel="pratico">
             <h2 class="categoria-titulo">
                 <div class="icon-code-run-small">
@@ -975,7 +979,7 @@
             <p class="categoria-desc">Resolva problemas reais do dia a dia</p>
 
 
-            <div class="faq-item" data-tags="calculo manual subrede divisao">
+            <div class="faq-item" id="calculo-ip-rede" data-tags="calculo manual subrede divisao">
                 <div class="faq-pergunta">
                     <span>Como calcular Endereço de Rede?</span>
                     <span class="toggle-icon">+</span>
@@ -1117,13 +1121,14 @@
             </div>
 
 
-            <div class="faq-item" data-tags="calculo manual subrede divisao">
+            <div class="faq-item" id="calculo-broadcast" data-tags="calculo manual broadcast">
                 <div class="faq-pergunta">
                     <span>Como calcular Endereço de Broadcast?</span>
                     <span class="toggle-icon">+</span>
                 </div>
                 <div class="faq-resposta">
-                    <p>Teremos como exemplo o endereço IP <strong>172.17.0.0</strong> (<strong>Classe B</strong>) e a
+                    <p>Teremos como exemplo o endereço IP <strong>172.17.0.0</strong> (<strong>Classe B</strong>) e
+                        a
                         máscara de sub-rede /<strong>22</strong>.
                     </p>
 
@@ -1143,11 +1148,14 @@
                     </p>
 
                     <p><strong>Passo 2:</strong> Transformar todos os Bits de Host em Binário <strong>1</strong></p>
-                    Para encontrar o endereço de broadcast, é necessário ter o endereço de rede calculado, no caso do IP
+                    Para encontrar o endereço de broadcast, é necessário ter o endereço de rede calculado, no caso
+                    do IP
                     <strong>172.17.0.0</strong> é:
-                    <strong>10101100.00010001.00000000.00000000</strong>, como citado anteriormente a máscara /22 possui
+                    <strong>10101100.00010001.00000000.00000000</strong>, como citado anteriormente a máscara /22
+                    possui
                     10 bits para hosts, com isso
-                    o processo se torna garantir que os <strong>últimos 10 bits</strong>, da direita para a esquerda,
+                    o processo se torna garantir que os <strong>últimos 10 bits</strong>, da direita para a
+                    esquerda,
                     sejam bits <strong>1</strong>.
 
                     <table class="exemplo-codigo" border="1" cellpadding="10" cellspacing="0">
@@ -1201,7 +1209,7 @@
             </div>
 
 
-            <div class="faq-item" data-tags="calculo manual subrede divisao">
+            <div class="faq-item" id="calculo-mascara-subrede" data-tags="calculo manual subrede divisao">
                 <div class="faq-pergunta">
                     <span>Como calcular Máscara de Sub-rede?</span>
                     <span class="toggle-icon">+</span>
@@ -1215,7 +1223,8 @@
                         <br><br>
                         O /17 nos diz que <strong>17</strong> desses <strong>32</strong> bits são fixados para
                         identificar a <strong>rede</strong>.
-                        O restante (<strong>32 - 17 = 15</strong>) é usado para identificar os <strong>hosts</strong>
+                        O restante (<strong>32 - 17 = 15</strong>) é usado para identificar os
+                        <strong>hosts</strong>
                         (dispositivos) dentro dessa rede.
                     </p>
 
@@ -1250,7 +1259,8 @@
                         </li>
                     </ul>
                     <p><strong>Passo 3:</strong> Converter a máscara de binário para decimal</p>
-                    <p>Agora, convertemos cada octeto binário de volta para o <strong>formato decimal</strong>, usando
+                    <p>Agora, convertemos cada octeto binário de volta para o <strong>formato decimal</strong>,
+                        usando
                         os valores de
                         <strong>potência de 2</strong>
                         de acordo com a tabela:
@@ -1302,7 +1312,8 @@
                             2º Octeto (<strong>11111111</strong>): (<strong>255</strong>).
                         </li>
                         <li>
-                            3º Octeto (<strong>10000000</strong>): Apenas o bit de valor 128 está "ligado" (é 1), então
+                            3º Octeto (<strong>10000000</strong>): Apenas o bit de valor 128 está "ligado" (é 1),
+                            então
                             o valor é (<strong>128</strong>).
                         </li>
                         <li>
@@ -1310,10 +1321,13 @@
                             valor é (<strong>0</strong>).
                         </li>
                     </ul>
-                    <p><strong>Resultado</strong>: Juntando os 4 octetos, a máscara de sub-rede calculada para o prefixo
-                        /<strong>17</strong> é <strong>255.255.128.0</strong>.</p>
+                    <p><strong>Resultado</strong>: Juntando os 4 octetos, a máscara de sub-rede calculada para o
+                        prefixo
+                        /<strong>17</strong> é <strong>255.255.128.0</strong>.
+                    </p>
                 </div>
             </div>
+
 
 
             <div class="faq-item" data-tags="calculo manual subrede divisao">
@@ -1327,13 +1341,15 @@
                         <strong><span>2<sup>n</sup></span>
                     </p></strong></p>
 
-                    <p>Onde <strong>n</strong> é a quantidade de <strong>bits de rede</strong> extras (representados por
+                    <p>Onde <strong>n</strong> é a quantidade de <strong>bits de rede</strong> extras (representados
+                        por
                         <strong>1</strong>) emprestados do octeto que foi "quebrado" ou modificado
                         na máscara original.
                     </p>
 
                     <p><strong>Passo 2:</strong> Transformar em Binário</p>
-                    <p>Teremos como exemplo o endereço IP <strong>172.16.0.0</strong> (<strong>Classe B</strong>) e a
+                    <p>Teremos como exemplo o endereço IP <strong>172.16.0.0</strong> (<strong>Classe B</strong>) e
+                        a
                         máscara de sub-rede <strong>255.255.192.0</strong></p>
 
                     <p>Pegamos a máscara e usamos na tabela de pesos de bit:</p>
@@ -1366,7 +1382,8 @@
 
                     <p>Como o segundo octeto também é 255, a lógica é a mesma.</p>
 
-                    <p>Convertendo o terceiro octeto: Para atingir o valor <strong>128</strong>, precisamos apenas do
+                    <p>Convertendo o terceiro octeto: Para atingir o valor <strong>128</strong>, precisamos apenas
+                        do
                         <strong>primeiro bit</strong> ligado.
                     </p>
                     <ul>
@@ -1378,7 +1395,8 @@
                         </li>
                     </ul>
 
-                    <p>Convertendo o ultimo octeto: Aqui não há muito segredo, para atingir o valor <strong>0</strong>,
+                    <p>Convertendo o ultimo octeto: Aqui não há muito segredo, para atingir o valor
+                        <strong>0</strong>,
                         precisamos que <strong>todos os bits</strong>
                         estejam desligados (valor 0).
                     </p>
@@ -1416,7 +1434,7 @@
             </div>
 
 
-            <div class="faq-item" data-tags="calculo manual subrede divisao">
+            <div class="faq-item" ip="calculo-hosts-subrede" data-tags="calculo manual subrede divisao">
                 <div class="faq-pergunta">
                     <span>Como calcular quantidade de Hosts?</span>
                     <span class="toggle-icon">+</span>
@@ -1433,7 +1451,8 @@
                     </p>
 
                     <p><strong>Passo 2:</strong> Transformar em Binário</p>
-                    <p>Teremos como exemplo o endereço IP <strong>172.16.0.0</strong> (<strong>Classe B</strong>) e a
+                    <p>Teremos como exemplo o endereço IP <strong>172.16.0.0</strong> (<strong>Classe B</strong>) e
+                        a
                         máscara de sub-rede
                         <strong>255.255.192.0</strong>.
                     </p>
@@ -1468,7 +1487,8 @@
 
                     <p>Como o segundo octeto também é 255, a lógica é a mesma.</p>
 
-                    <p>Convertendo o terceiro octeto: Para atingir o valor <strong>128</strong>, precisamos apenas do
+                    <p>Convertendo o terceiro octeto: Para atingir o valor <strong>128</strong>, precisamos apenas
+                        do
                         <strong>primeiro bit</strong> ligado.
                     </p>
                     <ul>
@@ -1480,7 +1500,8 @@
                         </li>
                     </ul>
 
-                    <p>Convertendo o ultimo octeto: Aqui não há muito segredo, para atingir o valor <strong>0</strong>,
+                    <p>Convertendo o ultimo octeto: Aqui não há muito segredo, para atingir o valor
+                        <strong>0</strong>,
                         precisamos que <strong>todos os bits</strong>
                         estejam desligados (valor 0).
                     </p>
@@ -1498,15 +1519,18 @@
                     </p>
 
                     <p><strong>Passo 3:</strong> Encontrar o valor de n</p>
-                    Contando a <strong>quantidade total</strong> de números <strong>0</strong> que nesse caso começa no
+                    Contando a <strong>quantidade total</strong> de números <strong>0</strong> que nesse caso começa
+                    no
                     terceiro octeto, temos que n = <strong>14</strong>.
 
                     <p><strong>Passo 4:</strong> Aplicar na fórmula</p>
-                    <p>Substituímos <strong>n</strong> na fórmula: <strong><span>2<sup>14</sup></span>-2</strong>, que é
+                    <p>Substituímos <strong>n</strong> na fórmula: <strong><span>2<sup>14</sup></span>-2</strong>,
+                        que é
                         igual a <strong>16.382</strong>, ou seja: 16.382 hosts.</p>
                 </div>
             </div>
         </section>
+
 
         <section class="categoria" data-nivel="curiosidades">
             <h2 class="categoria-titulo">

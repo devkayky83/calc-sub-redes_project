@@ -616,3 +616,27 @@ mark {
 * {
     scroll-behavior: smooth;
 }
+
+
+@keyframes destacar-topico {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    transform: scale(1);
+  }
+  25% {
+    box-shadow: 0 0 20px 10px rgba(16, 185, 129, 0.5);
+    transform: scale(1.02);
+  }
+  50% {
+    box-shadow: 0 0 30px 15px rgba(16, 185, 129, 0.3);
+    transform: scale(1);
+  }
+  75% {
+    box-shadow: 0 0 20px 10px rgba(16, 185, 129, 0.5);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    transform: scale(1);
+  }
+}

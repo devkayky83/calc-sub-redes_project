@@ -100,3 +100,37 @@ searchInput.addEventListener("input", function () {
     }
   });
 });
+
+
+function abrirTopicoDeLink() {
+
+  const hash = window.location.hash;
+  
+  if (!hash) return;
+  
+  const idTopico = hash.substring(1);
+  
+  const topicoAlvo = document.getElementById(idTopico);
+  
+  if (topicoAlvo) {
+
+    setTimeout(() => {
+      topicoAlvo.classList.add('active');
+      
+      topicoAlvo.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+      
+      topicoAlvo.style.animation = 'destacar-topico 2s ease-in-out';
+      
+      console.log(`Tópico "${idTopico}" aberto automaticamente!`);
+    }, 300);
+  } else {
+    console.warn(`Tópico com ID "${idTopico}" não encontrado!`);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', abrirTopicoDeLink);
+
+window.addEventListener('hashchange', abrirTopicoDeLink);
