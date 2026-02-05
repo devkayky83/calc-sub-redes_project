@@ -182,7 +182,11 @@ function mostrarInformacoes(info) {
         </div>
         <div class="info-item">
             <label>CIDR Calculado:</label>
-            <value>/${info.cidr_calculado}</value>
+            <value>/${info.cidr_calculado}</value><br>
+            <a href="aprendizado.html#cidr-subrede" class="balao-ajuda">
+                <span class="icone-ajuda">❓</span>
+                <span class="texto-ajuda">O que é?</span>
+            </a>
         </div>
         <div class="info-item coluna-com-ajuda">
             <label>Máscara de Sub-rede:</label>
@@ -195,7 +199,7 @@ function mostrarInformacoes(info) {
         <div class="info-item coluna-com-ajuda">
             <label>Hosts Válidos (cada):</label>
             <value>${info.hosts_validos}</value><br>
-            <a href="aprendizado.html#componentes-redes" class="balao-ajuda">
+            <a href="aprendizado.html#calculo-hosts-subrede" class="balao-ajuda">
                 <span class="icone-ajuda">❓</span> 
                 <span class="texto-ajuda">Como calcular?</span>
             </a>
@@ -293,7 +297,7 @@ function renderizarTopologia(topologia) {
       hideNodesOnDrag: false,
       navigationButtons: true,
       keyboard: {
-        enabled: true,
+        enabled: false,
         bindToWindow: false,
       },
     },
@@ -323,6 +327,7 @@ function renderizarTopologia(topologia) {
 
     if (node && node.title) {
       let tooltip = document.getElementById("custom-tooltip");
+
       if (!tooltip) {
         tooltip = document.createElement("div");
         tooltip.id = "custom-tooltip";

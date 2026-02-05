@@ -119,7 +119,7 @@ function abrirTopicoDeLink() {
       
       topicoAlvo.scrollIntoView({
         behavior: 'smooth',
-        block: 'center'
+        block: 'nearest'
       });
       
       topicoAlvo.style.animation = 'destacar-topico 2s ease-in-out';

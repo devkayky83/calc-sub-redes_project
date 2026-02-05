@@ -640,3 +640,41 @@ mark {
     transform: scale(1);
   }
 }
+
+
+@media screen and (max-width: 1024px) {
+    .aprendizado-container {
+        width: 95%; 
+        padding: 30px 20px; 
+    }
+
+    .aprendizado-container h1 {
+        font-size: 32px;
+        gap: 10px;
+    }
+
+    .estante-icon {
+        transform: scale(0.9); /* Reduz levemente a estante */
+    }
+
+    .categoria {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .faq-pergunta {
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .aprendizado-container h1 {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .categoria-titulo {
+        font-size: 1.1em;
+    }
+}

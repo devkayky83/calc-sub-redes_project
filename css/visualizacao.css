@@ -251,7 +251,6 @@ body.dark-mode .hourglass-sand .lower-glass {
   color: var(--primary-color, #00d9ff);
 }
 
-
 /* ESCONDE TOOLTIP PADRÃO DO VIS.JS */
 
 .vis-tooltip {
@@ -342,4 +341,54 @@ body.dark-mode .hourglass-sand .lower-glass {
 
 #tabela-container.active {
   display: block;
+}
+
+/* Telas de Notebook e Tablets (Paisagem) */
+@media screen and (max-width: 1200px) {
+  .visualizacao-container {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  #network-canvas {
+    height: 500px;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .info-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem;
+  }
+
+  #network-canvas {
+    height: 450px;
+  }
+
+  .input-subredes {
+    gap: 1.5rem;
+  }
+
+  .input-group-inline input {
+    width: 170px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .legenda {
+    gap: 1rem;
+  }
+
+  .legenda-item {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
 }

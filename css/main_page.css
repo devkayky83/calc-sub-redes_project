@@ -461,7 +461,6 @@ tr:hover {
   display: block;
 }
 
-
 /* ESTILOS DA PÁGINA DE SUB-REDES */
 
 .input-subredes {
@@ -499,4 +498,57 @@ tr:hover {
   outline: none;
   border-color: var(--color-accent);
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* 1. AJUSTES PARA NOTEBOOKS (Telas até 1280px) */
+@media screen and (max-width: 1280px) {
+  .title-glow-subtle {
+    font-size: 56px; 
+    letter-spacing: 5px;
+  }
+
+  .cards-container {
+    gap: 20px; 
+  }
+}
+
+/* 2. AJUSTES PARA TABLETS E LAPTOPS PEQUENOS (Telas até 1024px) */
+@media screen and (max-width: 1024px) {
+  .title-glow-subtle {
+    font-size: 42px;
+    letter-spacing: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    padding-right: 0; 
+    text-align: center;
+  }
+
+  .main-container.shifted {
+    margin-left: 0; 
+  }
+
+  .input-container {
+    padding-right: 0; 
+    flex-wrap: wrap; 
+    gap: 15px;
+  }
+
+  .result-table,
+  .tabela-subredes {
+    display: block;
+    width: 100%;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap; 
+    margin: 20px 0;
+  }
+
+  .calc-button {
+    margin-right: 0; 
+    width: 100%;
+    max-width: 300px;
+  }
 }

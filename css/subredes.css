@@ -257,7 +257,6 @@
   }
 }
 
-
 body.dark-mode .balao-ajuda {
   background: rgba(16, 185, 129, 0.3);
   color: var(--text-primary);
@@ -268,4 +267,69 @@ body.dark-mode .balao-ajuda:hover {
   background: var(--color-accent);
   color: var(--bg-primary);
   border-color: var(--color-accent-hover);
+}
+
+@media screen and (max-width: 1024px) {
+  /* 1. Ajuste do Canvas de Topologia */
+  #network-canvas {
+    width: 100% !important; 
+    height: 400px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .legenda {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .legenda-item {
+    background: var(--bg-secondary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    min-width: 150px; 
+  }
+
+  .input-subredes {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .input-group-inline {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .input-group-inline input {
+    width: 100%; 
+    box-sizing: border-box;
+  }
+
+  #tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+  }
+
+  .tabela-subredes {
+    min-width: 600px;
+  }
+
+  .balao-ajuda {
+    padding: 5px;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1366px) {
+  .title-glow-subtle {
+    font-size: 50px;
+  }
+
+  #network-canvas {
+    height: 500px;
+  }
 }
