@@ -32,7 +32,7 @@
                 <label for="ip">Endereço IP:</label>
                 <input type="text" id="ip" placeholder="192.168.1.0">
             </div>
-            
+
             <div class="input-group-inline">
                 <label for="num-subredes">Número de Sub-redes:</label>
                 <input type="number" id="num-subredes" placeholder="8" min="2" max="256">
@@ -66,14 +66,23 @@
 
         <div class="section-divider" id="divider-topologia" style="display:none;"></div>
 
-        <h2 class="section-title" id="title-topologia" style="display:none;">Exemplo da Topologia</h2>
+        <h2 class="section-title titulo-com-info" id="title-topologia" style="display:none;">
+            Exemplo da Topologia
+            <span class="info-tooltip">
+                <span class="icone-info">❕</span>
+                <span class="texto-tooltip">
+                    Devido a limitações de primeira versão do software,
+                    a topologia é restrita a 8 sub-redes ao máximo e 2 ao mínimo.
+                </span>
+            </span>
+        </h2>
         <div id="network-canvas"></div>
 
         <div class="legenda" id="legenda" style="display:none;">
             <div class="legenda-item">
                 <img src="../assets/pics/network-switch.png" class="legenda-icon" alt="Switch">
                 <span class="legenda-text">Switch de Sub-rede</span>
-                
+
                 <a href="aprendizado.html#componentes-redes" class="balao-ajuda">
                     <span class="icone-ajuda">❓</span>
                     <span class="texto-ajuda">O que é?</span>
@@ -90,7 +99,7 @@
         </div>
 
         <div class="instrucoes" id="instrucoes" style="display:none;">
-            💡 <strong>Dica:</strong> Use o scroll para zoom e arraste para movimentar. 
+            💡 <strong>Dica:</strong> Use o scroll para zoom e arraste para movimentar.
             Passe o mouse sobre os dispositivos para mais informações!
         </div>
 

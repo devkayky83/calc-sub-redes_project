@@ -270,9 +270,8 @@ body.dark-mode .balao-ajuda:hover {
 }
 
 @media screen and (max-width: 1024px) {
-  /* 1. Ajuste do Canvas de Topologia */
   #network-canvas {
-    width: 100% !important; 
+    width: 100% !important;
     height: 400px;
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.2);
@@ -290,7 +289,7 @@ body.dark-mode .balao-ajuda:hover {
     background: var(--bg-secondary);
     padding: 8px 12px;
     border-radius: 8px;
-    min-width: 150px; 
+    min-width: 150px;
   }
 
   .input-subredes {
@@ -305,7 +304,7 @@ body.dark-mode .balao-ajuda:hover {
   }
 
   .input-group-inline input {
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
   }
 
@@ -332,4 +331,124 @@ body.dark-mode .balao-ajuda:hover {
   #network-canvas {
     height: 500px;
   }
+}
+
+titulo-com-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+}
+
+.icone-info {
+  font-size: 1.2rem;
+  color: var(--color-accent);
+  animation: pulso-info 3s ease-in-out infinite;
+}
+
+@keyframes pulso-info {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+.texto-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 15px;
+  background: rgba(0, 0, 0, 0.95);
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+  width: 280px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  white-space: normal;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+
+  z-index: 1000;
+}
+
+.texto-tooltip::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 8px solid transparent;
+  border-right-color: var(--color-accent);
+}
+
+.texto-tooltip::after {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 2px;
+  border: 6px solid transparent;
+  border-right-color: rgba(0, 0, 0, 0.95);
+}
+
+.info-tooltip:hover .texto-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 768px) {
+  .texto-tooltip {
+    left: auto;
+    right: 0;
+    transform: translateY(-120%);
+    top: 0;
+    margin-left: 0;
+    width: 250px;
+  }
+
+  .texto-tooltip::before,
+  .texto-tooltip::after {
+    right: 20px;
+    top: 100%;
+    border: 8px solid transparent;
+    border-top-color: var(--color-accent);
+  }
+
+  .texto-tooltip::after {
+    margin-right: 0;
+    margin-top: -2px;
+    border-top-color: rgba(0, 0, 0, 0.95);
+  }
+}
+
+body.dark-mode .texto-tooltip {
+  background: rgba(16, 185, 129, 0.15);
+  backdrop-filter: blur(10px);
+  border-color: var(--color-accent);
+}
+
+body.dark-mode .texto-tooltip::after {
+  border-right-color: rgba(16, 185, 129, 0.15);
 }
